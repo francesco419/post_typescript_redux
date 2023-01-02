@@ -1,0 +1,55 @@
+.page_main {
+  height: 100%;
+  padding: 50px 0;
+}
+
+.block_outter {
+  margin: 0 auto;
+  height: 800px;
+  width: 500px;
+  border: 1px solid;
+}
+
+.block_inner {
+  width: 450px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.image_box {
+  width: inherit;
+  height: inherit;
+  margin: 10px auto;
+  border: 1px solid;
+}
+
+.image_box img {
+  width: inherit;
+  height: inherit;
+  object-fit: contain;
+}
+
+.block_statusbox {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  height: 250px;
+}
+
+.block_userstatus,
+.block_poststatus,
+.block_textarea {
+  border: 1px solid;
+  margin: 5px 0;
+}
+
+.button_likes {
+  width: 50px;
+  height: 20px;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.block_textarea {
+  flex-grow: 1;
+}
