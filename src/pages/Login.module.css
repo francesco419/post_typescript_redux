@@ -1,0 +1,21 @@
+.login-page {
+  overflow: hidden;
+}
+.login-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.login-box {
+  border: 1px solid;
+  padding: 20px;
+}
+.login-box p {
+  font-weight: 800;
+}
+.login-form {
+  border: 1px solid;
+  padding: 10px;
+  margin: 5px 0;
+}

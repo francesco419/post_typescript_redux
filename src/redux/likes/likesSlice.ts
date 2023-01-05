@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { RootState } from "../store";
 
 export interface LikesState {
   value: boolean;
@@ -15,11 +15,8 @@ export const likesSlice = createSlice({
   name: "likes",
   initialState,
   reducers: {
-    setTrue: (state) => {
-      state.value = true;
-    },
-    setFalse: (state) => {
-      state.value = false;
+    setLikes: (state) => {
+      state.value = !state.value;
     },
   },
   /* // Use the PayloadAction type to declare the contents of `action.payload`
@@ -43,12 +40,9 @@ export const likesSlice = createSlice({
   }, */
 });
 
-export const { setTrue, setFalse } = likesSlice.actions;
+export const { setLikes } = likesSlice.actions;
 
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const selectLikes = (state: RootState) => state.counter.value;
+export const selectLikes = (state: RootState) => state.likes.value;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

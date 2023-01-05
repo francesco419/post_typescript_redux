@@ -1,9 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import likesReducer from "../features/counter/likesSlice";
+import { useReducer } from "react";
+import likesReducer from "./likes/likesSlice";
+import userReducer from "./user/userSlice";
 
 export const store = configureStore({
   reducer: {
+    likes: likesReducer,
     counter: likesReducer,
+    user: userReducer,
   },
 });
 

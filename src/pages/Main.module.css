@@ -1,55 +1,69 @@
-.page_main {
+.page-main {
   height: 100%;
   padding: 50px 0;
+  margin: 70px 0 0 0;
 }
 
-.block_outter {
+.block-outter {
   margin: 0 auto;
   height: 800px;
   width: 500px;
   border: 1px solid;
 }
 
-.block_inner {
+.block-inner {
   width: 450px;
   height: 500px;
   margin: 0 auto;
 }
 
-.image_box {
+.image-box {
   width: inherit;
   height: inherit;
   margin: 10px auto;
   border: 1px solid;
 }
 
-.image_box img {
+.image-box img {
   width: inherit;
   height: inherit;
-  object-fit: contain;
+  object-fit: fill;
 }
 
-.block_statusbox {
+.block-statusbox {
   display: flex;
   flex-direction: column;
-  border: 1px solid;
   height: 250px;
 }
 
-.block_userstatus,
-.block_poststatus,
-.block_textarea {
+.block-userstatus,
+.block-poststatus,
+.block-textarea {
   border: 1px solid;
   margin: 5px 0;
+  padding: 3px;
+}
+.block-poststatus {
+  display: flex;
 }
 
-.button_likes {
+.btn-likes-01-off {
   width: 50px;
   height: 20px;
   margin: 0 10px;
   text-align: center;
+  transition: all 0.2s ease;
+}
+.block-poststatus-send,
+.block-poststatus-date {
+  width: 70px;
+  height: 20px;
+  margin: 0 10px;
+  border: 1px solid;
+  padding: 1px;
+  text-align: center;
 }
 
-.block_textarea {
+.block-textarea {
   flex-grow: 1;
 }
