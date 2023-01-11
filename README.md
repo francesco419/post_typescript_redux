@@ -12,3 +12,7 @@
     - 메인페이지에 배열 요소의 추가와 삭제를 이용해 구현한 이미지박스  이미지박스(슬라이드)제작.
         - useState의 Array type 선언. (=useState<string[]>([]))
     - Likes버튼 클릭시 애니메이션 추가.
+    - Header 작업
+        - 메뉴버튼을 누르면 내려오는 메뉴가 Header를 가리는 현상 발생.
+            - z-index를 사용해도 효과없음.
+            - transform의 사용이 문제가 될수 있다고하지만, transform을 삭제해도 효과없음.
