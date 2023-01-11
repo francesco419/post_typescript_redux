@@ -19,3 +19,33 @@
   padding: 10px;
   margin: 5px 0;
 }
+
+.login-success {
+  position: absolute;
+  padding: 15px 0;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  height: 150px;
+  border: 1px solid;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  font-weight: 800;
+}
+.login-success p {
+  margin: 0 30px;
+}
+
+.login-success-box {
+  margin: 30px auto 0 auto;
+  width: 370px;
+  height: 100px;
+  border: 1px solid;
+  text-align: center;
+}
+.login-success-box p {
+  margin: 15px 0;
+}
+.buttton-login-nav {
+  margin: 10px;
+}
