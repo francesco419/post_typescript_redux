@@ -1,0 +1,24 @@
+$--white: #fff;
+$--black: #000;
+$--radius: 30px;
+$--wid: 100px;
+$--100: 100%;
+
+@function solid() {
+  @return 1px solid;
+}
+
+@function automargin() {
+  @return 0 auto;
+}
+
+%WidthHeight {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin mx-dis($dis, $jus, $ali) {
+  display: $dis;
+  justify-content: $jus;
+  align-items: $ali;
+}

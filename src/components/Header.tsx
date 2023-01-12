@@ -5,25 +5,15 @@ import { ReactComponent as Menu } from "../pictures/menu.svg";
 import { useState } from "react";
 
 export function Header() {
-  /*  const btn = (e: React.ChangeEvent<HTMLInputElement>, data: boolean) => {
-    let btns = document.getElementById("menu");
-    console.log(data);
-    if (btns.classList.contains("active")) {
-      btns.classList.add("deactive");
-      btns.classList.remove("active");
-    } else {
-      btns.classList.add("active");
-      btns.classList.remove("dective");
-    }
-  }; */
   const [bool, setBool] = useState<boolean>(false);
+  const doc = document.documentElement.style;
 
   return (
-    <div className="header-container">
-      <div className="block-header-inner">
+    <header id="header" className="header-container">
+      <nav className="block-header-inner">
         <div className="block-header-0">
           <img src={wolf} />
-          <h3>Social Network</h3>
+          <h2>Social Network</h2>
         </div>
         <div className="block-header-1">
           <Link className="header-link" to={`/`}>
@@ -32,29 +22,31 @@ export function Header() {
           <Link className="header-link" to={`/Login`}>
             Login
           </Link>
-          <button
-            id="menu"
-            className="block-header-svg"
-            onClick={() => {
-              if (bool) {
-                setBool(false);
-              } else {
-                setBool(true);
-              }
-            }}
-          >
-            <Menu width="40px" height="40px" />
-          </button>
+          <div className="block-header-2">
+            <button
+              id="menu"
+              className="button-header-svg"
+              onClick={() => {
+                if (bool) {
+                  setBool(false);
+                } else {
+                  setBool(true);
+                }
+                if (doc) {
+                  console.log(doc.getPropertyValue("--color-bk"));
+                }
+              }}
+            >
+              <Menu width="40px" height="40px" />
+              <div className={bool ? "block-absolute-none" : "display"}>
+                <div>My Profile</div>
+                <div>Settings</div>
+                <div>Logout</div>
+              </div>
+            </button>
+          </div>
         </div>
-        <div className={bool ? "block-absolute-none" : "display"}>
-          <div>A</div>
-          <div>B</div>
-          <div>C</div>
-          <div>D</div>
-          <div>E</div>
-          <div>F</div>
-        </div>
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 }

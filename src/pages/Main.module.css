@@ -2,6 +2,7 @@
   height: 100%;
   padding: 50px 0;
   margin: 70px 0 0 0;
+  font-size: 14px;
 }
 
 .block-outter {
@@ -16,19 +17,6 @@
   width: 450px;
   height: 500px;
   margin: 0 auto;
-}
-
-.image-box {
-  width: inherit;
-  height: inherit;
-  margin: 10px auto;
-  border: 1px solid;
-}
-
-.image-box img {
-  width: inherit;
-  height: inherit;
-  object-fit: fill;
 }
 
 .block-statusbox {
