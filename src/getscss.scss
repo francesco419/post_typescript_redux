@@ -40,6 +40,9 @@ $transparent: #00000000;
   @if ($max== "max") {
     max-width: $wid;
     max-height: $hig;
+  } @else if($max== "min") {
+    min-width: $wid;
+    min-height: $hig;
   } @else {
     width: $wid;
     height: $hig;

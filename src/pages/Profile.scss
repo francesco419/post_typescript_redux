@@ -168,16 +168,3 @@
     }
   }
 }
-.hide-ani {
-  animation: upside 2.5s;
-}
-@keyframes upside {
-  from {
-    transform: scaleY(1);
-    transform: translateY(0);
-  }
-  to {
-    transform: scaleY(0);
-    transform: translateY(-150%);
-  }
-}

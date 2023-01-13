@@ -1,4 +1,4 @@
-import styles from "./Login.module.css";
+import styles from "./Login.module.scss";
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";

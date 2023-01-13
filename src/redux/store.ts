@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { useReducer } from "react";
 import likesReducer from "./likes/likesSlice";
 import userReducer from "./user/userSlice";
+import darkReducer from "./dark/darkSlice";
 
 export const store = configureStore({
   reducer: {
     likes: likesReducer,
     counter: likesReducer,
     user: userReducer,
+    dark: darkReducer,
   },
 });
 

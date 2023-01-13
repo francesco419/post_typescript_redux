@@ -94,7 +94,7 @@
           }
           setTimeout(() => {
             (document.getElementById(id_hid) as HTMLImageElement).src =
-              "http://localhost:3000/profile";
+              "http://localhost:3000/profile";//퍼블리싱을 하기전의 src는 현재주소값으로 되어있기에 " "과 같은 방식으로 사용
             overflow.style.display = "none";
             overflow.style.maxHeight = `580px`;
           }, 500);
@@ -139,3 +139,8 @@
     };
 
     ```
+
+    - ProfilePost 컴포넌트 제작 및 이동 -> (parent-child 간의 매개변수 같은 오류를 만드는 과정이 반복됨...)
+
+  - Settings 페이지 제작
+    - dark Slice 제작.

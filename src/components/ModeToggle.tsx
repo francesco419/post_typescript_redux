@@ -1,18 +1,19 @@
 import styles from "./ModeToggle.module.scss";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { selectDark, setDarkMode } from "../redux/dark/darkSlice";
+import { useEffect, useState } from "react";
 
 export function ModeToggle() {
-  const toggledarkmode = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.target.checked
-      ? document.documentElement.setAttribute("data-theme", "dark")
-      : document.documentElement.setAttribute("data-theme", "light");
-  };
+  const darkmode = useAppSelector(selectDark);
+  const dispatch = useAppDispatch();
   return (
     <div>
       <input
         type="checkbox"
         id="toggle"
         name="DarkMode"
-        onChange={toggledarkmode}
+        checked={darkmode}
+        onChange={(e) => dispatch(setDarkMode(e.target.checked))}
       />
     </div>
   );
