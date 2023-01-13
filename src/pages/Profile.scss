@@ -1,0 +1,183 @@
+@import "../getscss.scss";
+
+.page-profile {
+  @extend %page-start;
+  padding: 0;
+  .block-profile-inner {
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    margin: automargin();
+    .block-profile-left {
+      position: fixed;
+      height: 100%;
+      background-color: var(--color-background);
+      padding: 100px 29px;
+      @include mx-border("right");
+      @include mx-border("left");
+      .block-profile-0 {
+        display: flex;
+        .block-profile-photo {
+          @extend %position-center;
+          height: 150px;
+          width: 150px;
+          border: solid();
+          border-radius: 50%;
+          background-color: $white;
+          svg {
+            height: 100px;
+            width: 100px;
+          }
+        }
+        .block-profile-name {
+          margin: 0 20px;
+          padding: 10px;
+          .block-profile-id {
+            p {
+              margin: 5px 0;
+            }
+            .block-profile-int {
+              p {
+                font-size: 12px;
+              }
+            }
+          }
+          .btn-profile-follow {
+            height: 30px;
+            width: 100px;
+            margin: 10px 0 0 0;
+            background-color: lighten(#0359ae, 30%);
+            &:hover {
+              background-color: lighten(#0359ae, 20%);
+            }
+            &:active {
+              background-color: lighten(#0359ae, 10%);
+            }
+          }
+        }
+      }
+      .block-profile-1 {
+        margin: 20px 0;
+        padding: 10px;
+        .btn-profile-post {
+          margin: 10px;
+          height: 40px;
+          width: 300px;
+          padding: 5px 5px 0 5px;
+          border: solid();
+          border-radius: $radius;
+          background-color: var(--black-white);
+          color: var(--white-black);
+          font-size: 13px;
+          text-decoration: none;
+          text-align: center;
+          cursor: pointer;
+          &:active {
+            transform: translateY(1px);
+          }
+        }
+      }
+    }
+    .block-profile-right {
+      //overflow-y: scroll;
+      width: 800px;
+      padding: 0 0 0 400px;
+      @include mx-border("right");
+      @include mx-border("bottom");
+      .block-profile-post {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .block-profile-postbox {
+          width: 600px;
+          margin: 20px 0;
+          padding: 10px;
+          border: 1px solid;
+          background-color: $white;
+          //color: var(--black-white);
+          .block-profile-top {
+            .block-profile-3 {
+              display: flex;
+              align-items: center;
+              .block-profile-postimg {
+                @extend %position-center;
+                height: 50px;
+                width: 50px;
+                border: 1px solid;
+                border-radius: 50%;
+                background-color: $white;
+                margin-right: 15px;
+                cursor: pointer;
+                svg {
+                  height: 30px;
+                  width: 30px;
+                }
+              }
+            }
+            .block-profile-detail {
+              font-size: 14px;
+            }
+            .block-profile-tag {
+              opacity: 0.75;
+              font-size: 11px;
+            }
+          }
+          .block-profile-imagebox {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid;
+            background-color: $white;
+            .block-profile-onlyload {
+              display: flex;
+              justify-content: center;
+              button {
+                background-color: #00000000;
+                border: 0;
+                .block-profile-image {
+                  width: 80px;
+                  height: 80px;
+                  margin: 0 5px;
+                  border: 1px solid;
+                }
+              }
+            }
+            .block-profile-hidden {
+              display: none;
+              overflow: hidden;
+              .block-profile-overflow {
+                position: relative;
+                max-width: 500px;
+                max-height: 500px;
+                margin: 30px auto;
+                .btn-profile-hidden {
+                  position: absolute;
+                  top: 3px;
+                  right: 0;
+                  background-color: $transparent;
+                  border: 0;
+                }
+                .img-profile-hidden {
+                  @include mx-size("max", inherit, inherit);
+                  object-fit: contain;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.hide-ani {
+  animation: upside 2.5s;
+}
+@keyframes upside {
+  from {
+    transform: scaleY(1);
+    transform: translateY(0);
+  }
+  to {
+    transform: scaleY(0);
+    transform: translateY(-150%);
+  }
+}

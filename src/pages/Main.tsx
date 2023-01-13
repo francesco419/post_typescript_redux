@@ -1,4 +1,4 @@
-import styles from "./Main.module.css";
+import styles from "./Main.module.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setLikes, selectLikes } from "../redux/likes/likesSlice";
 import { selectUser } from "../redux/user/userSlice";
@@ -24,10 +24,6 @@ function Main() {
 
   let imgA: string =
     "https://i.ytimg.com/vi/38VAmN6c4DI/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLFFaAec5iqhu5mW3zjASLXqeuiQ";
-
-  useEffect(() => {
-    //fetchData();
-  }, []);
 
   const fetchData = async () => {
     const type: string = "sound";
@@ -56,21 +52,19 @@ function Main() {
               <div>Follow</div>
             </div>
             <div className={styles["block-poststatus"]}>
-              <div className={styles["icon-likes"]}>
-                <button
-                  className={styles["btn-likes-01-off"]}
-                  style={
-                    likes
-                      ? { backgroundColor: "#ff0000" }
-                      : { backgroundColor: "#ffffff" }
-                  }
-                  onClick={() => dispatch(setLikes())}
-                >
-                  Likes
-                </button>
-              </div>
-              <div className={styles["block-poststatus-send"]}>Send</div>
-              <div className={styles["block-poststatus-date"]}>
+              <button
+                className={styles["btn-likes-01-off"]}
+                style={
+                  likes
+                    ? { backgroundColor: "#ff0000" }
+                    : { backgroundColor: "#ffffff" }
+                }
+                onClick={() => dispatch(setLikes())}
+              >
+                Likes
+              </button>
+              <div className={styles["block-poststatus-div"]}>Send</div>
+              <div className={styles["block-poststatus-div"]}>
                 {timetoday()}
               </div>
               <div

@@ -1,29 +1,33 @@
 @import "../getscss.scss";
 
 .header-container {
-  position: absolute;
+  position: fixed;
   top: 0;
-  width: $--100;
+  width: $full;
   height: 80px;
-  border: solid();
+  border: 0;
+  border-bottom: solid();
   z-index: 99;
+  color: var(--black-white);
+  background-color: var(--color-background);
   .block-header-inner {
     /* display: flex;
     justify-content: space-between;
     align-items: center; */
     @include mx-dis(flex, space-between, center);
     margin: automargin();
-    height: $--100;
-    max-width: 1000px;
+    height: $full;
+    max-width: $wid + 900px;
+    min-width: 600px;
     .block-header-0 {
       display: flex;
       align-items: center;
-      img {
+      svg {
         margin: 0 10px 0 0;
-        width: 50px;
-        height: 50px;
+        fill: var(--black-white);
       }
     }
+
     .block-header-1 {
       display: flex;
       align-items: center;
@@ -33,24 +37,27 @@
         width: 50px;
         padding: 5px 5px 0 5px;
         border: solid();
-        border-radius: $--radius;
-        background-color: $--black;
-        color: $--white;
+        border-radius: $radius;
+        background-color: var(--black-white);
+        color: var(--white-black);
         font-size: 13px;
         text-decoration: none;
         text-align: center;
         &:hover {
-          background-color: $--white;
-          color: $--black;
+          background-color: var(--white-black);
+          color: var(--black-white);
         }
       }
       .block-header-2 {
         position: relative;
-        margin: 0 10px 0 50px;
+        margin: 0 10px 0 40px;
         .button-header-svg {
           padding-top: 6px;
           border: 0;
-          background-color: $--white;
+          background-color: var(--color-background);
+          .svg-menu {
+            fill: var(--black-white);
+          }
           .block-absolute-none {
             font-family: "yg-jalnan";
             position: absolute;
@@ -59,7 +66,9 @@
             padding: 10px;
             width: 200px;
             border: solid();
+            color: var(--black-white);
             z-index: -1;
+            background-color: var(--color-background);
             //animation: down 1.5s forwards;
             /* @keyframes down {
               from {
@@ -70,9 +79,27 @@
               }
             } */
             div {
-              margin: 5px 0;
+              @extend %position-center;
+              margin: 10px auto;
               height: 40px;
-              border: 1px solid;
+              border: solid();
+              border-radius: $radius;
+              &:hover {
+                color: var(--white-black);
+                background-color: var(--black-white);
+              }
+            }
+            .link-header-dropdown {
+              @extend %position-center;
+              margin: 10px auto;
+              height: 40px;
+              border: solid();
+              border-radius: $radius;
+              text-decoration: none;
+              &:hover {
+                color: var(--white-black);
+                background-color: var(--black-white);
+              }
             }
           }
         }

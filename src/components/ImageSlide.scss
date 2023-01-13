@@ -1,10 +1,11 @@
+@import "../getscss.scss";
 $none_black: #00000000;
 
 .page-image-box {
   width: inherit;
   height: inherit;
   margin: 10px auto;
-  border: 1px solid;
+  border: solid();
   .block-image-img {
     position: relative;
     width: inherit;
