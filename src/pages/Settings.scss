@@ -4,6 +4,7 @@ $setting-padding: 20px;
 
 .page-settings {
   @extend %page-start;
+  color: var(--black-white);
   .block-settings-inner {
     display: flex;
     @include mx-size(0, 700px, 700px);
@@ -11,44 +12,245 @@ $setting-padding: 20px;
     border: solid();
     .block-settings-left {
       @include mx-size(0, 200px, 100);
-      border: solid();
       text-align: center;
       h2 {
         margin: 50px 0;
       }
-      ul {
-        position: relative;
+      ul:not(last-child) {
         margin: 100px 0;
         padding: 0;
         list-style-type: none;
         li {
+          position: relative;
           padding: 10px 0;
           margin: 10px 0;
           cursor: pointer;
-          /* &:hover {
-            background-color: var(--black-white);
-            color: var(--white-black);
-          } */
+          & {
+            &:hover {
+              background-color: var(--black-white);
+              color: var(--white-black);
+              &::after {
+                position: absolute;
+                top: 50%;
+                right: -25px;
+                width: 0;
+                height: 0;
+                content: "";
+                border-bottom: 20px solid transparent;
+                border-top: 20px solid transparent;
+                border-left: 10px solid var(--black-white);
+                border-right: 10px solid transparent;
+                transform: translateY(-50%);
+              }
+            }
+          }
+          &:last-child {
+            margin: 50px 0;
+            p {
+              margin: 0;
+            }
+            &::after {
+              display: none;
+            }
+          }
         }
       }
     }
-    .block-settings-right {
-      @extend %position-center;
-      @include mx-size(0, 500px, 100);
-      padding: $setting-padding;
-      border: solid();
-      .block-settings-setting {
-        @include mx-size(0, 100%, 100%);
-        border: solid();
+  }
+}
+.block-settings-right {
+  @extend %position-center;
+  @include mx-size(0, 500px, 100);
+  padding: $setting-padding;
+  border-left: 1px solid var(--black-white);
+  .block-settings-setting {
+    @include mx-size(0, 100%, 100%);
+    .block-settings-display {
+      display: flex;
+      flex-wrap: wrap;
+      .block-settings-0 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        img {
+          width: 100px;
+          height: 100px;
+          border: 1px solid;
+          border-radius: 50%;
+        }
+        button {
+          margin: 10px 0;
+          border: solid();
+        }
+      }
+      .block-settings-1 {
+        margin: automargin();
+        p {
+          margin: 10px 0;
+          svg {
+            width: 15px;
+            height: 15px;
+            margin: 0 5px;
+          }
+        }
+      }
+      .block-settings-2 {
+        display: flex;
+        width: 100%;
+        padding: 10px 40px;
+        border-top: solid();
+        border-bottom: solid();
+        div {
+          margin: automargin();
+          text-align: center;
+        }
+      }
+      .block-settings-3 {
+        border-bottom: solid();
+        .block-settings-intro {
+          p {
+            svg {
+              width: 15px;
+              height: 15px;
+              margin: 0 5px;
+            }
+          }
+          div {
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+      .block-settings-4 {
+        padding: 20px 0;
+        margin: automargin();
+        button {
+          @include mx-size(0, 120px, 40px);
+          margin: 20px 0;
+          border: 1px solid var(--black-white);
+          color: var(--white-black);
+          background-color: var(--black-white);
+        }
       }
     }
   }
 }
 
-.move {
-  position: relative;
-  top: -250px;
-  @include mx-size(0, 100%, 50px);
-  background-color: $black;
+.wrapper1 {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00000055;
+  z-index: 90;
+  .user-edit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: fit-content;
+    padding: 20px 10px;
+    margin: 0 auto;
+    border: 1px solid;
+    background-color: $white;
+    transform: translate(-50%, -50%);
+    .user-primary-block {
+      margin: 0 20px;
+      .user-primary {
+        display: flex;
+        align-items: center;
+        .user-input {
+          height: 25px;
+          margin: 0 15px;
+          border: 0;
+          background-color: #e7e7e7;
+          &:focus {
+            outline: none;
+          }
+        }
+        button {
+          border: 1px solid;
+          border-radius: $radius;
+          &:active {
+            background-color: #dbdbdb;
+          }
+        }
+      }
+    }
+    .user-secondary-block {
+      margin: 0 20px;
+      .user-secondary {
+        .user-input-info {
+          width: 400px;
+          height: 150px;
+          border: 0;
+          background-color: #e7e7e7;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+    .user-save {
+      float: right;
+      .user-save-btn {
+        width: 100px;
+        height: 30px;
+        margin: 20px 0 0 10px;
+        border: 1px solid;
+        border-radius: $radius;
+        &:active {
+          background-color: #dbdbdb;
+        }
+      }
+    }
+  }
+}
+
+.user-primary-hidden {
+  display: none;
+  align-items: center;
+  .user-input-none {
+    height: 25px;
+    margin: 0 15px 0 108px;
+    border: 0;
+    background-color: #e7e7e7;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    border: 1px solid;
+    border-radius: $radius;
+    &:active {
+      background-color: #dbdbdb;
+    }
+  }
+}
+
+.ask-exit {
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 100px;
+  padding: 10px;
   border: 1px solid;
+  background-color: $white;
+  transform: translate(-50%, -50%);
+  p {
+    margin: 10px;
+  }
+  .ask-exit-btn {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      margin: 0 5px;
+    }
+  }
 }

@@ -48,7 +48,7 @@ function Main() {
           <ImageSlide></ImageSlide>
           <div className={styles["block-statusbox"]}>
             <div className={styles["block-userstatus"]}>
-              <p>{user.username ? user.username : "No-One"}</p>
+              <p>{user.name ? user.name : "No-One"}</p>
               <div>Follow</div>
             </div>
             <div className={styles["block-poststatus"]}>
@@ -70,9 +70,11 @@ function Main() {
               <div
                 className={styles["block-poststatus-report"]}
                 onClick={() => {
-                  document
-                    .getElementById("block-poststatus-report")
-                    .classList.add("block-poststatus-report-animate");
+                  const doc = document.getElementById(
+                    "block-poststatus-report"
+                  );
+                  doc.classList.add("block-poststatus-report-animate");
+                  doc.classList.remove("block-poststatus-report-animate");
                 }}
               >
                 ···

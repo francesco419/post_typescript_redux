@@ -24,7 +24,7 @@ export default function ImageSlide() {
       let temp: string;
       let arr: string[] = [...image];
 
-      if (side === "left") {
+      if (side === "right") {
         temp = arr[0];
         arr.shift();
         arr.push(temp);
@@ -34,12 +34,12 @@ export default function ImageSlide() {
         } else {
           setCount((count) => count + 1);
         }
-      } else if (side === "right") {
+      } else if (side === "left") {
         temp = arr[arr.length];
         let popData: string = arr.pop();
         arr.unshift(popData);
         setImage((image) => arr);
-        if (count <= 0) {
+        if (count === 1) {
           setCount((count) => 4);
         } else {
           setCount((count) => count - 1);

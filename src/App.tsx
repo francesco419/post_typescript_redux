@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import { useAppSelector } from "./redux/hooks";
 import { selectDark } from "./redux/dark/darkSlice";
+import { Follow } from "./components/Follow";
 
 function App() {
   const darkmode = useAppSelector(selectDark);

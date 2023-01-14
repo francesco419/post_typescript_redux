@@ -4,12 +4,14 @@ import { ReactComponent as Menu } from "../pictures/menu.svg";
 import { ReactComponent as Icon } from "../pictures/wolf.svg";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
+import { Follow } from "./Follow";
 
 export function Header() {
   const [bool, setBool] = useState<boolean>(false);
 
   return (
     <header id="header" className="header-container">
+      <Follow />
       <nav className="block-header-inner">
         <div className="block-header-0">
           <Icon className="svg-icon" />

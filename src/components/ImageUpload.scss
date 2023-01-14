@@ -1,0 +1,42 @@
+@import "../getscss.scss";
+
+.wrapper {
+  @extend %wrapper;
+  .image-upload {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include mx-size(0, 300px, 400px);
+    padding: 10px;
+    border: solid();
+    background-color: $white;
+    transform: translate(-50%, -50%);
+    .image-preview {
+      width: 300px;
+      height: 300px;
+      border: solid();
+      .image-preview-img {
+        @include mx-size(0, inherit, inherit);
+      }
+    }
+    .image-upload-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      margin: 10px 0;
+      .image-upload-input {
+        margin: 10px 0 0 60px;
+      }
+      div {
+        display: flex;
+        button {
+          height: 30px;
+          width: 100px;
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+}

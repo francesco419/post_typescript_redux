@@ -2,7 +2,17 @@ import styles from "./Login.module.scss";
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { setUsername, setPassword, selectUser } from "../redux/user/userSlice";
+import {
+  setUsername,
+  setPassword,
+  setImg,
+  setEmail,
+  setIntro,
+  setPost,
+  setFollow,
+  setFollower,
+  selectUser,
+} from "../redux/user/userSlice";
 
 function Login() {
   //const searchChange = ({ target: { value } }) => setSearchResult(value);
@@ -78,7 +88,7 @@ function Login() {
       <div id="loginsuccess" className={styles["login-success"]}>
         <p>Login Success !</p>
         <div className={styles["login-success-box"]}>
-          <p>{`Welcome "${user.username}". Good to see you..`}</p>
+          <p>{`Welcome "${user.name}". Good to see you..`}</p>
           <button
             className={styles["buttton-login-nav"]}
             onClick={() => {
