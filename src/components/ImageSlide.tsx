@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import "./ImageSlide.scss";
 import { ReactComponent as Heart } from "../pictures/heart.svg";
-import { setLikes, selectLikes } from "../redux/likes/likesSlice";
+import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 
-export default function ImageSlide() {
+interface SlideProps {
+  imgsrc: string;
+}
+
+export default function ImageSlide(imgsrc: SlideProps) {
   const likes = useAppSelector(selectLikes);
   const [image, setImage] = useState<string[]>([
     "https://img.freepik.com/premium-vector/wild-west-flat-illustration_215665-426.jpg?w=2000",
@@ -51,7 +55,7 @@ export default function ImageSlide() {
     <div className="page-image-box">
       <div className="block-image-img">
         <div className="block-image-count">{`${count}/${image.length}`}</div>
-        <img id="showimg" className="img-image" src={image[0]} />
+        <img id="showimg" className="img-image" src={imgsrc.imgsrc} />
         <div className="block-image-button">
           <button
             className="button-image-side"

@@ -1,9 +1,10 @@
 @import "../getscss.scss";
+
 $none_black: #00000000;
 
 .page-image-box {
   width: inherit;
-  height: inherit;
+  height: 500px;
   margin: 10px auto;
   border: solid();
   .block-image-img {

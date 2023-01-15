@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Menu } from "../pictures/menu.svg";
 import { ReactComponent as Icon } from "../pictures/wolf.svg";
 import { useState } from "react";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "./extra/ModeToggle";
 import { Follow } from "./Follow";
 
 export function Header() {
@@ -18,7 +18,6 @@ export function Header() {
           <h2>Social Network</h2>
         </div>
         <div className="block-header-1">
-          <ModeToggle />
           <Link className="header-link" to={`/`}>
             Home
           </Link>

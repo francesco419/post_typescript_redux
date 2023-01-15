@@ -1,7 +1,7 @@
 import "./ImageUpload.scss";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../redux/hooks";
-import { setImg } from "../redux/user/userSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import { setImg } from "../../redux/Slices/userSlice";
 
 export function ImageUpload() {
   const dispatch = useAppDispatch();

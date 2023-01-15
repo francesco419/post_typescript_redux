@@ -1,0 +1,110 @@
+@import "../../getscss.scss";
+
+.wrapper {
+  .user-edit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: fit-content;
+    padding: 20px 10px;
+    margin: 0 auto;
+    border: 1px solid;
+    background-color: $white;
+    transform: translate(-50%, -50%);
+    .user-primary-block {
+      margin: 0 20px;
+      .user-primary {
+        display: flex;
+        align-items: center;
+        .user-input {
+          height: 25px;
+          margin: 0 15px;
+          border: 0;
+          background-color: #e7e7e7;
+          &:focus {
+            outline: none;
+          }
+        }
+        button {
+          border: 1px solid;
+          border-radius: $radius;
+          &:active {
+            background-color: #dbdbdb;
+          }
+        }
+      }
+    }
+    .user-secondary-block {
+      margin: 0 20px;
+      .user-secondary {
+        .user-input-info {
+          width: 400px;
+          height: 150px;
+          border: 0;
+          background-color: #e7e7e7;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+    .user-save {
+      float: right;
+      .user-save-btn {
+        width: 100px;
+        height: 30px;
+        margin: 20px 0 0 10px;
+        border: 1px solid;
+        border-radius: $radius;
+        &:active {
+          background-color: #dbdbdb;
+        }
+      }
+    }
+  }
+}
+
+.user-primary-hidden {
+  display: none;
+  align-items: center;
+  .user-input-none {
+    height: 25px;
+    margin: 0 15px 0 108px;
+    border: 0;
+    background-color: #e7e7e7;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    border: 1px solid;
+    border-radius: $radius;
+    &:active {
+      background-color: #dbdbdb;
+    }
+  }
+}
+
+.ask-exit {
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid;
+  background-color: $white;
+  transform: translate(-50%, -50%);
+  p {
+    margin: 10px;
+  }
+  .ask-exit-btn {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      margin: 0 5px;
+    }
+  }
+}

@@ -1,0 +1,113 @@
+@import "../getscss.scss";
+
+$marginSide: 0 10px;
+
+.block-outter {
+  height: fit-content;
+  width: 500px;
+  margin: automargin();
+  padding: 5px 0 0 0;
+  border: solid();
+  background-color: var(--color-background);
+  .block-inner {
+    width: 450px;
+    margin: automargin();
+    .block-statusbox {
+      display: flex;
+      flex-direction: column;
+      color: var(--black-white);
+      .block-userstatus {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 5px 0;
+        border-bottom: solid();
+        img {
+          margin-right: 10px;
+          background-color: $white;
+          border: solid();
+          border-radius: $radius;
+          @include mx-size(0, 35px, 35px);
+        }
+        p {
+          margin: $marginSide;
+        }
+        button {
+          margin: $marginSide;
+          background-color: #00000000;
+        }
+      }
+      .block-poststatus {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        //margin: 10px 0;
+        border: solid();
+        .block-poststatus-div {
+          width: fit-content;
+          margin: $marginSide;
+          padding: 1px;
+          text-align: center;
+        }
+        .btn-likes-01-off {
+          width: 25px;
+          height: 25px;
+          margin: $marginSide;
+          transition: all 0.2s ease;
+        }
+        .block-poststatus-report {
+          position: relative;
+          height: 20px;
+          width: 20px;
+          border: 0;
+          margin: 10px;
+          border-radius: 50%;
+          box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+          &:hover {
+            background-color: #4b4d4e;
+          }
+          .block-poststatus-meatball {
+            display: none;
+            position: absolute;
+            top: 5px;
+            left: 30px;
+            width: fit-content;
+            height: fit-content;
+            margin: 0;
+            padding: 5px 10px;
+            background-color: #0984e3;
+            list-style-type: none;
+            &::after {
+              position: absolute;
+              top: 5px;
+              left: -8px;
+              width: 0;
+              height: 0;
+              border-bottom: 8px solid transparent;
+              border-top: 8px solid #0984e3;
+              border-left: 8px solid transparent;
+              border-right: 8px solid transparent;
+              content: "";
+            }
+            li {
+              &:hover {
+                color: #ffffff80;
+              }
+            }
+          }
+        }
+      }
+      .block-textarea {
+        flex-grow: 1;
+        padding: 10px 0;
+      }
+    }
+  }
+}
+
+.block-userstatus,
+.block-poststatus,
+.block-textarea {
+  margin: 5px 0;
+  padding: 3px;
+}

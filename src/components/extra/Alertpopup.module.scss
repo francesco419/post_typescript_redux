@@ -1,0 +1,37 @@
+@import "../../getscss.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  &:hover > .textbox {
+    display: block;
+  }
+  .textbox {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: fit-content;
+    max-width: 1000px;
+    padding: 2px;
+    font-size: 12px;
+    border-radius: 10px;
+    background-color: #0984e3;
+    &::after {
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 10px solid transparent;
+      border-top: 10px solid transparent;
+      border-left: 10px solid #0984e3;
+      border-right: 10px solid transparent;
+      content: "";
+    }
+    div {
+      white-space: nowrap;
+    }
+  }
+}

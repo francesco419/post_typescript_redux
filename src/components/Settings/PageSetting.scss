@@ -1,0 +1,16 @@
+@import "../../getscss.scss";
+
+.block-pagesettings-display {
+  border: solid();
+  p {
+    margin: 0;
+  }
+  .block-darkmode {
+    display: flex;
+    align-content: center;
+    padding: 10px 0;
+    div {
+      margin: 0 10px;
+    }
+  }
+}

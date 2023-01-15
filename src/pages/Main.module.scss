@@ -1,85 +1,117 @@
 @import "../getscss.scss";
 
 .page-main {
+  display: flex;
   height: $full;
   padding: 50px 0;
   margin: 70px 0 0 0;
   font-size: 14px;
-}
-
-.block-outter {
-  height: 800px;
-  width: 500px;
-  margin: automargin();
-  padding: 5px 0 0 0;
-  border: solid();
-  .block-inner {
-    width: 450px;
-    height: 500px;
-    margin: automargin();
-    .block-statusbox {
+  .slide-box {
+    display: flex;
+    align-items: center;
+    width: 1650px;
+    height: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    .slidetest {
       display: flex;
-      flex-direction: column;
-      height: 250px;
-      color: var(--black-white);
-      .block-userstatus {
-        display: flex;
-        p {
-          margin: 0;
+      align-items: center;
+      width: 1650px;
+      height: 800px;
+      margin: 0 auto;
+      transform: translateX(-500px);
+      .btn-slide-left {
+        height: 50px;
+        margin: 0 8px 0 0;
+        border: 0;
+        border-radius: $radius;
+        //background-color: #00000000;
+        &:hover {
+          background-color: #00000033;
+        }
+        &:active {
+          background-color: #00000066;
         }
       }
-      .block-poststatus {
-        display: flex;
-        .btn-likes-01-off {
-          width: 50px;
-          height: 20px;
-          margin: 0 10px;
-          text-align: center;
-          transition: all 0.2s ease;
+      .btn-slide-right {
+        height: 50px;
+        margin: 0 0 0 8px;
+        border: 0;
+        border-radius: $radius;
+        //background-color: #00000000;
+        &:hover {
+          background-color: #00000033;
         }
-        .block-poststatus-div {
-          width: 70px;
-          height: 20px;
-          margin: 0 10px;
-          padding: 1px;
-          border: solid();
-          text-align: center;
-        }
-        .block-poststatus-report {
-          height: 20px;
-          width: 20px;
-          border: 0;
-          margin: 10px;
-          border-radius: 50%;
-          background-color: aquamarine;
-          box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+        &:active {
+          background-color: #00000066;
         }
       }
-      .block-textarea {
-        flex-grow: 1;
+      .slide-left {
+        transform: scale(0.5);
+        margin: automargin();
+      }
+      .slide-middle {
+        margin: automargin();
+      }
+      .slide-right {
+        transform: scale(0.5);
+        margin: automargin();
       }
     }
   }
-}
-
-.block-userstatus,
-.block-poststatus,
-.block-textarea {
-  border: solid();
-  margin: 5px 0;
-  padding: 3px;
-}
-
-.block-poststatus-report-animate {
-  transform: scale(1);
-  animation: pulse 0.5s ease alternate;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  .slide-hidden {
+    transform: scale(0.5);
+    //display: none;
   }
-  100% {
-    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-  }
+}
+
+/*-----왼쪽으로 이동------*/
+.move-slideL {
+  animation: slideMoveL 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(slideMoveL, 0, -562px, 1, 0.5);
+}
+.move-slideR {
+  animation: slideMoveR 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(slideMoveR, 0, -562px, 0.5, 1);
+}
+.move-slideH {
+  animation: slideMoveH 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(slideMoveH, 0, -502px, 0.5, 0.5);
+}
+.move-slideO {
+  animation: slideMoveO 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(slideMoveO, 0, -1000px, 0.5, 0.5);
+}
+
+/*-----왼쪽으로 이동------*/
+
+.move-Lslide {
+  animation: LslideMove 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(LslideMove, 0, 562px, 1, 0.5);
+}
+.move-Rslide {
+  animation: RslideMove 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(RslideMove, 0, 500px, 0.5, 0.5);
+}
+.move-Hslide {
+  animation: HslideMove 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(HslideMove, 0, 502px, 0.5, 0.5);
+}
+.move-Oslide {
+  animation: OslideMove 0.3s linear forwards;
+  margin: automargin();
+  @include mx-movepost(OslideMove, 0, 562px, 0.5, 1);
+}
+
+.hide000 {
+  width: 250px;
+  transform: scale(0.5);
+  margin: automargin();
 }

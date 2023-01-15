@@ -12,7 +12,7 @@ import {
   setFollow,
   setFollower,
   selectUser,
-} from "../redux/user/userSlice";
+} from "../redux/Slices/userSlice";
 
 function Login() {
   //const searchChange = ({ target: { value } }) => setSearchResult(value);

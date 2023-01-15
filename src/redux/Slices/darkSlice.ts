@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../store";
+import { stringify } from "querystring";
+import { RootState } from "../store";
 
 export interface DarkState {
   value: boolean;
@@ -15,10 +16,11 @@ export const darkSlice = createSlice({
     setDarkMode: (state, action: PayloadAction<boolean>) => {
       state.value = action.payload;
       if (state.value) {
-        console.log(state.value);
         document.documentElement.setAttribute("data-theme", "dark");
+        sessionStorage.setItem("theme", "dark");
       } else {
         document.documentElement.setAttribute("data-theme", "light");
+        sessionStorage.setItem("theme", "light");
       }
     },
   },

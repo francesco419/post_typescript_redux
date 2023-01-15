@@ -136,6 +136,7 @@ export default function ProfilePost({ subid }: PostChild): React.ReactElement {
       overflow.style.maxHeight = `580px`;
     }, 500);
   };
+
   return (
     <div className="block-profile-postbox">
       <div className="block-profile-top">
