@@ -41,10 +41,7 @@ export default function PostBox(imgsrc: PostProps) {
   return (
     <div className={styles["block-outter"]}>
       <div className={styles["block-inner"]}>
-        {/* <div className={styles["image-box"]}>
-        <img src={imgA} />
-      </div> */}
-        <ImageSlide imgsrc={image[imgsrc.imgsrc]}></ImageSlide>
+        <ImageSlide imgsrc={image[imgsrc.imgsrc]} />
         <div className={styles["block-statusbox"]}>
           <div className={styles["block-userstatus"]}>
             <img src={user.img} />

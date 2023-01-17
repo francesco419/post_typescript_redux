@@ -148,66 +148,65 @@
 
   - Settings 페이지 제작
 
-        - 모든페이지의 다크모드 및 체크박스의 상태를 관리하기 위해 darkSlice를 제작해 redux를 통해 상태를 관리한다.
+    - 모든페이지의 다크모드 및 체크박스의 상태를 관리하기 위해 darkSlice를 제작해 redux를 통해 상태를 관리한다.
 
-          - redux를 사용안할시 다크모드의 상태를 모든 페이지 및 컴포넌트마다 props를 통해 전달해 주어야 하기때문에 상당히 많은 코드 및 경로를 거쳐야 하지만 redux를 통한 상태관리를 할시 이전과 같은 작업의 필요없이 관리를 할 수 있기에 매우 편리하다.
+      - redux를 사용안할시 다크모드의 상태를 모든 페이지 및 컴포넌트마다 props를 통해 전달해 주어야 하기때문에 상당히 많은 코드 및 경로를 거쳐야 하지만 redux를 통한 상태관리를 할시 이전과 같은 작업의 필요없이 관리를 할 수 있기에 매우 편리하다.
 
-        - settings 항목에 user Setting, page setting ...(이후에 추가) 및 logout 항목제작.
+    - settings 항목에 user Setting, page setting ...(이후에 추가) 및 logout 항목제작.
 
-          - user Setting 항목에서 개인정보 및 프로필 등에 대해 변경을 할 수 있으며, 이는 백엔드를 구현하여 DB를 연결하기 전까지 userSlice를 통해 정보를 저장하는 것으로 함.
-          - input의 type="file"을 통해 파일을 업로드 할 수 있도록 하고 이미지 형식만 받는것을 조건문을 통해 구분한다.(user Setting에 해당하는 기능 및 엘레먼트를 UserEdit 컴포넌트로 분리.)
+      - user Setting 항목에서 개인정보 및 프로필 등에 대해 변경을 할 수 있으며, 이는 백엔드를 구현하여 DB를 연결하기 전까지 userSlice를 통해 정보를 저장하는 것으로 함.
+      - input의 type="file"을 통해 파일을 업로드 할 수 있도록 하고 이미지 형식만 받는것을 조건문을 통해 구분한다.(user Setting에 해당하는 기능 및 엘레먼트를 UserEdit 컴포넌트로 분리.)
 
-          ```js
-          //input의  onChange에 의해서 실행된다.
-          function setimage(e: React.ChangeEvent<HTMLInputElement>) {
-            //const reader = new FileReader(); //데이터베이스없을시-0
-            const files = e.currentTarget.files; //업로드 받은 파일
+      ```js
+      //input의  onChange에 의해서 실행된다.
+      function setimage(e: React.ChangeEvent<HTMLInputElement>) {
+        //const reader = new FileReader(); //데이터베이스없을시-0
+        const files = e.currentTarget.files; //업로드 받은 파일
 
-            //파일 한개이상일시 리턴
-            if (files) {
-              if ([files].length > 1) {
-                alert("이미지 파일은 한개만 업로드 가능합니다.");
-                return;
-              } else {
+        //파일 한개이상일시 리턴
+        if (files) {
+          if ([files].length > 1) {
+            alert("이미지 파일은 한개만 업로드 가능합니다.");
+            return;
+          } else {
 
-                //파일의 확장자(타입)이 이미지가 아닐경우 리턴
-                if (!files[0].type.match("image/.*")) {
-                  alert("파일이 이미지 형식이 아닙니다.");
-                  return;
-                } else {
-                  /* console.log("reader");
-                    reader.readAsDataURL(files[0]);
-                    reader.onload = () => {
-                        setUrl(reader.result as string);
-                        console.log(url);
-                    }; */
-                  //"1개"의 "이미지파일"을 업로드시 url(state)에 set하고 Save버튼을 활성화시키고 img태그에 넣기...userSlice로의 할당은 Save버튼을 통해 한다.
-                  setUrl(URL.createObjectURL(files[0]));
-                  (document.getElementById("preview") as HTMLImageElement).src = url;
-                  (
-                    document.getElementById("saveimg") as HTMLButtonElement
-                  ).removeAttribute("disabled");
-                }
-              }
+            //파일의 확장자(타입)이 이미지가 아닐경우 리턴
+            if (!files[0].type.match("image/.*")) {
+              alert("파일이 이미지 형식이 아닙니다.");
+              return;
+            } else {
+              /* console.log("reader");
+                reader.readAsDataURL(files[0]);
+                reader.onload = () => {
+                    setUrl(reader.result as string);
+                    console.log(url);
+                }; */
+              //"1개"의 "이미지파일"을 업로드시 url(state)에 set하고 Save버튼을 활성화시키고 img태그에 넣기...userSlice로의 할당은 Save버튼을 통해 한다.
+              setUrl(URL.createObjectURL(files[0]));
+              (document.getElementById("preview") as HTMLImageElement).src = url;
+              (
+                document.getElementById("saveimg") as HTMLButtonElement
+              ).removeAttribute("disabled");
             }
           }
-          ```
+        }
+      }
+      ```
 
-          ### 1.3.2
+      ### 1.3.2
 
-          - Save 버튼태그에 직접 disabled를 넣으면, 다른 형태를 통한 변경이 불가한 상황이 발생.
+      - Save 버튼태그에 직접 disabled를 넣으면, 다른 형태를 통한 변경이 불가한 상황이 발생.
 
-            - useEffect를 통해 마운트시 버튼에 setAttribute를 사용해 disabled를 추가, 이후에 removeAttribute를 통해 제거시 정상작동.
+        - useEffect를 통해 마운트시 버튼에 setAttribute를 사용해 disabled를 추가, 이후에 removeAttribute를 통해 제거시 정상작동.
 
-          - UserEdit
+      - UserEdit
 
-            - 이름, 비밀번호, 생일, 이메일, (전화번호), 소개글 등을 변경할수 있는 컴포넌트 제작.
-            - 추후 백엔드 연동시 정보르 저장하는 기능 추가예정.
+        - 이름, 비밀번호, 생일, 이메일, (전화번호), 소개글 등을 변경할수 있는 컴포넌트 제작.
+        - 추후 백엔드 연동시 정보르 저장하는 기능 추가예정.
 
-          - 웹페이지에 대한 설정을 저장하는 컴포넌트 PageSetting 제작.
+      - 웹페이지에 대한 설정을 저장하는 컴포넌트 PageSetting 제작.
 
-            - 다크모드 설정 : 기존에 제작한 다크모드 기능을 사용. 체크박스 상태 유지 및 저장.
-            - ?
+        - 다크모드 설정 : 기존에 제작한 다크모드 기능을 사용. 체크박스 상태 유지 및 저장.
 
 ## 1.4
 
@@ -327,7 +326,56 @@
       - 현재 애니메이션의 정상적인 작동을 위해 데이터이동은 이미지만 구현을 했다.
       - 백엔드 및 DB연동시 Slice를 통해 전체 게시물의 개수를 통한 데이터이동 구현예정.(게시물 데이터(배열), 게시물 수).
 
----
+# 1.4.2(23.01.17)
+
+- Join 컴포넌트 제작
+
+  - 회원가입 기능의 컴포넌트.
+  - Login페이지의 Join버튼을 통해 컴포넌트를 사용할 수 있으며, name,id,password,birth,email의 기본적인 정보를 입력 할 수 있도록 설정.
+  - 백엔드 부분과 연동하여 DB에 회원가입 정보를 저장.
+  - 모든 INPUT태그에 required적용하여 모든 항목 필수 기입.
+    - required를 사용하지 않는다면 submit시 가져오는 데이터를 기반으로 조건문을 사용하여 입력/비입력을 가려낼수 있다. 이후 return.
+  - 디자인 작업.
+
+- Login 페이지 작업
+
+  - 로그인 기능 구현
+    - 백엔드 부분과 연동하여 MySQL에 있는 테이블에 입력한 아이디와 비밀번호를 대조하여 같은 값이 들어간것이 확인되면 로그인.
+    - axios.post / .get 등을 통하여 백엔드와 데이터를 처리하는 방법을 사용.
+    - axios.post에서 두번째 인자로 Login.tsx의 LoginProps의 데이터타입을 가진 객체를 보냈었는데, 응답으로 반환되는 데이터또한 LoginProps 타입의 객체가 반환되어 사용하기 까다로워 짐으로, 인자에 LoginProp가 아닌 직접 객체를 보내는 방식을 사용. 중복되는 코드도 줄일 수 있었고, 반환된 request의 사용이 편리.
+      - 다만 타입스크립트를 사용중인 이상 다른 데이터타입으로 보낸 request도 다루도록 한다.
+  - input의 required를 사용하지 않고 id 혹은 password가 공백이라면 코드를 이용해 return이 되고, 이를 시각적으로 보여줄수 있는 애니메이션을 추가.
+
+- redux-persist 작업
+
+  - redux-persist는 상태 변경 및 저장시 해당 데이터를 Localstorage / sessionStorage에 저장해주는 기능.
+  - persist를 적용하기 위해 기존 store.ts와 index.tsx의 일부 변경.
+  - 저장된 데이터는 (local / session)Stirage.getItem("persist:root")으로 가져오지만, json형태로 만들어야 하기에 JSON.parse를 사용.
+    ```js
+      const json = JSON.parse(SessionStorage.getItem("persist:root"));
+      console.log(json.value.?);// 와 같이 사용하면 된다.
+    ```
+
+- Node.js, MySQL을 사용하여 프로젝트와 연동(연결). => 이번 프로젝트와 관련된 모든 작업내용은 이곳 README에 표시. (nodejs,mysql ...)
+
+  - 백엔드
+
+    - 프로젝트 상위폴더에 백엔드 프로젝트 폴더 이동. (경로)
+    - 파일 분할 => 모듈화.
+    - nodejs에서 MySQL로 쿼리를 보낼시 오류.
+      - 오류 : ER_BAD_FIELD_ERROR: Unknown column '검색어' in 'where clause'
+      - 문제 : 쿼리전송시 `SELECT * FROM users WHERE id=${user_obj.paramId} limit 1;`에서 id=${user_obj.paramId}를 읽지 못함.
+      - 이유 : 보내는 쿼리자체가 string으로 보내지만 SQL에서는 일반 명령어로 읽기 때문에 템플릿 리터럴인 ${user_obj.paramId}가 변수가아닌 그대로 문자열이되어 작동.
+      - 해결 : `SELECT * FROM users WHERE id="${user_obj.paramId}" limit 1;` => id="${user_obj.paramId}" 템플릿 리터럴 부분을 " " 으로 묶는다.
+      - 추가 : `SELECT * FROM users WHERE id='frank' limit 1;` 템플릿 리터럴을 사용하지 않더라도 " " 을 사용해야한다.
+      <!-- - nodejs 리턴 오류.
+      - 오류 : ERR_HTTP_HEADERS_SENT
+      - 문제 : return 이 명시되지 않을시 발생.
+      - 해결 : -->
+
+  - SQL 명령어 학습.
+
+- ***
 
 # 예정 (v1.3.2 ~ )
 

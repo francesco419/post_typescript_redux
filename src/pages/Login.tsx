@@ -1,6 +1,6 @@
-import styles from "./Login.module.scss";
+import "./Login.scss";
 import { useNavigate } from "react-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import {
   setUsername,
@@ -13,84 +13,135 @@ import {
   setFollower,
   selectUser,
 } from "../redux/Slices/userSlice";
+import Join from "../components/Join";
+import axios from "axios";
+
+type LoginProps = {
+  user_id: string;
+  password: string;
+};
 
 function Login() {
-  //const searchChange = ({ target: { value } }) => setSearchResult(value);
   const navigate = useNavigate();
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [display, setDisplay] = useState<boolean>(false);
-
-  const Onclick = (e: React.MouseEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const username = document.getElementById(
-      "username"
-    ) as HTMLInputElement | null;
-    const password = document.getElementById(
-      "password"
-    ) as HTMLInputElement | null;
-
-    const uservalue: string = username.value;
-    const passvalue: string = password.value;
-
-    if (uservalue && passvalue) {
-      if (uservalue.length < 13 && passvalue.length > 5) {
-        //username min 6 to max 13
-        if (passvalue.length < 16 && passvalue.length > 7) {
-          //password min 8 to max 15
-          dispatch(setUsername(username.value)); //store by redux
-          dispatch(setPassword(password.value));
-          setDisplay(true); //show LoginSuccess
-        } else {
-          alert(
-            "username must be between 6 ~ 12 letters,\npassword must be between 8 ~ 15 letters"
-          );
-          username.value = ""; //clear input value
-          password.value = "";
-        }
-      } else {
-        alert(
-          "username must be between 6 ~ 12 letters,\npassword must be between 8 ~ 15 letters"
-        );
-        username.value = "";
-        password.value = "";
-      }
-      //navigate("/");
-    } else {
-      alert(`userName과 password를 입력해주시기 바랍니다.`);
-    }
-  };
+  const [join, setJoin] = useState<boolean>(false);
 
   function LoginForm() {
+    const [input, setInput] = useState<LoginProps>({
+      user_id: "",
+      password: "",
+    });
+    const { user_id, password } = input;
+
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      //console.log(e.target);
+      console.log(name + " : " + value);
+      setInput({
+        ...input,
+        [name]: value,
+      });
+    };
+
+    const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      function nullAnimation(id: string) {
+        const doc = document.getElementById(id) as HTMLLabelElement | null;
+        console.log(doc);
+        doc.classList.add("none");
+
+        setTimeout(() => {
+          doc.classList.remove("none");
+        }, 1000);
+      }
+
+      if (!(user_id && password)) {
+        if (!user_id && !password) {
+          console.log(1);
+          nullAnimation("lb_id");
+          nullAnimation("lb_pw");
+          return;
+        } else if (!password) {
+          console.log(2);
+          nullAnimation("lb_pw");
+          return;
+        } else {
+          console.log(3);
+          nullAnimation("lb_id");
+          return;
+        }
+      }
+
+      logInCheck();
+    };
+
+    const logInCheck = async () => {
+      try {
+        const request = await axios.post("http://localhost:8080/login", {
+          user_id: input.user_id,
+          password: input.password,
+        });
+        if (request) {
+          const id: string = request.data[0].id;
+          const password: string = request.data[0].password;
+          dispatch(setUsername(id));
+          dispatch(setPassword(password));
+          navigate("/");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     return (
-      <form>
-        <div className={styles["login-form"]}>
-          <p>User_ID</p>
-          <input
-            id="username"
-            type="text"
-            placeholder="type username..."
-          ></input>
-          <p>Password</p>
-          <input
-            id="password"
-            type="password"
-            placeholder="type password..."
-          ></input>
+      <form onSubmit={(e) => onSubmitHandler(e)}>
+        <label id="lb_id">User_ID : </label>
+        <input
+          type="text"
+          placeholder="id"
+          name="user_id"
+          maxLength={15}
+          autoComplete="off"
+          onChange={(e) => onChangeHandler(e)}
+        />
+        <label id="lb_pw">Password : </label>
+        <input
+          type="password"
+          placeholder="password"
+          name="password"
+          maxLength={15}
+          autoComplete="off"
+          onChange={(e) => {
+            onChangeHandler(e);
+          }}
+        ></input>
+        <div className="block-login-btn">
+          <button type="submit">Login</button>
+          <button
+            type="button"
+            className="btn-login-join"
+            onClick={() => {
+              setJoin((join) => !join);
+            }}
+          >
+            Join
+          </button>
         </div>
-        <input type="submit" value="Submit" onClick={Onclick} />
       </form>
     );
   }
 
   function LoginSuccess() {
     return (
-      <div id="loginsuccess" className={styles["login-success"]}>
+      <div id="loginsuccess" className="login-success">
         <p>Login Success !</p>
-        <div className={styles["login-success-box"]}>
+        <div className="login-success-box">
           <p>{`Welcome "${user.name}". Good to see you..`}</p>
           <button
-            className={styles["buttton-login-nav"]}
+            className="btn-login-log"
             onClick={() => {
               navigate("/");
             }}
@@ -103,18 +154,22 @@ function Login() {
   }
 
   return (
-    <div className={styles["login-page"]}>
-      <div className={styles["login-container"]}>
-        <div className={styles["login-box"]}>
-          <div>
-            <p>Login</p>
-          </div>
-          <div>
-            <LoginForm />
-          </div>
+    <div className="login-page">
+      {/* <button
+        onClick={() => {
+          console.log(user.name + " : " + user.password);
+        }}
+      >
+        btn
+      </button> */}
+      {display && <LoginSuccess />}
+      {join && <Join />}
+      <div className="login-container">
+        <div className="login-box">
+          <h1>Login</h1>
+          <LoginForm />
         </div>
       </div>
-      {display && <LoginSuccess />}
     </div>
   );
 }

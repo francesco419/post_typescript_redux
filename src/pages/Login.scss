@@ -1,0 +1,118 @@
+@import "../getscss.scss";
+
+.login-page {
+  overflow: hidden;
+  .login-container {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-background);
+    color: var(--black-white);
+    .login-box {
+      border: solid();
+      padding: 20px;
+      padding-top: 0;
+      h1 {
+        text-align: center;
+        text-decoration: underline;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        border: solid();
+        padding: 15px;
+        margin: 15px 0;
+        label {
+          margin: 10px 0 5px 0;
+        }
+        input {
+          border: 0;
+          border-bottom: solid();
+          color: var(--black-white);
+          background-color: #00000000;
+          &:focus {
+            outline: none;
+          }
+        }
+        .block-login-btn {
+          display: flex;
+          justify-content: space-around;
+          margin: 20px 0;
+          button[type="submit"] {
+            width: 80px;
+            height: 25px;
+            font-family: $fontfamily;
+            border: solid();
+            background-color: var(--black-white);
+            &:active {
+              background-color: #000;
+            }
+          }
+          .btn-login-join {
+            width: 80px;
+            height: 25px;
+            border: solid();
+            background-color: var(--black-white);
+          }
+        }
+      }
+    }
+  }
+  .login-success {
+    position: absolute;
+    padding: 15px 0;
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    height: 150px;
+    border: 1px solid;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    font-weight: 800;
+    .login-success p {
+      margin: 0 30px;
+    }
+    .login-success-box {
+      margin: 30px auto 0 auto;
+      width: 370px;
+      height: 100px;
+      border: 1px solid;
+      text-align: center;
+      .login-success-box p {
+        margin: 15px 0;
+      }
+      .btn-login-log {
+        margin: 10px;
+      }
+    }
+  }
+}
+
+.none {
+  color: #ff0000;
+  animation: shake 0.2s;
+  animation-iteration-count: 5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(-2px);
+  }
+  20% {
+    transform: translateX(4px);
+  }
+  40% {
+    transform: translateX(-4px);
+  }
+  60% {
+    transform: translateX(4px);
+  }
+  80% {
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: translateX(4px);
+  }
+}

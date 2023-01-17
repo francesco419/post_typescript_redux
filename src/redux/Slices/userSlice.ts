@@ -36,9 +36,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUsername: (state, action: PayloadAction<string>) => {
+      console.log("Uslice : " + action.payload);
       state.value.name = action.payload;
     },
     setPassword: (state, action: PayloadAction<string>) => {
+      console.log("Pslice : " + action.payload);
       state.value.password = action.payload;
     },
     setBirth: (state, action: PayloadAction<string>) => {
@@ -62,6 +64,12 @@ export const userSlice = createSlice({
     setFollower: (state, action: PayloadAction<number>) => {
       state.value.follower = action.payload;
     },
+    setInitial: (state) => {
+      console.log(state.value);
+    },
+    reset: (state) => {
+      Object.assign(state, initialState);
+    },
   },
 });
 
@@ -75,6 +83,8 @@ export const {
   setFollow,
   setFollower,
   setBirth,
+  setInitial,
+  reset,
 } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user.value;

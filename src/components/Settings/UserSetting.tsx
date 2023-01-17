@@ -6,7 +6,7 @@ import { ReactComponent as Edit } from "../../pictures/edit.svg";
 export function UserSetting() {
   const user = useAppSelector(selectUser);
   const temp: string[] = [
-    `Nickname : ${user.name}`,
+    `Name : ${user.name}`,
     "Password",
     `Birth : ${user.birth}`,
     `Email : ${user.email}`,

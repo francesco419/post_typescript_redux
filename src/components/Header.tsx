@@ -2,12 +2,36 @@ import "./Header.scss";
 import { Link } from "react-router-dom";
 import { ReactComponent as Menu } from "../pictures/menu.svg";
 import { ReactComponent as Icon } from "../pictures/wolf.svg";
-import { useState } from "react";
-import { ModeToggle } from "./extra/ModeToggle";
+import { useEffect, useState } from "react";
 import { Follow } from "./Follow";
+
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
+import { reset } from "../redux/Slices/userSlice";
 
 export function Header() {
   const [bool, setBool] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    loginCheck();
+  }, []);
+
+  function loginCheck() {
+    const isLog = JSON.parse(sessionStorage.getItem("persist:root"));
+    if (!isLog) {
+      return;
+    }
+    const user = JSON.parse(isLog.user);
+    const password: string = user.value.password;
+    if (password !== "anonymous") {
+      console.log("logged");
+      setLoggedIn((loggedIn) => true);
+    } else {
+      console.log("not logged");
+    }
+  }
 
   return (
     <header id="header" className="header-container">
@@ -21,9 +45,22 @@ export function Header() {
           <Link className="header-link" to={`/`}>
             Home
           </Link>
-          <Link className="header-link" to={`/Login`}>
-            Login
-          </Link>
+          {loggedIn ? (
+            <button
+              className="btn-header-link"
+              onClick={() => {
+                dispatch(reset());
+                setLoggedIn((loggedIn) => false);
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <Link className="header-link" to={`/Login`}>
+              Login
+            </Link>
+          )}
+
           <div className="block-header-2">
             <button
               type="button"

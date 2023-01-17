@@ -4,15 +4,29 @@ import likesReducer from "./Slices/likesSlice";
 import userReducer from "./Slices/userSlice";
 import darkReducer from "./Slices/darkSlice";
 import settingsReducer from "./Slices/settingsSlice";
+import session from "redux-persist/lib/storage/session";
+import { combineReducers } from "redux";
+import thunk from "redux-thunk";
+import { persistReducer } from "redux-persist";
+//////////////////////////////
+const rootReducer = combineReducers({
+  dark: darkReducer,
+  likes: likesReducer,
+  user: userReducer,
+  settings: settingsReducer,
+});
+
+const persistConfig = {
+  key: "root",
+  storage: session,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    likes: likesReducer,
-    counter: likesReducer,
-    user: userReducer,
-    dark: darkReducer,
-    settings: settingsReducer,
-  },
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: [thunk],
 });
 
 export type AppDispatch = typeof store.dispatch;
@@ -71,3 +85,12 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >; */
+
+/* export const store = configureStore({
+  reducer: {
+    likes: likesReducer,
+    counter: likesReducer,
+    user: userReducer,
+    dark: darkReducer,
+    settings: settingsReducer,
+  }, */

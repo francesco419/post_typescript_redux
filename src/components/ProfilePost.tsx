@@ -15,6 +15,7 @@ export default function ProfilePost({ subid }: PostChild): React.ReactElement {
   ];
   const id_id: string = `overflow${subid}`;
   const id_hid: string = `hid${subid}`;
+
   const handleimageClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {

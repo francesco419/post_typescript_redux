@@ -1,7 +1,9 @@
-import { Header } from "../components/Header";
 import "./Profile.scss";
+import { Header } from "../components/Header";
 import { ReactComponent as Icon } from "../pictures/wolf.svg";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
+import { selectUser } from "../redux/Slices/userSlice";
 import ProfilePost from "../components/ProfilePost";
 
 export type ProfileProps = {
@@ -23,15 +25,17 @@ export const ProfileImage = (data: ProfileProps) => {
     </div>
   );
 };
+
 function Profile() {
   function ProfileMe() {
+    const user = useAppSelector(selectUser);
     return (
       <div id="1.1" className="block-profile-left">
         <div className="block-profile-0">
           <ProfileImage data={"block-profile-photo"} />
           <div id="2" className="block-profile-name">
             <div className="block-profile-id">
-              <p>francesco_419</p>
+              <p>{user.name}</p>
               <div className="block-profile-int">
                 <p>Introduce my self...</p>
               </div>
@@ -44,6 +48,20 @@ function Profile() {
           </div>
         </div>
         <div className="block-profile-1">
+          <div>
+            <p>Posts</p>
+            <p>{user.post}</p>
+          </div>
+          <div>
+            <p>Follow</p>
+            <p>{user.follow}</p>
+          </div>
+          <div>
+            <p>Follower</p>
+            <p>{user.follower}</p>
+          </div>
+        </div>
+        <div className="block-profile-2">
           <div>
             <button className="btn-profile-post">POST</button>
           </div>

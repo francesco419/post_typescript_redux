@@ -1,9 +1,9 @@
 import styles from "./Main.module.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
-import { selectUser } from "../redux/Slices/userSlice";
+import { selectUser, setInitial } from "../redux/Slices/userSlice";
 import { Header } from "../components/Header";
-//import axios from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import PostBox from "../components/PostBox";
 import { ReactComponent as ArrowtoRight } from "../pictures/arrow_left.svg";
@@ -11,6 +11,7 @@ import { ReactComponent as ArrowtoLeft } from "../pictures/arrow_right.svg";
 
 function Main() {
   const [number, setNumber] = useState<number[]>([0, 1, 2, 3]);
+  const dispatch = useAppDispatch();
 
   const asArray = (bool: boolean) => {
     if (bool) {
@@ -23,6 +24,21 @@ function Main() {
       let temp: number = arr.pop();
       arr.unshift(temp);
       setNumber((number) => arr);
+    }
+  };
+
+  useEffect(() => {
+    //sendRequest();
+  }, []);
+
+  const sendRequest = async () => {
+    try {
+      const response = await axios.get(`/`);
+      console.log(response);
+      console.log(response.data);
+      console.log("fetch!");
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -58,7 +74,6 @@ function Main() {
               ) as HTMLButtonElement | null;
               btnRight.disabled = true;
               btnLeft.disabled = true;
-              //move("slide-hidden-right", "move-slideH");
               move("slide-left", "move-slideO");
               move("slide-middle", "move-slideL");
               move("slide-right", "move-slideR");
@@ -92,7 +107,6 @@ function Main() {
               move("slide-left", "move-Oslide");
               move("slide-middle", "move-Lslide");
               move("slide-right", "move-Rslide");
-              //move("slide-hidden-left", "move-Hslide");
               console.log(window.innerWidth);
               setTimeout(() => {
                 asArray(false);
@@ -116,19 +130,3 @@ function Main() {
 }
 
 export default Main;
-
-/* let imgA: string =
-  "https://i.ytimg.com/vi/38VAmN6c4DI/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLFFaAec5iqhu5mW3zjASLXqeuiQ";
-
-const fetchData = async () => {
-  const type: string = "sound";
-  const named: string = "dog";
-  //${type}/${named}
-  try {
-    const response = await axios.get(`http://localhost:8080/`);
-    console.log(response.data);
-    console.log("fetch!");
-  } catch (e) {
-    console.log(e);
-  }
-};*/
