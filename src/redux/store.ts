@@ -1,5 +1,4 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { useReducer } from "react";
 import likesReducer from "./Slices/likesSlice";
 import userReducer from "./Slices/userSlice";
 import darkReducer from "./Slices/darkSlice";

@@ -19,7 +19,7 @@ export function UserSetting() {
   return (
     <div className="block-usersettings-display">
       <div className="block-usersettings-0">
-        <img src={user.img} />
+        <img src={user.img} alt="Profile" />
         <button
           type="button"
           onClick={() => {

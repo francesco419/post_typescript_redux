@@ -7,11 +7,9 @@ import { UserEdit } from "../components/Settings/UserEdit";
 import { UserSetting } from "../components/Settings/UserSetting";
 import { PageSetting } from "../components/Settings/PageSetting";
 /*------------redux-------------------------- */
-import { useAppSelector } from "../redux/hooks";
-import { selectUser } from "../redux/Slices/userSlice";
 
 export default function Settings() {
-  const user = useAppSelector(selectUser);
+  //const user = useAppSelector(selectUser);
   const [name, setName] = useState<string>();
 
   interface SettingsType {

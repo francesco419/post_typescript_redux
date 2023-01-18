@@ -2,9 +2,8 @@ import styles from "./PostBox.module.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
 import { selectUser } from "../redux/Slices/userSlice";
-import { Header } from "./Header";
 import ImageSlide from "./ImageSlide";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
 
@@ -16,7 +15,6 @@ export default function PostBox(imgsrc: PostProps) {
   const likes = useAppSelector(selectLikes);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const [naming, setNaming] = useState<string>();
   const [display, setDisplay] = useState<boolean>(false);
 
   const [image, setImage] = useState<string[]>([
@@ -44,7 +42,7 @@ export default function PostBox(imgsrc: PostProps) {
         <ImageSlide imgsrc={image[imgsrc.imgsrc]} />
         <div className={styles["block-statusbox"]}>
           <div className={styles["block-userstatus"]}>
-            <img src={user.img} />
+            <img src={user.img} alt="myprofile" />
             <p>{user.name}</p>
             <button id="followbtn">Follow</button>
           </div>

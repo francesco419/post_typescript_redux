@@ -1,7 +1,5 @@
 import styles from "./Alertpopup.module.scss";
-import { getPositionOfLineAndCharacter } from "typescript";
 import { ReactComponent as Info } from "../../pictures/info.svg";
-import { useEffect } from "react";
 
 interface ChildTypes {
   text: string;

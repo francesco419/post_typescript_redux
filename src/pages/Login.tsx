@@ -5,12 +5,6 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import {
   setUsername,
   setPassword,
-  setImg,
-  setEmail,
-  setIntro,
-  setPost,
-  setFollow,
-  setFollower,
   selectUser,
 } from "../redux/Slices/userSlice";
 import Join from "../components/Join";
@@ -25,7 +19,6 @@ function Login() {
   const navigate = useNavigate();
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const [display, setDisplay] = useState<boolean>(false);
   const [join, setJoin] = useState<boolean>(false);
 
   function LoginForm() {
@@ -134,35 +127,8 @@ function Login() {
     );
   }
 
-  function LoginSuccess() {
-    return (
-      <div id="loginsuccess" className="login-success">
-        <p>Login Success !</p>
-        <div className="login-success-box">
-          <p>{`Welcome "${user.name}". Good to see you..`}</p>
-          <button
-            className="btn-login-log"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Login
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="login-page">
-      {/* <button
-        onClick={() => {
-          console.log(user.name + " : " + user.password);
-        }}
-      >
-        btn
-      </button> */}
-      {display && <LoginSuccess />}
       {join && <Join />}
       <div className="login-container">
         <div className="login-box">

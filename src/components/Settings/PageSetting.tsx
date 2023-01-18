@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./PageSetting.scss";
 import { ModeToggle } from "../extra/ModeToggle";
 import { useAppSelector } from "../../redux/hooks";

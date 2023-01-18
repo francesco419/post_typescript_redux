@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./ImageSlide.scss";
 import { ReactComponent as Heart } from "../pictures/heart.svg";
-import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
-import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { selectLikes } from "../redux/Slices/likesSlice";
+import { useAppSelector } from "../redux/hooks";
 
 interface SlideProps {
   imgsrc: string;
@@ -19,9 +19,7 @@ export default function ImageSlide(imgsrc: SlideProps) {
   const [count, setCount] = useState<number>(1);
 
   const handleClick = (side: string) => {
-    const dev: HTMLImageElement = document.getElementById(
-      "showimg"
-    ) as HTMLImageElement | null;
+    //const dev: HTMLImageElement = document.getElementById("showimg") as HTMLImageElement | null;
 
     if (image) {
       //let index: number = image.indexOf(dev.src);
@@ -55,7 +53,12 @@ export default function ImageSlide(imgsrc: SlideProps) {
     <div className="page-image-box">
       <div className="block-image-img">
         <div className="block-image-count">{`${count}/${image.length}`}</div>
-        <img id="showimg" className="img-image" src={imgsrc.imgsrc} />
+        <img
+          id="showimg"
+          className="img-image"
+          src={imgsrc.imgsrc}
+          alt="post-img"
+        />
         <div className="block-image-button">
           <button
             className="button-image-side"

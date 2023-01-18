@@ -1,18 +1,17 @@
-import React from "react";
 import "./App.scss";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+/*-------------pages------------------------------------- */
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import { useAppSelector } from "./redux/hooks";
-import { selectDark } from "./redux/Slices/darkSlice";
-import { Follow } from "./components/Follow";
+import Post from "./pages/Post";
+/*-------------redux------------------------------------- */
+/*-------------extra------------------------------------- */
 
 function App() {
-  const darkmode = useAppSelector(selectDark);
   useEffect(() => {
     const theme: string = sessionStorage.getItem("theme");
     if (theme) {
@@ -28,6 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path={`/Post`} element={<Post />} />
         <Route path={`/settings`} element={<Settings />} />
         <Route path={`/profile`} element={<Profile />} />
         <Route path={`/Login`} element={<Login />} />

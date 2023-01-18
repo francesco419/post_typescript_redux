@@ -60,10 +60,7 @@ export default function Join() {
 
     const registerUser = async (input: InputProps) => {
       try {
-        const request = await axios.post<InputProps>(
-          "http://localhost:8080/login/register",
-          input
-        );
+        const request = await axios.post<InputProps>(url, input);
         console.log(request);
         if (request) {
           (

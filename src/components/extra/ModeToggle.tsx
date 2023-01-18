@@ -1,7 +1,6 @@
-import styles from "./ModeToggle.module.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectDark, setDarkMode } from "../../redux/Slices/darkSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export function ModeToggle() {
   const darkmode = useAppSelector(selectDark);

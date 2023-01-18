@@ -1,7 +1,5 @@
 import styles from "./Main.module.scss";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
-import { selectUser, setInitial } from "../redux/Slices/userSlice";
+import { useAppDispatch } from "../redux/hooks";
 import { Header } from "../components/Header";
 import axios from "axios";
 import { useEffect, useState } from "react";

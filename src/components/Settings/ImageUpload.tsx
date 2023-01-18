@@ -47,7 +47,7 @@ export function ImageUpload() {
     <div id="upload" className="wrapper">
       <div className="image-upload">
         <div className="image-preview">
-          <img id="preview" className="image-preview-img" />
+          <img id="preview" className="image-preview-img" alt="preview" />
         </div>
         <div className="image-upload-block">
           <input

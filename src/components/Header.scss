@@ -48,21 +48,42 @@
           color: var(--black-white);
         }
       }
-      .btn-header-link {
-        margin: 0 10px;
-        height: 35px;
-        width: 70px;
-        padding: 5px;
-        border: 1px solid $black;
-        border-radius: $radius;
-        background-color: var(--black-white);
-        color: var(--white-black);
-        font-size: 13px;
-        text-decoration: none;
-        text-align: center;
-        &:hover {
-          background-color: var(--white-black);
-          color: var(--black-white);
+      .block-logged {
+        .btn-header-link {
+          margin: 0 10px;
+          height: 35px;
+          width: 70px;
+          padding: 5px;
+          border: 1px solid $black;
+          border-radius: $radius;
+          background-color: var(--black-white);
+          color: var(--white-black);
+          font-size: 13px;
+          text-decoration: none;
+          text-align: center;
+          &:hover {
+            background-color: var(--white-black);
+            color: var(--black-white);
+          }
+        }
+        .header-link {
+          display: block;
+          float: left;
+          margin: 0 10px;
+          height: 30px;
+          width: 50px;
+          padding: 5px 5px 0 5px;
+          border: 1px solid $black;
+          border-radius: $radius;
+          background-color: var(--black-white);
+          color: var(--white-black);
+          font-size: 13px;
+          text-decoration: none;
+          text-align: center;
+          &:hover {
+            background-color: var(--white-black);
+            color: var(--black-white);
+          }
         }
       }
       .block-header-2 {

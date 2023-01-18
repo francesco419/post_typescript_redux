@@ -160,6 +160,7 @@ export default function ProfilePost({ subid }: PostChild): React.ReactElement {
                 id={index.toString()}
                 className="block-profile-image"
                 src={data}
+                alt="post"
               />
             </button>
           ))}
@@ -169,7 +170,12 @@ export default function ProfilePost({ subid }: PostChild): React.ReactElement {
             <button className="btn-profile-hidden" onClick={handlehideClick}>
               X
             </button>
-            <img id={id_hid} className="img-profile-hidden" src=""></img>
+            <img
+              id={id_hid}
+              className="img-profile-hidden"
+              src=""
+              alt="hidden"
+            ></img>
           </div>
         </div>
       </div>
