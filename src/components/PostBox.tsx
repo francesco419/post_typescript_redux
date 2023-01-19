@@ -7,11 +7,7 @@ import { useState } from "react";
 import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
 
-interface PostProps {
-  imgsrc: number;
-}
-
-export default function PostBox(imgsrc: PostProps) {
+export default function PostBox() {
   const likes = useAppSelector(selectLikes);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -39,7 +35,7 @@ export default function PostBox(imgsrc: PostProps) {
   return (
     <div className={styles["block-outter"]}>
       <div className={styles["block-inner"]}>
-        <ImageSlide imgsrc={image[imgsrc.imgsrc]} />
+        <ImageSlide imgsrc={image} />
         <div className={styles["block-statusbox"]}>
           <div className={styles["block-userstatus"]}>
             <img src={user.img} alt="myprofile" />
@@ -72,8 +68,9 @@ export default function PostBox(imgsrc: PostProps) {
             </div>
           </div>
           <div className={styles["block-textarea"]}>
-            {text.length < 150 ? text : `${text.slice(0, 150)} ······`}
+            {text.length < 100 ? text : `${text.slice(0, 100)} ······`}
           </div>
+          <div className={styles["block-tag"]}>#tag #tag #tag</div>
         </div>
       </div>
     </div>

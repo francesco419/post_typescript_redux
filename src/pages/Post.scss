@@ -1,7 +1,6 @@
 @import "../getscss.scss";
 
 .page-post {
-  display: flex;
   height: $full;
   padding: 50px 0;
   margin: 70px 0 0 0;
@@ -11,39 +10,60 @@
     width: $full;
     .block-post-container {
       display: flex;
+      position: relative;
       padding: 20px;
       border: solid();
+      .block-post-absolute {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: -60px;
+        top: 20px;
+        height: fit-content;
+        button {
+          height: 100px;
+          width: 50px;
+          padding: 0;
+          margin: 5px 0;
+          border-radius: 30px;
+          color: var(--white-black);
+          background-color: var(--black-white);
+          cursor: pointer;
+          &:hover {
+            color: var(--black-white);
+            background-color: var(--white-black);
+          }
+        }
+      }
       .block-post-content {
         display: flex;
         flex-direction: column;
-        width: 700px;
-        padding: 0 0 0 10px;
+        margin: 0 20px;
+        padding: 0 10px;
         h2 {
           color: var(--black-white);
         }
-        input {
-          width: 600px;
-          height: 30px;
-          padding: 0 10px;
+        textarea {
+          flex: 1;
+          width: 500px;
+          min-height: 100px;
+          padding: 10px;
+          border: solid();
           color: var(--black-white);
           background-color: var(--color-background);
+          resize: none;
+          flex: 1;
           &:focus {
             outline: none;
           }
         }
-        input:nth-child(4) {
-          height: 250px;
-        }
-        input:last-child {
-          flex: 1;
-        }
-        textarea {
-          width: 600px;
+        input[type="text"] {
+          width: 500px;
           height: 30px;
-          padding: 10px;
+          padding: 0 10px;
+          border: solid();
           color: var(--black-white);
           background-color: var(--color-background);
-          resize: none;
           &:focus {
             outline: none;
           }
@@ -52,6 +72,52 @@
           margin: 0;
           font-size: 12px;
           color: $tooltip;
+        }
+        .block-post-imgInput {
+          display: flex;
+          justify-content: space-between;
+          .btn-post-ImgConfirm {
+            width: 70px;
+            height: 20px;
+            padding: 0;
+            border: solid();
+            color: var(--white-black);
+            background-color: var(--black-white);
+            font-size: 12px;
+          }
+        }
+        .block-post-preview {
+          display: flex;
+          align-items: center;
+          min-height: 100px;
+          width: 500px;
+          margin: 10px 0 0 0;
+          padding: 10px;
+          border: solid();
+          .block-post-img {
+            position: relative;
+            margin: 0 5px;
+            @include mx-size(0, 80px, 80px);
+            &:hover {
+              button {
+                display: block;
+              }
+            }
+            button {
+              display: none;
+              position: absolute;
+              right: 0;
+              @include mx-size(0, 15px, 15px);
+              padding: 0;
+              border: 0;
+              color: $white;
+              background-color: #00000066;
+              line-height: 10px;
+            }
+            .img-post {
+              @include mx-size(0, 80px, 80px);
+            }
+          }
         }
       }
     }

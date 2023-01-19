@@ -55,10 +55,10 @@ function Main() {
       <div className={styles["slide-box"]}>
         <div className={styles["slidetest"]}>
           <div id="slide-hidden-right" className={styles["slide-hidden"]}>
-            <PostBox imgsrc={number[number.length - 1]} />
+            <PostBox />
           </div>
           <div id="slide-left" className={styles["slide-left"]}>
-            <PostBox imgsrc={number[0]} />
+            <PostBox />
           </div>
           <button
             id="slide-left-btn"
@@ -87,7 +87,7 @@ function Main() {
             <ArrowtoLeft />
           </button>
           <div id="slide-middle" className={styles["slide-middle"]}>
-            <PostBox imgsrc={number[1]} />
+            <PostBox />
           </div>
           <button
             id="slide-right-btn"
@@ -116,10 +116,10 @@ function Main() {
             <ArrowtoRight />
           </button>
           <div id="slide-right" className={styles["slide-right"]}>
-            <PostBox imgsrc={number[2]} />
+            <PostBox />
           </div>
           <div id="slide-hidden-left" className={styles["slide-hidden"]}>
-            <PostBox imgsrc={number[3]} />
+            <PostBox />
           </div>
         </div>
       </div>

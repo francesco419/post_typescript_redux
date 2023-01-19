@@ -3,6 +3,7 @@ import { RootState } from "../store";
 
 export class Userstate {
   value: {
+    id: string;
     name: string;
     password: string;
     birth: string;
@@ -18,6 +19,7 @@ export class Userstate {
 
 const initialState: Userstate = {
   value: {
+    id: "anonymous",
     name: "anonymous",
     password: "anonymous",
     birth: "2023-01-01",
@@ -35,12 +37,13 @@ export const userSlice = createSlice({
   name: "userinfo",
   initialState,
   reducers: {
+    setUserID: (state, action: PayloadAction<string>) => {
+      state.value.id = action.payload;
+    },
     setUsername: (state, action: PayloadAction<string>) => {
-      console.log("Uslice : " + action.payload);
       state.value.name = action.payload;
     },
     setPassword: (state, action: PayloadAction<string>) => {
-      console.log("Pslice : " + action.payload);
       state.value.password = action.payload;
     },
     setBirth: (state, action: PayloadAction<string>) => {
@@ -84,6 +87,7 @@ export const {
   setFollower,
   setBirth,
   setInitial,
+  setUserID,
   reset,
 } = userSlice.actions;
 

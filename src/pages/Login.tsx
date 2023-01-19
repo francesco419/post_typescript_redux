@@ -2,11 +2,7 @@ import "./Login.scss";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import {
-  setUsername,
-  setPassword,
-  selectUser,
-} from "../redux/Slices/userSlice";
+import { setUserID, setPassword, selectUser } from "../redux/Slices/userSlice";
 import Join from "../components/Join";
 import axios from "axios";
 
@@ -80,7 +76,7 @@ function Login() {
         if (request) {
           const id: string = request.data[0].id;
           const password: string = request.data[0].password;
-          dispatch(setUsername(id));
+          dispatch(setUserID(id));
           dispatch(setPassword(password));
           navigate("/");
         }
