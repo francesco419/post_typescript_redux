@@ -62,7 +62,7 @@ export default function Join() {
       try {
         const request = await axios.post<InputProps>(url, input);
         console.log(request);
-        if (request) {
+        if (request.data) {
           (
             document.getElementById("success") as HTMLDivElement | null
           ).style.display = "block";

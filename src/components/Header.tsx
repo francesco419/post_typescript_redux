@@ -26,10 +26,7 @@ export function Header() {
     const user = JSON.parse(isLog.user);
     const password: string = user.value.password;
     if (password !== "anonymous") {
-      console.log("logged");
       setLoggedIn((loggedIn) => true);
-    } else {
-      console.log("not logged");
     }
   }
 

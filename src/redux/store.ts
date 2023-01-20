@@ -4,12 +4,14 @@ import userReducer from "./Slices/userSlice";
 import darkReducer from "./Slices/darkSlice";
 import settingsReducer from "./Slices/settingsSlice";
 import postReducer from "./Slices/postSlice";
+import countReducer from "./Slices/countSlice";
 import session from "redux-persist/lib/storage/session";
 import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { persistReducer } from "redux-persist";
 //////////////////////////////
 const rootReducer = combineReducers({
+  counter: countReducer,
   post: postReducer,
   dark: darkReducer,
   likes: likesReducer,

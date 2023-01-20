@@ -2,9 +2,12 @@
 
 html,
 body {
+  #root {
+    height: 100%;
+  }
   margin: 0;
-  font-family: "yg-jalnan";
   height: 100%;
+  font-family: "yg-jalnan";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);

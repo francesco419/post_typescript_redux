@@ -3,25 +3,41 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
 import { selectUser } from "../redux/Slices/userSlice";
 import ImageSlide from "./ImageSlide";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
+import { Link } from "react-router-dom";
+import { type } from "@testing-library/user-event/dist/types/setup/directApi";
 
-export default function PostBox() {
+interface PostDetail {
+  id: string;
+  text: string;
+  tag: string[];
+  img: string[];
+}
+
+type numProp = {
+  num: number;
+};
+
+export default function PostBox(num: numProp) {
+  const [display, setDisplay] = useState<boolean>(false);
   const likes = useAppSelector(selectLikes);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const [display, setDisplay] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [test, setTest] = useState<PostDetail>();
+  useEffect(() => {
+    const persist = JSON.parse(sessionStorage.getItem("persist:root"));
+    setTest((test) => JSON.parse(persist.post).value[num.num]);
+    setLoading(true);
+  }, []);
 
-  const [image, setImage] = useState<string[]>([
-    "https://img.freepik.com/premium-vector/wild-west-flat-illustration_215665-426.jpg?w=2000",
-    "https://i.pinimg.com/736x/a7/58/94/a758947f6dcebe6c863eba9580eb15b9.jpg",
-    "https://yt3.googleusercontent.com/9fSIeW-tkGl9sfajW9yLWe73bQEHm1kXarHNRpxyJP8o2szvmNPYvR9FXymiyEyjthasbYWL6Bg=s900-c-k-c0x00ffffff-no-rj",
-    "https://blog.kakaocdn.net/dn/cSOL0i/btqw6pg4f1h/4LWZ1Whic20CtxwJoOYgDk/img.png",
-  ]);
-
-  const text: string =
-    "오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...오늘하루 뭐한건가...";
+  useEffect(() => {
+    const persist = JSON.parse(sessionStorage.getItem("persist:root"));
+    console.log(num.num);
+    setTest((test) => JSON.parse(persist.post).value[num.num]);
+  }, [num.num]);
 
   const timetoday = () => {
     let now: Date = new Date();
@@ -31,48 +47,66 @@ export default function PostBox() {
 
     return `${nowYear}-${nowMonth}-${nowDate}`;
   };
-
   return (
     <div className={styles["block-outter"]}>
-      <div className={styles["block-inner"]}>
-        <ImageSlide imgsrc={image} />
-        <div className={styles["block-statusbox"]}>
-          <div className={styles["block-userstatus"]}>
-            <img src={user.img} alt="myprofile" />
-            <p>{user.name}</p>
-            <button id="followbtn">Follow</button>
-          </div>
-          <div className={styles["block-poststatus"]}>
-            <div className={styles["block-poststatus-div"]}>{timetoday()}</div>
-            <Likes
-              className={styles["btn-likes-01-off"]}
-              fill={likes ? "#ff0000" : "#616161"}
-              onClick={() => dispatch(setLikes())}
-            >
-              Likes
-            </Likes>
-            <div
-              className={styles["block-poststatus-report"]}
-              onClick={() => setDisplay((display) => !display)}
-            >
-              <Meatball width="20px" height="20px" />
-              <ul
-                id="send"
-                className={styles["block-poststatus-meatball"]}
-                style={{ display: display ? "block" : "none" }}
+      {loading ? (
+        <div className={styles["block-inner"]}>
+          <ImageSlide imgsrc={test.img} />
+          <div className={styles["block-statusbox"]}>
+            <div className={styles["block-userstatus"]}>
+              <img src={user.img} alt="myprofile" />
+              <p>{test.id}</p>
+              <button id="followbtn">Follow</button>
+            </div>
+            <div className={styles["block-poststatus"]}>
+              <div className={styles["block-poststatus-div"]}>
+                {timetoday()}
+              </div>
+              <Likes
+                className={styles["btn-likes-01-off"]}
+                fill={likes ? "#ff0000" : "#616161"}
+                onClick={() => dispatch(setLikes())}
               >
-                <li>Send</li>
-                <li>Send</li>
-                <li>Send</li>
-              </ul>
+                Likes
+              </Likes>
+              <div
+                className={styles["block-poststatus-report"]}
+                onClick={() => setDisplay((display) => !display)}
+              >
+                <Meatball width="20px" height="20px" />
+                <ul
+                  id="send"
+                  className={styles["block-poststatus-meatball"]}
+                  style={{ display: display ? "block" : "none" }}
+                >
+                  <li>Send</li>
+                  <li>Send</li>
+                  <li>Send</li>
+                </ul>
+              </div>
+            </div>
+            <div className={styles["block-textarea"]}>
+              {/*  {detail
+              ? detail.text.length < 100
+                ? text
+                : `${text.slice(0, 100)} ······`
+              : "일없음..."} */}
+              {test.text.length < 100
+                ? test.text
+                : `${test.text.slice(0, 100)} ······`}
+            </div>
+            <div className={styles["block-tag"]}>
+              {test.tag.map((tag_: string) => (
+                <Link className={styles["link-postbox-to"]} to={"/"}>
+                  {tag_}
+                </Link>
+              ))}
             </div>
           </div>
-          <div className={styles["block-textarea"]}>
-            {text.length < 100 ? text : `${text.slice(0, 100)} ······`}
-          </div>
-          <div className={styles["block-tag"]}>#tag #tag #tag</div>
         </div>
-      </div>
+      ) : (
+        <h1 style={{ textAlign: "center" }}>Loading</h1>
+      )}
     </div>
   );
 }

@@ -396,6 +396,51 @@
     - 이전 기능은 효율로 보나 코드량으로 보나 쓸데없이 괴상하게 만든 형태였다.
     - 어떠한 기능을 제작하든, 생각하고 제작하자...
 
+### 1.4.5(23.01.20)
+
+- Post 페이지 작업 3
+
+  - DB에 게시물정보 저장 구현.
+
+- Main, PostBox, ImageSlide
+
+  - 작업진행률이 높아진만큼 각각 구현했었고, 임시 데이터들을 넣었던 컴포넌트 및 페이지의 수정작업.
+  - 대체적으로 각 게시물의 이미지 로드 및 해당 데이터가 구현한 여러 기능(ex Main페이지 게시물 슬라이드)등에서 정삭작동 하기위해 데이터전달 부분수정.
+
+    - 이전에 코드 중 PostBox와 ImageSlide간의 props전달에서 예시 이미지를 사용하기 위해 ImageSlide에 고정이미지를 추가한채 개발을 해왔었지만, 'Main에서 DB로 게시물(post)데이터 요청, 요청데이터를 Main의 PostBox로 전달, PostBox에서 ImageSlide로 이미지데이터만 전달' 형태로 코드 수정.
+
+      - Redux를 활용하는 방식으로 코드 수정.
+        - Main에는 5개의 PostBox가 있고 게시물전환을 위해 redux로 관리하는 counter를 각 PostBox에 전달.
+        - PostBox에서 Redux-persist를 사용하여 게시물데이터를 sessionStorage에 저장하고, PostBox에서 스토리지에 접근하여 props로 받은 counter에 해당되는 인덱스의 게시물데이터를 가져온다.
+        - Main에서 게시물이동을 실행하면, countSlice의 count의 숫자가 변함으로 PostBox에 나타나는 데이터도 변화.
+
+- lazy, suspense
+
+  - PostBox에서 전달받은 props가 컴포넌트 최초 랜더링시 undefined로 나타나는 현상으로 인하여 컴포넌트 무한로딩 및 에러발생.
+  - lazy와 Suspense를 사용하여 필요한 데이터가 로드되기 전까지 대기하는 방식을 사용.
+
+    - 사용정보 검색을 했으나 대체적으로 페이지 로드시 사용방법으로만 사용설명을 하지만, 현재는 컴포넌트로드에 사용이 필요한 상황.
+
+    ```html
+    const LazyAbout = React.lazy(() => import("../components/PostBox"));
+    //...생략
+    <div>
+      <React.Suspense fallback="Loading...">
+        //...생략
+        <LazyAbout num="{counter[0]}" />
+        //...생략
+        <LazyAbout num="{counter[1]}" />
+        //...생략
+      </React.Suspense>
+    </div>
+    ```
+
+    - 형태로 PostBox 컴포넌트를 lazy를 사용한 LazyAbout으로 사용하고 LazyAbout을 가지는 전체적인 부분을 React.Suspense태그 내부에 배치하였다.
+    - 정상작동! App.tsx의 라우터설정이 아닌 개별 컴포넌트에도 정상적으로 작동한다.
+      - 페이지 첫 로드시 스토리지에 아무것도 없기에 postbox에러..
+        - 로딩지연시간을 만들어 해결.
+      -
+
 # 예정 (v1.3.2 ~ )
 
 ## 제작

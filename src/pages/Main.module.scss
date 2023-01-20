@@ -2,7 +2,6 @@
 
 .page-main {
   display: flex;
-  height: $full;
   padding: 50px 0;
   margin: 70px 0 0 0;
   font-size: 14px;
@@ -114,4 +113,25 @@
   width: 250px;
   transform: scale(0.5);
   margin: automargin();
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  height: 200px;
+  width: 200px;
+  animation: spinner 0.8s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+}
+
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

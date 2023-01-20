@@ -1,6 +1,7 @@
 import "./Post.scss";
 import styles from "../components/PostBox.module.scss";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 /*-------------Component------------------------------------- */
 import { Header } from "../components/Header";
 import PostBox from "../components/PostBox";
@@ -13,7 +14,7 @@ import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
 /*-------------redux------------------------------------- */
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { selectUser } from "../redux/Slices/userSlice";
-/*-------------axios------------------------------------- */
+/*-------------extra------------------------------------- */
 import axios from "axios";
 
 export default function Post() {
@@ -22,6 +23,7 @@ export default function Post() {
   const [textOverflow, setTextOverflow] = useState<string>();
   const [textShow, setTextShow] = useState<boolean>(false);
   const [files, setFiles] = useState<string[]>([]);
+  const nav = useNavigate();
 
   const user = useAppSelector(selectUser);
 
@@ -39,6 +41,8 @@ export default function Post() {
       }
     });
     setTag((tag) => newArr);
+    console.log(tag);
+    console.log(["#dks", "dkdkd", "#kk"]);
   };
 
   const onBlurHandler = (e: React.FocusEvent<HTMLTextAreaElement>) => {
@@ -60,8 +64,6 @@ export default function Post() {
   };
 
   const postHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
     const doc_text = document.getElementById(
       "post-textarea"
     ) as HTMLTextAreaElement | null;
@@ -72,7 +74,7 @@ export default function Post() {
       "post-img"
     ) as HTMLInputElement | null;
 
-    if (!(doc_text && doc_text)) {
+    if (!(doc_text && doc_img)) {
       return false;
     }
 
@@ -84,10 +86,12 @@ export default function Post() {
       const request = await axios.post("http://localhost:8080/post", {
         user_id: user.name,
         text: text,
-        tag: tag,
-        img: files,
+        tag: JSON.stringify(tag),
+        img: JSON.stringify(files),
       });
-      //navigate("/");
+      console.log(JSON.stringify(files));
+      console.log(files);
+      //window.location.reload();
     } catch (e) {
       console.log(e);
     }
@@ -99,17 +103,25 @@ export default function Post() {
     if (!userInfo) {
       return;
     }
-    const user = JSON.parse(userInfo.user);
-    const name: string = user.value.name;
+    const users = JSON.parse(userInfo.user);
+    const name: string = users.value.name;
     //const img : string = user.value.
 
     return (
       <div className={styles["block-outter"]} style={{ minHeight: "800px" }}>
         <div className={styles["block-inner"]}>
-          <ImageSlide imgsrc={files} />
+          <ImageSlide
+            imgsrc={
+              files.length !== 0
+                ? files
+                : [
+                    "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg",
+                  ]
+            }
+          />
           <div className={styles["block-statusbox"]}>
             <div className={styles["block-userstatus"]}>
-              <img src={null} alt="myprofile" />
+              <img src={user.img} alt="myprofile" />
               <p>{name}</p>
               <button id="followbtn">Follow</button>
             </div>
@@ -207,7 +219,6 @@ export default function Post() {
                       const doc = document.getElementById(
                         `preview_${index}`
                       ) as HTMLDivElement | null;
-                      console.log(doc);
                       if (doc) {
                         let temp: string[] = files.filter((data) => {
                           if (data !== file) {

@@ -11,14 +11,13 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 
 const persistor = persistStore(store);
 const container = document.getElementById("root")!;
+//container.style.height = "100%";
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
 );

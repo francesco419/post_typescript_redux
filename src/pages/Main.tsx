@@ -1,40 +1,67 @@
 import styles from "./Main.module.scss";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setPost } from "../redux/Slices/postSlice";
+import {
+  selectCounter,
+  setCounter,
+  moveCounter,
+  addCounter,
+} from "../redux/Slices/countSlice";
 import { Header } from "../components/Header";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostBox from "../components/PostBox";
 import { ReactComponent as ArrowtoRight } from "../pictures/arrow_left.svg";
 import { ReactComponent as ArrowtoLeft } from "../pictures/arrow_right.svg";
+import { ReactComponent as Spinner } from "../pictures/loading.svg";
+import { PostState } from "../redux/Slices/postSlice";
+
+const LazyAbout = React.lazy(() => import("../components/PostBox"));
 
 function Main() {
-  const [number, setNumber] = useState<number[]>([0, 1, 2, 3]);
+  const [number, setNumber] = useState<number[]>([]);
   const dispatch = useAppDispatch();
-
-  const asArray = (bool: boolean) => {
-    if (bool) {
-      let arr = [...number];
-      let temp: number = arr.shift();
-      arr.push(temp);
-      setNumber((number) => arr);
-    } else {
-      let arr = [...number];
-      let temp: number = arr.pop();
-      arr.unshift(temp);
-      setNumber((number) => arr);
-    }
-  };
+  const [postDetail, setPostDetail] = useState<PostState[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const counter = useAppSelector(selectCounter);
 
   useEffect(() => {
-    //sendRequest();
+    sendRequest();
+    window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    let countt: number[] = [];
+    for (let i = 0; i < postDetail.length; i++) {
+      //setNumber((number) => [...number, i]);
+      countt = [...countt, i];
+    }
+    dispatch(setCounter(countt));
+    console.log(counter);
+    if (postDetail) {
+      dispatch(setPost(postDetail));
+    }
+    window.scrollTo(0, 0);
+  }, [postDetail]);
 
   const sendRequest = async () => {
     try {
-      const response = await axios.get(`/`);
-      console.log(response);
-      console.log(response.data);
-      console.log("fetch!");
+      const response = await axios.get(`http://localhost:8080/fetch/post`);
+      if (response) {
+        setPostDetail([]);
+        for (let i = 0; i < response.data.length; i++) {
+          let temp: PostState = {
+            user_id: response.data[i].id,
+            text: response.data[i].text,
+            tag: JSON.parse(response.data[i].tag),
+            img: JSON.parse(response.data[i].img),
+          };
+          setPostDetail((postDetail) => [...postDetail, temp]);
+        }
+        setTimeout(() => {
+          setLoading(true);
+        }, 500);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -52,77 +79,86 @@ function Main() {
   return (
     <div className={styles["page-main"]}>
       <Header />
-      <div className={styles["slide-box"]}>
-        <div className={styles["slidetest"]}>
-          <div id="slide-hidden-right" className={styles["slide-hidden"]}>
-            <PostBox />
-          </div>
-          <div id="slide-left" className={styles["slide-left"]}>
-            <PostBox />
-          </div>
-          <button
-            id="slide-left-btn"
-            className={styles["btn-slide-left"]}
-            onClick={(e) => {
-              const btnRight = document.getElementById(
-                "slide-right-btn"
-              ) as HTMLButtonElement | null;
-              const btnLeft = document.getElementById(
-                "slide-left-btn"
-              ) as HTMLButtonElement | null;
-              btnRight.disabled = true;
-              btnLeft.disabled = true;
-              move("slide-left", "move-slideO");
-              move("slide-middle", "move-slideL");
-              move("slide-right", "move-slideR");
-              move("slide-hidden-left", "move-slideH");
-              console.log(window.innerWidth);
-              setTimeout(() => {
-                asArray(true);
-                btnRight.disabled = false;
-                btnLeft.disabled = false;
-              }, 500);
-            }}
-          >
-            <ArrowtoLeft />
-          </button>
-          <div id="slide-middle" className={styles["slide-middle"]}>
-            <PostBox />
-          </div>
-          <button
-            id="slide-right-btn"
-            className={styles["btn-slide-right"]}
-            onClick={(e) => {
-              const btnRight = document.getElementById(
-                "slide-right-btn"
-              ) as HTMLButtonElement | null;
-              const btnLeft = document.getElementById(
-                "slide-left-btn"
-              ) as HTMLButtonElement | null;
-              btnRight.disabled = true;
-              btnLeft.disabled = true;
-              move("slide-hidden-right", "move-Hslide");
-              move("slide-left", "move-Oslide");
-              move("slide-middle", "move-Lslide");
-              move("slide-right", "move-Rslide");
-              console.log(window.innerWidth);
-              setTimeout(() => {
-                asArray(false);
-                btnRight.disabled = false;
-                btnLeft.disabled = false;
-              }, 500);
-            }}
-          >
-            <ArrowtoRight />
-          </button>
-          <div id="slide-right" className={styles["slide-right"]}>
-            <PostBox />
-          </div>
-          <div id="slide-hidden-left" className={styles["slide-hidden"]}>
-            <PostBox />
-          </div>
+      {loading ? (
+        <div className={styles["slide-box"]}>
+          <React.Suspense>
+            <div className={styles["slidetest"]}>
+              <div id="slide-hidden-right" className={styles["slide-hidden"]}>
+                <LazyAbout num={counter[0]} />
+              </div>
+              <div id="slide-left" className={styles["slide-left"]}>
+                <LazyAbout num={counter[1]} />
+              </div>
+              <button
+                id="slide-left-btn"
+                className={styles["btn-slide-left"]}
+                onClick={(e) => {
+                  const btnRight = document.getElementById(
+                    "slide-right-btn"
+                  ) as HTMLButtonElement | null;
+                  const btnLeft = document.getElementById(
+                    "slide-left-btn"
+                  ) as HTMLButtonElement | null;
+                  btnRight.disabled = true;
+                  btnLeft.disabled = true;
+                  move("slide-left", "move-slideO");
+                  move("slide-middle", "move-slideL");
+                  move("slide-right", "move-slideR");
+                  move("slide-hidden-left", "move-slideH");
+                  setTimeout(() => {
+                    dispatch(moveCounter(true));
+                    //asArray(true);
+                    btnRight.disabled = false;
+                    btnLeft.disabled = false;
+                  }, 500);
+                }}
+              >
+                <ArrowtoLeft />
+              </button>
+              <div id="slide-middle" className={styles["slide-middle"]}>
+                <LazyAbout num={counter[2]} />
+              </div>
+              <button
+                id="slide-right-btn"
+                className={styles["btn-slide-right"]}
+                onClick={(e) => {
+                  const btnRight = document.getElementById(
+                    "slide-right-btn"
+                  ) as HTMLButtonElement | null;
+                  const btnLeft = document.getElementById(
+                    "slide-left-btn"
+                  ) as HTMLButtonElement | null;
+                  btnRight.disabled = true;
+                  btnLeft.disabled = true;
+                  move("slide-hidden-right", "move-Hslide");
+                  move("slide-left", "move-Oslide");
+                  move("slide-middle", "move-Lslide");
+                  move("slide-right", "move-Rslide");
+                  console.log(window.innerWidth);
+                  setTimeout(() => {
+                    dispatch(moveCounter(false));
+                    //asArray(false);
+                    btnRight.disabled = false;
+                    btnLeft.disabled = false;
+                  }, 500);
+                }}
+              >
+                <ArrowtoRight />
+              </button>
+              <div id="slide-right" className={styles["slide-right"]}>
+                <LazyAbout num={counter[3]} />
+              </div>
+              <div id="slide-hidden-left" className={styles["slide-hidden"]}>
+                <LazyAbout num={counter[4]} />
+              </div>
+            </div>
+          </React.Suspense>
         </div>
-      </div>
+      ) : (
+        <div className={styles["loading-spinner"]}>
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 }
