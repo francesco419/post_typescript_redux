@@ -1,5 +1,5 @@
 import "./Settings.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 /*----------component-------------------------- */
 import { Header } from "../components/Header";
 import { ImageUpload } from "../components/Settings/ImageUpload";
@@ -46,7 +46,6 @@ export default function Settings() {
   return (
     <div>
       <ImageUpload />
-      <UserEdit />
       <div className="page-settings">
         <Header />
         <div className="block-settings-inner">

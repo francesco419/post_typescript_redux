@@ -439,7 +439,76 @@
     - 정상작동! App.tsx의 라우터설정이 아닌 개별 컴포넌트에도 정상적으로 작동한다.
       - 페이지 첫 로드시 스토리지에 아무것도 없기에 postbox에러..
         - 로딩지연시간을 만들어 해결.
-      -
+
+### 1.5.1 (23.01.25)
+
+- UserEdit 작업
+
+  - 작동 수정 작업
+    - name 중복여부에 따라 안내문구 변경 및 Submit버튼의 작동 여부 결정.
+    - showSlice를 사용하여 여러 컴포넌트에서 UserEdit컴포넌트의 시각여부 결정.
+  - 사용자 정보를 수정 할 수 있는 UserEdit 컴포넌트를 백엔드서버와 연결하여 수정가능하도록 작업.
+    - name 변경시 서버에 중복되는 name 존재하는지 검색
+      - BackEnd : SELECT name FROM users WHERE name=이름' 쿼리를 통해 검색하며, result의 length를 통해 존재여부를 알 수 있도록 설정.
+    - 수정할 정보 입력후 Submit 버튼을통해 MySQL의 정보 수정.
+      - BackEnd : update users set name='${이름}' , password='${비밀번호}' , ... where id='${아이디}' 쿼리를 통해 수정.
+      - UserEdit에서 작성을 하지 않은 부분은 공백이 되며 이것이 MySQL의 정보를 덮어쓰지 않도록 먼저 사용자 정보를 가져오고, 가져온 정보를 수정할 정보와 비교하여 공백으로 입력된 정보는 수정되지 않는 방식으로 설정하였다.
+        ```js
+        exports.postUserUpdate = (req, res) => {
+          const paramId = req.body.id;
+          const obj = {
+            name: req.body.name,
+            password: req.body.newpassword,
+            birth: req.body.birth,
+            email: req.body.email,
+            intro: req.body.info,
+          }; //req로 받은 정보 중 수정할 정보
+          let updatedObj = {}; //최종 수정적용할 객체선언
+          getConnection.getConnection((err, conn) => {
+            const exec = conn.query(
+              `SELECT * FROM users WHERE id='${paramId}' limit 1;`, //사용자 객체정보를 조회
+              (err, result) => {
+                conn.release();
+                if (err) {
+                  console.log(err);
+                  return res.send(err);
+                }
+                if (result) {
+                  for (let temp in obj) {
+                    //조회한 사용자정보와 obj를 대조하여 obj의 요소의 값이 공백일시 continue, 아닐시 교체(수정).
+                    if (obj[temp] === "") {
+                      continue;
+                    } else {
+                      result[0][temp] = obj[temp];
+                    }
+                  }
+                  updatedObj = result[0]; //위에서 수정될 정보를 입력한 result의 값을 updatedObj에 할당.
+                  getConnection.getConnection((err, conn) => {
+                    const execQuery = conn.query(
+                      `update users set name='${updatedObj.name}', password='${updatedObj.password}', birth='${updatedObj.birth}', email='${updatedObj.email}', img='${updatedObj.img}', info='${updatedObj.intro}' where id='${updatedObj.id}';`,
+                      (err, result) => {
+                        //updatedObj를 사용해 사용자 정보 업데이트.
+                        conn.release();
+                        if (err) {
+                          console.log(err);
+                          return res.send(err);
+                        }
+                        if (result) {
+                          console.log("success");
+                          return res.send(result);
+                        }
+                      }
+                    );
+                  });
+                }
+              }
+            );
+          });
+        };
+        ```
+    - respond를 통해 백엔드의 결과값 result를 사용해 userSlice에 해당하는 상태를 변경.
+      - 모든 정보를 변경한 것이 아니기에 post, follow 등의 정보가 덮어씌어지지 않기위해 각각 따로 dispatch를 사용
+      - 객체 복사 내장함수를 사용해봤지만 변경되지 않아야 할 부분도 같이 변경. 추후 방법 검색을 통해 효율적인 코드로 변화 필요.
 
 # 예정 (v1.3.2 ~ )
 
@@ -453,10 +522,11 @@
 
 - 게시글 작성
 
-## 수정 예정
+## 수정 예정 & 수정 필요
 
 - ~~로그인(수정) => redux 연동~~
 - ~~메인 (수정) => 게시물 마무리~~(1.3.2)
+- UserEdit의 redux dispatch부분의 연속적인 사용. -> 객체 복사 방식의 다른 방법 요구.
 
 # 이외 오류 (v1.3.2 ~)
 

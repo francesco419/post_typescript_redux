@@ -9,7 +9,7 @@ export class Userstate {
     birth: string;
     img?: string;
     email: string;
-    intro: string;
+    info: string;
     post: number;
     follow: number;
     follower: number;
@@ -25,10 +25,10 @@ const initialState: Userstate = {
     birth: "2023-01-01",
     img: "https://cdn-icons-png.flaticon.com/512/666/666201.png",
     email: "socialNetwork@gmail.com",
-    intro: "인사말을 작성해주세요!",
+    info: "인사말을 작성해주세요!",
     post: 0,
-    follow: 67,
-    follower: 76,
+    follow: 0,
+    follower: 0,
   },
   status: "idle",
 };
@@ -49,14 +49,14 @@ export const userSlice = createSlice({
     setBirth: (state, action: PayloadAction<string>) => {
       state.value.birth = action.payload;
     },
-    setImg: (state, action: PayloadAction<string>) => {
-      state.value.img = action.payload;
-    },
     setEmail: (state, action: PayloadAction<string>) => {
       state.value.email = action.payload;
     },
-    setIntro: (state, action: PayloadAction<string>) => {
-      state.value.intro = action.payload;
+    setImg: (state, action: PayloadAction<string>) => {
+      state.value.img = action.payload;
+    },
+    setInfo: (state, action: PayloadAction<string>) => {
+      state.value.info = action.payload;
     },
     setPost: (state, action: PayloadAction<number>) => {
       state.value.post = action.payload;
@@ -67,8 +67,11 @@ export const userSlice = createSlice({
     setFollower: (state, action: PayloadAction<number>) => {
       state.value.follower = action.payload;
     },
-    setInitial: (state) => {
-      console.log(state.value);
+    setInitial: (state, action: PayloadAction<any>) => {
+      state.value = action.payload;
+    },
+    setCopy: (state, action: PayloadAction<object>) => {
+      console.log(Object.assign(state.value, action.payload));
     },
     reset: (state) => {
       Object.assign(state, initialState);
@@ -81,7 +84,7 @@ export const {
   setPassword,
   setImg,
   setEmail,
-  setIntro,
+  setInfo,
   setPost,
   setFollow,
   setFollower,
@@ -89,6 +92,7 @@ export const {
   setInitial,
   setUserID,
   reset,
+  setCopy,
 } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user.value;

@@ -1,6 +1,13 @@
 @import "../../getscss.scss";
 
-.wrapper {
+.wrapper-Edit {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00000055;
+  z-index: 90;
   .user-edit {
     position: absolute;
     top: 50%;

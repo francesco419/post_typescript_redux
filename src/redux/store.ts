@@ -6,11 +6,13 @@ import settingsReducer from "./Slices/settingsSlice";
 import postReducer from "./Slices/postSlice";
 import countReducer from "./Slices/countSlice";
 import session from "redux-persist/lib/storage/session";
+import showReducer from "./Slices/showSlice";
 import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { persistReducer } from "redux-persist";
 //////////////////////////////
 const rootReducer = combineReducers({
+  show: showReducer,
   counter: countReducer,
   post: postReducer,
   dark: darkReducer,

@@ -1,9 +1,18 @@
 import "./UserSetting.scss";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { selectUser } from "../../redux/Slices/userSlice";
+import {
+  selectShow,
+  ShowUserEdit,
+  setInitial,
+} from "../../redux/Slices/showSlice";
 import { ReactComponent as Edit } from "../../pictures/edit.svg";
+import { UserEdit } from "./UserEdit";
+import { useEffect, useState } from "react";
 
 export function UserSetting() {
+  const dispatch = useAppDispatch();
+  const show = useAppSelector(selectShow);
   const user = useAppSelector(selectUser);
   const temp: string[] = [
     `Name : ${user.name}`,
@@ -12,21 +21,25 @@ export function UserSetting() {
     `Email : ${user.email}`,
   ];
 
+  useEffect(() => {
+    dispatch(setInitial());
+  }, []);
+
   const handleClick = () => {
     const upload = document.getElementById("upload") as HTMLDivElement;
     upload.style.display = "block";
   };
+
+  const handleUserEdit = () => {
+    dispatch(ShowUserEdit());
+  };
+
   return (
     <div className="block-usersettings-display">
+      {show.userEdit && <UserEdit />}
       <div className="block-usersettings-0">
         <img src={user.img} alt="Profile" />
-        <button
-          type="button"
-          onClick={() => {
-            const upload = document.getElementById("upload") as HTMLDivElement;
-            upload.style.display = "block";
-          }}
-        >
+        <button type="button" onClick={handleClick}>
           Image
         </button>
       </div>
@@ -34,7 +47,7 @@ export function UserSetting() {
         {temp.map((data) => (
           <div>
             <p>{data}</p>
-            <Edit onClick={handleClick} />
+            <Edit onClick={handleUserEdit} />
           </div>
         ))}
       </div>
@@ -56,10 +69,10 @@ export function UserSetting() {
         <div className="block-usersettings-intro">
           <div className="block-usersettings-box">
             <p>Intro</p>
-            <Edit onClick={handleClick} />
+            <Edit onClick={handleUserEdit} />
           </div>
           <div>
-            <p>{user.intro}</p>
+            <p>{user.info}</p>
           </div>
         </div>
       </div>

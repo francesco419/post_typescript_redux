@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
 import { Link } from "react-router-dom";
-import { type } from "@testing-library/user-event/dist/types/setup/directApi";
 
 interface PostDetail {
   id: string;

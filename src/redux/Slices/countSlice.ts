@@ -19,7 +19,6 @@ export const counterSlice = createSlice({
     setCounter: (state, action: PayloadAction<number[]>) => {
       state.value = action.payload;
     },
-
     moveCounter: (state, action: PayloadAction<boolean>) => {
       let arr = [...state.value];
       if (action.payload) {
