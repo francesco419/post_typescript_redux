@@ -46,9 +46,6 @@ function Profile() {
                 <p>{user.info}</p>
               </div>
             </div>
-            {/* <div>
-              <FollowBtn followName={user.id} />
-            </div> */}
           </div>
         </div>
         <div className="block-profile-1">
@@ -70,6 +67,9 @@ function Profile() {
             <button
               className="btn-profile-post"
               onClick={() => {
+                if (user.id === "anonymous") {
+                  return;
+                }
                 nav("/Post");
               }}
             >

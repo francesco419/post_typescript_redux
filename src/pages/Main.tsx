@@ -1,6 +1,10 @@
 import styles from "./Main.module.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setPost } from "../redux/Slices/postSlice";
+import {
+  setPost,
+  setNoConnection,
+  selectPost,
+} from "../redux/Slices/postSlice";
 import {
   selectCounter,
   setCounter,
@@ -21,6 +25,7 @@ const LazyAbout = React.lazy(() => import("../components/PostBox"));
 function Main() {
   const [number, setNumber] = useState<number[]>([]);
   const dispatch = useAppDispatch();
+  const post = useAppSelector(selectPost);
   const [postDetail, setPostDetail] = useState<PostState[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const counter = useAppSelector(selectCounter);
@@ -37,7 +42,6 @@ function Main() {
       countt = [...countt, i];
     }
     dispatch(setCounter(countt));
-    console.log(counter);
     if (postDetail) {
       dispatch(setPost(postDetail));
     }

@@ -2,6 +2,7 @@
   "name": "type-redux",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -28,9 +29,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build",
-    "predeploy": "npm run build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -53,7 +52,7 @@
   "devDependencies": {
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
+    "gh-pages": "^5.0.0",
     "typescript-plugin-css-modules": "^4.1.1"
-  },
-  "homepage": "https://francesco419.github.io/SocialNet"
+  }
 }

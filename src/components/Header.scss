@@ -11,131 +11,63 @@
   color: var(--black-white);
   background-color: var(--color-background);
   .block-header-inner {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
-    @include mx-dis(flex, space-between, center);
-    margin: automargin();
+    @include mx-dis(flex, flex-start, center);
     height: $full;
+    margin: automargin();
     max-width: $wid + 900px;
     min-width: 600px;
     .block-header-0 {
       display: flex;
       align-items: center;
+      margin: 0 30px 0 0;
+      cursor: pointer;
       svg {
         margin: 0 10px 0 0;
         fill: var(--black-white);
+      }
+      h2 {
+        width: 100px;
       }
     }
 
     .block-header-1 {
       display: flex;
       align-items: center;
+      font-size: 15px;
       .header-link {
-        margin: 0 10px;
-        height: 30px;
-        width: 50px;
-        padding: 5px 5px 0 5px;
-        border: 1px solid $black;
-        border-radius: $radius;
-        background-color: var(--black-white);
-        color: var(--white-black);
-        font-size: 13px;
+        height: 50px;
+        width: 80px;
+        margin: 0 20px;
         text-decoration: none;
         text-align: center;
+        line-height: 52px;
+        color: #c0c0c0;
+        transition: all 0.1s ease-in;
         &:hover {
-          background-color: var(--white-black);
-          color: var(--black-white);
+          border-bottom: 2px solid #000;
+          color: #000;
         }
       }
-      .block-logged {
-        .btn-header-link {
-          margin: 0 10px;
-          height: 35px;
-          width: 70px;
-          padding: 5px;
-          border: 1px solid $black;
-          border-radius: $radius;
-          background-color: var(--black-white);
-          color: var(--white-black);
-          font-size: 13px;
-          text-decoration: none;
-          text-align: center;
-          &:hover {
-            background-color: var(--white-black);
-            color: var(--black-white);
-          }
-        }
-        .header-link {
-          display: block;
-          float: left;
-          margin: 0 10px;
-          height: 30px;
-          width: 50px;
-          padding: 5px 5px 0 5px;
-          border: 1px solid $black;
-          border-radius: $radius;
-          background-color: var(--black-white);
-          color: var(--white-black);
-          font-size: 13px;
-          text-decoration: none;
-          text-align: center;
-          &:hover {
-            background-color: var(--white-black);
-            color: var(--black-white);
-          }
+      .btn-header-link {
+        height: 50px;
+        width: 100px;
+        margin: 0 20px;
+        border: 0;
+        font-size: 15px;
+        color: #c0c0c0;
+        background-color: #00000000;
+        text-decoration: none;
+        text-align: center;
+        transition: all 0.1s ease-in;
+        &:hover {
+          border-bottom: 2px solid #000;
+          color: #000;
         }
       }
-      .block-header-2 {
-        position: relative;
-        margin: 0 10px 0 40px;
-        .button-header-svg {
-          padding-top: 6px;
-          border: 0;
-          background-color: var(--color-background);
-          .svg-menu {
-            fill: var(--black-white);
-          }
-          .block-absolute-none {
-            font-family: "yg-jalnan";
-            position: absolute;
-            top: 66px;
-            left: -150px;
-            padding: 10px;
-            width: 200px;
-            border: solid();
-            color: var(--black-white);
-            background-color: var(--color-background);
-            button {
-              @extend %position-center;
-              margin: 10px auto;
-              height: 40px;
-              width: 200px;
-              border: solid();
-              border-radius: $radius;
-              color: var(--black-white);
-              background-color: #00000000;
-              cursor: pointer;
-              &:hover {
-                color: var(--white-black);
-                background-color: var(--black-white);
-              }
-            }
-            .link-header-dropdown {
-              @extend %position-center;
-              margin: 10px auto;
-              height: 40px;
-              border: solid();
-              border-radius: $radius;
-              text-decoration: none;
-              &:hover {
-                color: var(--white-black);
-                background-color: var(--black-white);
-              }
-            }
-          }
-        }
-      }
+    }
+    .block-header-2 {
+      display: block;
+      width: 200px;
     }
   }
 }

@@ -166,7 +166,7 @@ export function UserEdit() {
               maxLength={12}
               onChange={(e) => onChangeHandler(e)}
             />
-            <button onClick={CheckDuplicate}>중복확인</button>
+            <button onClick={CheckDuplicate}>Check</button>
           </div>
           <p
             style={{
@@ -195,7 +195,7 @@ export function UserEdit() {
                 }
               }}
             >
-              암호확인
+              Check
             </button>
           </div>
           <div

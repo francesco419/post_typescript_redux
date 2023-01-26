@@ -5,27 +5,50 @@ body {
   #root {
     height: 100%;
   }
+  font-family: "Pretendard-Regular";
+  font-weight: 500;
   margin: 0;
   height: 100%;
-  font-family: "yg-jalnan";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
   min-width: 767px;
   a {
     color: var(--black-white);
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
   }
   button {
-    font-family: "yg-jalnan";
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+  }
+  input {
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+  }
+  textarea {
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+  }
+  p {
+    font-family: "Pretendard-Regular";
+    font-weight: 600;
   }
 }
-@font-face {
+/* @font-face {
   font-family: "yg-jalnan";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
     format("woff");
   font-weight: normal;
   font-style: normal;
+} */
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 500;
+  font-style: normal;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

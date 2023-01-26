@@ -14,7 +14,7 @@
     .image-preview {
       width: 300px;
       height: 300px;
-      border: solid();
+      border: 1px solid;
       .image-preview-img {
         @include mx-size(0, inherit, inherit);
       }

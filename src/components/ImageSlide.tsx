@@ -11,20 +11,12 @@ interface SlideProps {
 export default function ImageSlide(array: SlideProps) {
   const likes = useAppSelector(selectLikes);
   const [image, setImage] = useState<string[]>(
-    [
-      ...array.imgsrc,
-      "https://img.freepik.com/premium-vector/wild-west-flat-illustration_215665-426.jpg?w=2000",
-    ] || null
+    [...array.imgsrc, "https://picsum.photos/800/800"] || null
   );
   const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
-    setImage(
-      [
-        ...array.imgsrc,
-        "https://img.freepik.com/premium-vector/wild-west-flat-illustration_215665-426.jpg?w=2000",
-      ] || null
-    );
+    setImage([...array.imgsrc, "https://picsum.photos/800/800"] || null);
     setCount(0);
   }, [array]);
 
