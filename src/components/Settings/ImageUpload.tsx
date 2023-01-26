@@ -1,11 +1,13 @@
 import "./ImageUpload.scss";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-import { setImg } from "../../redux/Slices/userSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { selectUser, setImg } from "../../redux/Slices/userSlice";
+import axios from "axios";
 
 export function ImageUpload() {
   const dispatch = useAppDispatch();
   const [url, setUrl] = useState<string>();
+  const user = useAppSelector(selectUser);
   const upload = document.getElementById("upload") as HTMLDivElement;
 
   useEffect(() => {
@@ -35,14 +37,30 @@ export function ImageUpload() {
             }; */
           //한개의 이미지파일을 업로드시 Save버튼을 활성화시키고 img태그에 넣기.
           setUrl(URL.createObjectURL(files[0]));
-          (document.getElementById("preview") as HTMLImageElement).src = url;
+          (document.getElementById("preview") as HTMLImageElement | null).src =
+            url;
           (
-            document.getElementById("saveimg") as HTMLButtonElement
+            document.getElementById("saveimg") as HTMLButtonElement | null
           ).removeAttribute("disabled");
         }
       }
     }
   }
+
+  const updateProfileImg = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/update/propfileimg",
+        { id: user.id, url: url }
+      );
+      if (response) {
+        console.log(response);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div id="upload" className="wrapper">
       <div className="image-upload">
@@ -63,6 +81,7 @@ export function ImageUpload() {
               id="saveimg"
               onClick={() => {
                 dispatch(setImg(url)); //후에 form을 이용하여 한번에 업로드;
+                updateProfileImg();
                 upload.style.display = "none";
               }}
             >

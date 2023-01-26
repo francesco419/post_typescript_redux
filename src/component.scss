@@ -1,0 +1,12 @@
+.component-follow-btn {
+  height: 30px;
+  width: 100px;
+  margin: 10px 0 0 0;
+  background-color: lighten(#0359ae, 30%);
+  &:hover {
+    background-color: lighten(#0359ae, 20%);
+  }
+  &:active {
+    background-color: lighten(#0359ae, 10%);
+  }
+}

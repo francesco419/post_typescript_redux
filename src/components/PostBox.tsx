@@ -7,13 +7,7 @@ import { useEffect, useState } from "react";
 import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
 import { Link } from "react-router-dom";
-
-interface PostDetail {
-  id: string;
-  text: string;
-  tag: string[];
-  img: string[];
-}
+import { PostState, selectPost } from "../redux/Slices/postSlice";
 
 type numProp = {
   num: number;
@@ -23,19 +17,18 @@ export default function PostBox(num: numProp) {
   const [display, setDisplay] = useState<boolean>(false);
   const likes = useAppSelector(selectLikes);
   const user = useAppSelector(selectUser);
+  const post = useAppSelector(selectPost);
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<boolean>(false);
-  const [test, setTest] = useState<PostDetail>();
+  const [test, setTest] = useState<PostState>();
+
   useEffect(() => {
-    const persist = JSON.parse(sessionStorage.getItem("persist:root"));
-    setTest((test) => JSON.parse(persist.post).value[num.num]);
+    setTest((test) => post.value[num.num]);
     setLoading(true);
   }, []);
 
   useEffect(() => {
-    const persist = JSON.parse(sessionStorage.getItem("persist:root"));
-    console.log(num.num);
-    setTest((test) => JSON.parse(persist.post).value[num.num]);
+    setTest((test) => post.value[num.num]);
   }, [num.num]);
 
   const timetoday = () => {
@@ -54,7 +47,7 @@ export default function PostBox(num: numProp) {
           <div className={styles["block-statusbox"]}>
             <div className={styles["block-userstatus"]}>
               <img src={user.img} alt="myprofile" />
-              <p>{test.id}</p>
+              <p>{test.user_id}</p>
               <button id="followbtn">Follow</button>
             </div>
             <div className={styles["block-poststatus"]}>
@@ -85,11 +78,6 @@ export default function PostBox(num: numProp) {
               </div>
             </div>
             <div className={styles["block-textarea"]}>
-              {/*  {detail
-              ? detail.text.length < 100
-                ? text
-                : `${text.slice(0, 100)} ······`
-              : "일없음..."} */}
               {test.text.length < 100
                 ? test.text
                 : `${test.text.slice(0, 100)} ······`}

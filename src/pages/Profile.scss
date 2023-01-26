@@ -13,10 +13,12 @@
       height: 100%;
       background-color: var(--color-background);
       padding: 100px 29px;
+      color: var(--black-white);
       @include mx-border("right");
       @include mx-border("left");
       .block-profile-0 {
         display: flex;
+        align-items: center;
         .block-profile-photo {
           @extend %position-center;
           height: 150px;
@@ -34,24 +36,13 @@
           padding: 10px;
           .block-profile-id {
             p {
+              font-size: 20px;
               margin: 5px 0;
             }
             .block-profile-int {
               p {
                 font-size: 12px;
               }
-            }
-          }
-          .btn-profile-follow {
-            height: 30px;
-            width: 100px;
-            margin: 10px 0 0 0;
-            background-color: lighten(#0359ae, 30%);
-            &:hover {
-              background-color: lighten(#0359ae, 20%);
-            }
-            &:active {
-              background-color: lighten(#0359ae, 10%);
             }
           }
         }
@@ -90,10 +81,10 @@
     }
     .block-profile-right {
       //overflow-y: scroll;
+      height: fit-content;
       width: 800px;
       padding: 0 0 0 400px;
       @include mx-border("right");
-      @include mx-border("bottom");
       .block-profile-post {
         display: flex;
         flex-direction: column;

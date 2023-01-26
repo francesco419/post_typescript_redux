@@ -84,7 +84,20 @@ export function Header() {
                 <Link className="link-header-dropdown" to="/settings">
                   Settings
                 </Link>
-                <div>Logout</div>
+                {loggedIn ? (
+                  <button
+                    onClick={() => {
+                      dispatch(reset());
+                      setLoggedIn((loggedIn) => false);
+                    }}
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link className="link-header-dropdown" to={`/Login`}>
+                    Login
+                  </Link>
+                )}
               </div>
             </button>
           </div>

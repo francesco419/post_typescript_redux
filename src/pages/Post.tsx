@@ -149,7 +149,7 @@ export default function Post() {
             >
               {text.length < 100 ? text : textShow ? text : textOverflow}
             </div>
-            <div className={styles["block-tag"]}>
+            <div className={styles["block-tag"]} style={{ color: "#0984e3" }}>
               {tag.map((text, index) => {
                 return `${text} `;
               })}

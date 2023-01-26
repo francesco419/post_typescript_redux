@@ -4,7 +4,9 @@ import { ReactComponent as Icon } from "../pictures/wolf.svg";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
 import { selectUser } from "../redux/Slices/userSlice";
+import { selectPost } from "../redux/Slices/postSlice";
 import ProfilePost from "../components/ProfilePost";
+import { useEffect } from "react";
 
 export type ProfileProps = {
   data: string;
@@ -27,8 +29,12 @@ export const ProfileImage = (data: ProfileProps) => {
 };
 
 function Profile() {
+  const post = useAppSelector(selectPost);
+  const user = useAppSelector(selectUser);
+  const nav = useNavigate();
+  useEffect(() => {}, []);
+
   function ProfileMe() {
-    const user = useAppSelector(selectUser);
     return (
       <div id="1.1" className="block-profile-left">
         <div className="block-profile-0">
@@ -37,14 +43,12 @@ function Profile() {
             <div className="block-profile-id">
               <p>{user.name}</p>
               <div className="block-profile-int">
-                <p>Introduce my self...</p>
+                <p>{user.info}</p>
               </div>
             </div>
-            <div>
-              <button type="button" className="btn-profile-follow">
-                Follow
-              </button>
-            </div>
+            {/* <div>
+              <FollowBtn followName={user.id} />
+            </div> */}
           </div>
         </div>
         <div className="block-profile-1">
@@ -63,12 +67,20 @@ function Profile() {
         </div>
         <div className="block-profile-2">
           <div>
-            <button className="btn-profile-post">POST</button>
+            <button
+              className="btn-profile-post"
+              onClick={() => {
+                nav("/Post");
+              }}
+            >
+              POST
+            </button>
           </div>
         </div>
       </div>
     );
   }
+
   return (
     <div className="page-profile">
       <Header />
@@ -76,11 +88,11 @@ function Profile() {
         <ProfileMe />
         <div className="block-profile-right">
           <div className="block-profile-post">
-            <ProfilePost subid={0} />
-            <ProfilePost subid={1} />
-            <ProfilePost subid={2} />
-            <ProfilePost subid={3} />
-            {/* 예비 */}
+            {post.value
+              .filter((data) => user.id === data.user_id)
+              .map((data, index) => (
+                <ProfilePost PostState={data} index={index} />
+              ))}
           </div>
         </div>
       </div>

@@ -75,13 +75,6 @@ export default function Settings() {
               </li>
               <li
                 onMouseEnter={() => {
-                  setName("4 Setting");
-                }}
-              >
-                Setting : 4
-              </li>
-              <li
-                onMouseEnter={() => {
                   setName("Logout");
                 }}
               >

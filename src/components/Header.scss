@@ -106,21 +106,16 @@
             border: solid();
             color: var(--black-white);
             background-color: var(--color-background);
-            //animation: down 1.5s forwards;
-            /* @keyframes down {
-              from {
-                transform: translateY(-100%);
-              }
-              to {
-                transform: translateX(0);
-              }
-            } */
-            div {
+            button {
               @extend %position-center;
               margin: 10px auto;
               height: 40px;
+              width: 200px;
               border: solid();
               border-radius: $radius;
+              color: var(--black-white);
+              background-color: #00000000;
+              cursor: pointer;
               &:hover {
                 color: var(--white-black);
                 background-color: var(--black-white);
