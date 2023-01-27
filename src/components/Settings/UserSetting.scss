@@ -26,14 +26,18 @@
     }
   }
   .block-usersettings-1 {
+    position: relative;
     margin: automargin();
+    svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      fill: var(--black-white);
+      @extend %svg-set;
+    }
     div {
-      display: flex;
       p {
-        margin: 10px 0;
-      }
-      svg {
-        @extend %svg-set;
+        margin: 20px 0;
       }
     }
   }
@@ -43,9 +47,9 @@
     padding: 10px 40px;
     border-top: solid();
     border-bottom: solid();
+    text-align: center;
     div {
       margin: automargin();
-      text-align: center;
     }
   }
   .block-usersettings-3 {
@@ -57,6 +61,7 @@
         display: flex;
         align-content: center;
         svg {
+          fill: var(--black-white);
           @extend %svg-set;
         }
       }

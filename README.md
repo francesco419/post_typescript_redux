@@ -529,27 +529,74 @@
 
 - Header, Main, Settings 디자인 수정 및 전체 폰트 변경.
 
+### 1.5.3 (23.01.26)
+
+- 코드 점검 (코드 간략화 및 컴포넌트화 작업)
+
+  - Main 페이지 수정
+
+    - main.scss의 포스트 슬라이드 이동 애니메이션의 요소를 `animation: $name 0.25s linear forwards; margin: automargin();`를 get.scss의 mx-move에 삽입 및 이외의 불필요한 scss 요소 삭제. (-6line)
+    - Main에 슬라이드 기능 버튼의 onclick 이벤트 내부의 코드를 onClickhandler 함수를 만들어 코드 단축. (-15line)
+
+  - 로딩 스피너 기능을 컴포넌트화. 재사용 목적.
+
+  - Profile, Post, Settings, Login 및 사용 컴포넌트의 코드 간략화 및 불필요한 SCSS 코드삭제.
+
+- Pofile 페이지 수정
+
+  - 공용 사용자인 'anonymous'가 작성한 게시물은 모든 사용자의 Profile페이지의 자신의 게시물에 포함되어 보여지도록 설정.
+
+  ```js
+  {
+    inOrderPost
+      .filter((data) => user.id === data.user_id || "anonymous")
+      .map((data, index) => <ProfilePost PostState={data} index={index} />);
+  }
+  ```
+
+  - 자신의 게시물이 anonymous가 작성한 모든 게시물보다 제일 위에 오도록 설정.
+
+  ```js
+  const [inOrderPost, setInOrderPost] = useState<PostState[]>([]);
+
+  const changeIndex = () => { //useEffect에서 실행
+    let temp: PostState[] = [...post.value];//배열 복사 redux에서 관리하는 post.
+    post.value.map((data, index) => {//map()문법 사용하여 처리
+      if (data.user_id === user.name) {
+        temp.splice(index, 1);//인덱스 요소 삭제
+        temp.unshift(data);//맨처음에 요소 삽입
+      }
+    });
+    setInOrderPost((inOrderPost) => temp);//state에 배열 할당.
+  };
+  ```
+
 ---
 
 # 예정 (v1.3.2 ~ )
 
-## 제작
+## 제작예정
 
 - ~~회원가입~~
 - 문의
 
 ## 작업중
 
-- null
+- 게시물 검색 페이지 제작
 
 ## 수정 예정 & 수정 필요
 
 - ~~로그인(수정) => redux 연동~~
 - ~~메인 (수정) => 게시물 마무리~~
 - ~~UserEdit의 redux dispatch부분의 연속적인 사용. -> 객체 복사 방식의 다른 방법 요구.~~
+- 메인페이지 게시물 보기 방식 추가.
+- ProfilePost의 기능함수의 분할 및 컴포넌트화 필요.
 
-# 이외 오류 (v1.3.2 ~)
+# 이외 오류 / 문제 해결 (v1.3.2 ~)
 
-- ~~Follow로 만든 마우스포인터 애니메이션이 Header의 "block-header-2"의 위에서만 엘레먼트 뒤로 위치해 가려지는 현상 발생.~~z-index의 우선순위 변경.
+- Follow로 만든 마우스포인터 애니메이션이 Header의 "block-header-2"의 위에서만 엘레먼트 뒤로 위치해 가려지는 현상 발생.~~z-index의 우선순위 변경.
 
-- ~~백엔드연동 이전에 로그인 정보 저장을 위해 redux-persist 사용. 저장 및 로드에는 이상이 없으나, 새로고침시 로딩이 상당히 오래걸리는 현상 발생. 타 우선작업위해 사용 보류.(230115).~~백엔드 연동, redux-persist 적용완료.
+- 백엔드연동 이전에 로그인 정보 저장을 위해 redux-persist 사용. 저장 및 로드에는 이상이 없으나, 새로고침시 로딩이 상당히 오래걸리는 현상 발생. 타 우선작업위해 사용 보류.(230115).~~백엔드 연동, redux-persist 적용완료.
+
+- Main페이지의 api데이터 로드 소요시간으로 인해 처음 입장시 모든 컴포넌트가 마운트가 안된채로 생성(공백 페이지)
+  - 리엑트의 Suspence, Lazy와 제작한 로딩 컴포넌트를 사용하여 공백 및 무한로딩 현상 해결.

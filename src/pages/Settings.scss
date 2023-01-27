@@ -11,7 +11,7 @@ $setting-padding: 20px;
     margin: automargin();
     border: solid();
     .block-settings-left {
-      @include mx-size(0, 200px, 100);
+      @include mx-size(0, 200px, auto);
       text-align: center;
       h2 {
         margin: 50px 0;
@@ -59,11 +59,7 @@ $setting-padding: 20px;
   }
 }
 .block-settings-right {
-  @extend %position-center;
-  @include mx-size(0, 500px, 100);
+  @include mx-size(0, 500px, auto);
   padding: $setting-padding;
   border-left: 1px solid var(--black-white);
-  .block-settings-setting {
-    @include mx-size(0, 100%, 100%);
-  }
 }

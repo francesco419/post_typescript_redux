@@ -56,6 +56,21 @@ $fontfamily: "Pretendard-Regular";
   z-index: 90;
 }
 
+%btn-hoverActive {
+  &:hover {
+    background-color: #00000033;
+  }
+  &:active {
+    background-color: #00000066;
+  }
+}
+
+%svg-set {
+  width: 15px;
+  height: 15px;
+  margin: 15px 5px;
+}
+
 /*------------mixin--------------------------------------------*/
 
 @mixin mx-size($max, $wid, $hig) {
@@ -86,6 +101,8 @@ $fontfamily: "Pretendard-Regular";
 }
 
 @mixin mx-movepost($name, $trans1, $trans2, $scale1, $scale2) {
+  animation: $name 0.25s linear forwards;
+  margin: automargin();
   @keyframes #{$name} {
     0% {
       transform: translateX($trans1) scale($scale1);
@@ -97,7 +114,6 @@ $fontfamily: "Pretendard-Regular";
 }
 
 /*------------darkmode--------------------------------------------*/
-
 html[data-theme="light"] {
   --black-white: #{$black};
   --white-black: #{$white};
@@ -111,46 +127,4 @@ html[data-theme="dark"] {
   --color-background: #323232;
   --size0: 1;
 }
-
 /*------------css--------------------------------------------*/
-
-.follow {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: rgba(124, 124, 124, 0.4);
-  transform: translate(-15px, -15px);
-  pointer-events: none;
-  z-index: 99;
-  .circle1 {
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    width: 32px;
-    height: 32px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    //background-color: rgba(0, 0, 0, 0.671);
-    border-radius: 50%;
-    animation: pulse 2s linear 0s infinite;
-  }
-  .circle2 {
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    width: 32px;
-    height: 32px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    //background-color: rgba(0, 0, 0, 0.671);
-    border-radius: 50%;
-    animation: pulse 2s linear 1s infinite;
-  }
-}
-@keyframes pulse {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}

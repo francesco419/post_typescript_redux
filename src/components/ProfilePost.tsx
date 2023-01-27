@@ -29,76 +29,86 @@ export default function ProfilePost(postState: PostChild, index: number) {
     let fixedHeight: number;
     let cnt: number = 1;
 
-    if (e.currentTarget.value) {
-      const src: string = e.currentTarget.value;
-      const exist: string = (
-        document.getElementById(id_hid) as HTMLImageElement
-      ).src;
-      const overflow = document.getElementById(id_id);
+    if (!e.currentTarget.value) {
+      return;
+    }
 
-      if (exist === e.currentTarget.value) {
-        if (overflow && exist) {
-          img.src = exist;
+    const src: string = e.currentTarget.value;
+    const exist: string = (document.getElementById(id_hid) as HTMLImageElement)
+      .src;
+    const overflow = document.getElementById(id_id);
 
-          if (img.height <= 500) {
-            temp = img.height;
-            fixedHeight = img.height;
-          } else {
-            fixedHeight = 500;
-            temp = 500;
-          }
-
-          setInterval(
-            () => {
-              if (101 !== cnt) {
-                overflow.style.maxHeight = `${
-                  fixedHeight - (fixedHeight / 100) * cnt
-                }px`;
-                cnt++;
-                temp -= fixedHeight / 100;
-              }
-            },
-            cnt === 101 ? null : 3
-          );
-        }
-        setTimeout(() => {
-          (document.getElementById(id_hid) as HTMLImageElement).src =
-            "http://localhost:3000/profile";
-          overflow.style.display = "none";
-          overflow.style.maxHeight = `580px`;
-        }, 500);
-      } else {
-        if (exist !== "http://localhost:3000/profile") {
-          (document.getElementById(id_hid) as HTMLImageElement).src = src;
-        } else if (exist === "http://localhost:3000/profile") {
-          (document.getElementById(id_hid) as HTMLImageElement).src = src;
-          if (overflow && src) {
-            overflow.style.maxHeight = "0px";
-            overflow.style.display = "block";
-            img.src = src;
-
-            if (img.height <= 500) {
-              temp = img.height + 80;
-              fixedHeight = img.height / 100;
-            } else {
-              fixedHeight = 5;
-              temp = 500 + 80;
-            }
-            let limit: number = temp / fixedHeight;
-            const timer = setInterval(
-              () => {
-                if (cnt < limit) {
-                  overflow.style.maxHeight = `${fixedHeight * cnt}px`;
-                  cnt++;
-                } else {
-                  clearInterval(timer);
-                }
-              },
-              cnt < limit ? null : 3
-            );
-          }
-        }
+    if (exist === e.currentTarget.value) {
+      if (!overflow && !exist) {
+        return;
       }
+
+      img.src = exist;
+
+      if (img.height <= 500) {
+        temp = img.height;
+        fixedHeight = img.height;
+      } else {
+        fixedHeight = 500;
+        temp = 500;
+      }
+
+      setInterval(
+        () => {
+          if (101 !== cnt) {
+            overflow.style.maxHeight = `${
+              fixedHeight - (fixedHeight / 100) * cnt
+            }px`;
+            cnt++;
+            temp -= fixedHeight / 100;
+          }
+        },
+        cnt === 101 ? null : 3
+      );
+
+      setTimeout(() => {
+        (document.getElementById(id_hid) as HTMLImageElement).src =
+          "http://localhost:3000/profile";
+        overflow.style.display = "none";
+        overflow.style.maxHeight = `580px`;
+      }, 500);
+    } else {
+      if (exist !== "http://localhost:3000/profile") {
+        (document.getElementById(id_hid) as HTMLImageElement).src = src;
+        return;
+      }
+
+      (document.getElementById(id_hid) as HTMLImageElement).src = src;
+
+      if (!overflow && !src) {
+        return;
+      }
+
+      overflow.style.maxHeight = "0px";
+      overflow.style.display = "block";
+      img.src = src;
+
+      if (img.height <= 500) {
+        temp = img.height + 80;
+        fixedHeight = img.height / 100;
+      } else {
+        fixedHeight = 5;
+        temp = 500 + 80;
+      }
+
+      let limit: number = temp / fixedHeight;
+
+      const timer = setInterval(
+        () => {
+          if (cnt < limit) {
+            overflow.style.maxHeight = `${fixedHeight * cnt}px`;
+            cnt++;
+          } else {
+            clearInterval(timer);
+          }
+        },
+        cnt < limit ? null : 3
+      );
     }
   };
 

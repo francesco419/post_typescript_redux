@@ -3,10 +3,10 @@ import { Header } from "../components/Header";
 import { ReactComponent as Icon } from "../pictures/wolf.svg";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
-import { selectUser } from "../redux/Slices/userSlice";
-import { selectPost } from "../redux/Slices/postSlice";
+import { selectUser, Userstate } from "../redux/Slices/userSlice";
+import { PostState, selectPost } from "../redux/Slices/postSlice";
 import ProfilePost from "../components/ProfilePost";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export type ProfileProps = {
   data: string;
@@ -32,7 +32,25 @@ function Profile() {
   const post = useAppSelector(selectPost);
   const user = useAppSelector(selectUser);
   const nav = useNavigate();
-  useEffect(() => {}, []);
+  const [inOrderPost, setInOrderPost] = useState<PostState[]>([]);
+
+  const changeIndex = () => {
+    let temp: PostState[] = [...post.value];
+    post.value.map((data, index) => {
+      if (data.user_id === user.name) {
+        temp.splice(index, 1);
+        temp.unshift(data);
+      }
+    });
+    setInOrderPost((inOrderPost) => temp);
+  };
+
+  useEffect(() => {
+    changeIndex();
+    return () => {
+      changeIndex();
+    };
+  }, []);
 
   function ProfileMe() {
     return (
@@ -88,8 +106,8 @@ function Profile() {
         <ProfileMe />
         <div className="block-profile-right">
           <div className="block-profile-post">
-            {post.value
-              .filter((data) => user.id === data.user_id)
+            {inOrderPost
+              .filter((data) => user.id === data.user_id || "anonymous")
               .map((data, index) => (
                 <ProfilePost PostState={data} index={index} />
               ))}

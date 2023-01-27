@@ -79,6 +79,8 @@ export default function Post() {
     }
 
     logInCheck();
+
+    nav("/Profile");
   };
 
   const logInCheck = async () => {
@@ -94,6 +96,21 @@ export default function Post() {
       //window.location.reload();
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const onClickHandler = (file: string, index: number) => {
+    const doc = document.getElementById(
+      `preview_${index}`
+    ) as HTMLDivElement | null;
+    if (doc) {
+      let temp: string[] = files.filter((data) => {
+        if (data !== file) {
+          return data;
+        }
+        return false;
+      });
+      setFiles((files) => [...temp]);
     }
   };
 
@@ -166,12 +183,9 @@ export default function Post() {
       <div className="block-post-inner">
         <div className="block-post-container">
           <div className="block-post-absolute">
-            <button className="btn-post-post" onClick={(e) => postHandler(e)}>
-              Post
-            </button>
+            <button onClick={(e) => postHandler(e)}>Post</button>
             <button
               type="button"
-              className="btn-post-delete"
               onClick={() => {
                 setTag([]);
                 setText("");
@@ -216,18 +230,7 @@ export default function Post() {
                   <button
                     type="button"
                     onClick={() => {
-                      const doc = document.getElementById(
-                        `preview_${index}`
-                      ) as HTMLDivElement | null;
-                      if (doc) {
-                        let temp: string[] = files.filter((data) => {
-                          if (data !== file) {
-                            return data;
-                          }
-                          return false;
-                        });
-                        setFiles((files) => [...temp]);
-                      }
+                      onClickHandler(file, index);
                     }}
                   >
                     X

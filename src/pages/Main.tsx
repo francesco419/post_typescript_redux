@@ -1,23 +1,17 @@
 import styles from "./Main.module.scss";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-  setPost,
-  setNoConnection,
-  selectPost,
-} from "../redux/Slices/postSlice";
+import { setPost, selectPost } from "../redux/Slices/postSlice";
 import {
   selectCounter,
   setCounter,
   moveCounter,
-  addCounter,
 } from "../redux/Slices/countSlice";
 import { Header } from "../components/Header";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import PostBox from "../components/PostBox";
 import { ReactComponent as ArrowtoRight } from "../pictures/arrow_left.svg";
 import { ReactComponent as ArrowtoLeft } from "../pictures/arrow_right.svg";
-import { ReactComponent as Spinner } from "../pictures/loading.svg";
+import LoadingSpinner from "../components/extra/LoadingSpinner";
 import { PostState } from "../redux/Slices/postSlice";
 
 const LazyAbout = React.lazy(() => import("../components/PostBox"));
@@ -33,6 +27,11 @@ function Main() {
   useEffect(() => {
     sendRequest();
     window.scrollTo(0, 0);
+
+    return () => {
+      sendRequest();
+      window.scrollTo(0, 0);
+    };
   }, []);
 
   useEffect(() => {
@@ -46,6 +45,19 @@ function Main() {
       dispatch(setPost(postDetail));
     }
     window.scrollTo(0, 0);
+
+    return () => {
+      let countt: number[] = [];
+      for (let i = 0; i < postDetail.length; i++) {
+        //setNumber((number) => [...number, i]);
+        countt = [...countt, i];
+      }
+      dispatch(setCounter(countt));
+      if (postDetail) {
+        dispatch(setPost(postDetail));
+      }
+      window.scrollTo(0, 0);
+    };
   }, [postDetail]);
 
   const sendRequest = async () => {
@@ -77,7 +89,41 @@ function Main() {
     doc.classList.add(styles[style]);
     setTimeout(() => {
       doc.classList.remove(styles[style]);
-    }, 500);
+    }, 250);
+  };
+
+  const onClickhandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    bool: boolean
+  ) => {
+    const btnRight = document.getElementById(
+      "slide-right-btn"
+    ) as HTMLButtonElement | null;
+    const btnLeft = document.getElementById(
+      "slide-left-btn"
+    ) as HTMLButtonElement | null;
+
+    btnRight.disabled = true;
+    btnLeft.disabled = true;
+
+    if (bool) {
+      move("slide-left", "move-slideO");
+      move("slide-middle", "move-slideL");
+      move("slide-right", "move-slideR");
+      move("slide-hidden-left", "move-slideH");
+    } else {
+      move("slide-hidden-right", "move-Hslide");
+      move("slide-left", "move-Oslide");
+      move("slide-middle", "move-Lslide");
+      move("slide-right", "move-Rslide");
+    }
+
+    setTimeout(() => {
+      dispatch(moveCounter(bool));
+      //asArray(true);
+      btnRight.disabled = false;
+      btnLeft.disabled = false;
+    }, 240);
   };
 
   return (
@@ -97,24 +143,7 @@ function Main() {
                 id="slide-left-btn"
                 className={styles["btn-slide-left"]}
                 onClick={(e) => {
-                  const btnRight = document.getElementById(
-                    "slide-right-btn"
-                  ) as HTMLButtonElement | null;
-                  const btnLeft = document.getElementById(
-                    "slide-left-btn"
-                  ) as HTMLButtonElement | null;
-                  btnRight.disabled = true;
-                  btnLeft.disabled = true;
-                  move("slide-left", "move-slideO");
-                  move("slide-middle", "move-slideL");
-                  move("slide-right", "move-slideR");
-                  move("slide-hidden-left", "move-slideH");
-                  setTimeout(() => {
-                    dispatch(moveCounter(true));
-                    //asArray(true);
-                    btnRight.disabled = false;
-                    btnLeft.disabled = false;
-                  }, 500);
+                  onClickhandler(e, true);
                 }}
               >
                 <ArrowtoLeft />
@@ -126,25 +155,7 @@ function Main() {
                 id="slide-right-btn"
                 className={styles["btn-slide-right"]}
                 onClick={(e) => {
-                  const btnRight = document.getElementById(
-                    "slide-right-btn"
-                  ) as HTMLButtonElement | null;
-                  const btnLeft = document.getElementById(
-                    "slide-left-btn"
-                  ) as HTMLButtonElement | null;
-                  btnRight.disabled = true;
-                  btnLeft.disabled = true;
-                  move("slide-hidden-right", "move-Hslide");
-                  move("slide-left", "move-Oslide");
-                  move("slide-middle", "move-Lslide");
-                  move("slide-right", "move-Rslide");
-                  console.log(window.innerWidth);
-                  setTimeout(() => {
-                    dispatch(moveCounter(false));
-                    //asArray(false);
-                    btnRight.disabled = false;
-                    btnLeft.disabled = false;
-                  }, 500);
+                  onClickhandler(e, false);
                 }}
               >
                 <ArrowtoRight />
@@ -159,9 +170,7 @@ function Main() {
           </React.Suspense>
         </div>
       ) : (
-        <div className={styles["loading-spinner"]}>
-          <Spinner />
-        </div>
+        <LoadingSpinner />
       )}
     </div>
   );

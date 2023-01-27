@@ -8,165 +8,90 @@
     width: fit-content;
     height: 100%;
     margin: automargin();
-    .block-profile-left {
-      position: fixed;
-      width: 340px;
-      height: 100%;
-      background-color: var(--color-background);
-      padding: 100px 29px;
-      color: var(--black-white);
-      @include mx-border("right");
-      @include mx-border("left");
-      .block-profile-0 {
-        .block-profile-photo {
-          @extend %position-center;
-          height: 150px;
-          width: 150px;
-          margin: automargin();
-          border: solid();
-          border-radius: 50%;
-          background-color: $white;
-          svg {
-            height: 100px;
-            width: 100px;
-          }
-        }
-        .block-profile-name {
-          margin: automargin();
-          padding: 10px;
-          text-align: center;
-          .block-profile-id {
-            p {
-              font-size: 25px;
-              margin: 10px 0;
-            }
-            .block-profile-int {
-              p {
-                font-size: 15px;
-              }
-            }
-          }
-        }
+  }
+}
+
+.block-profile-left {
+  position: fixed;
+  width: 340px;
+  height: 100%;
+  background-color: var(--color-background);
+  padding: 100px 29px;
+  color: var(--black-white);
+  @include mx-border("right");
+  @include mx-border("left");
+  .block-profile-0 {
+    .block-profile-photo {
+      @extend %position-center;
+      height: 150px;
+      width: 150px;
+      margin: automargin();
+      border: solid();
+      border-radius: 50%;
+      background-color: $white;
+      svg {
+        height: 100px;
+        width: 100px;
       }
-      .block-profile-1 {
-        display: flex;
-        justify-content: space-around;
-        margin: 20px 0 0 0;
-        border-top: solid();
-        border-bottom: solid();
+    }
+    .block-profile-name {
+      margin: automargin();
+      padding: 10px;
+      text-align: center;
+      .block-profile-id {
         p {
-          text-align: center;
+          font-size: 25px;
+          margin: 10px 0;
         }
-      }
-      .block-profile-2 {
-        margin: 20px 0;
-        padding: 10px;
-        .btn-profile-post {
-          margin: 10px;
-          height: 40px;
-          width: 300px;
-          padding: 5px 5px 0 5px;
-          border: solid();
-          border-radius: $radius;
-          background-color: var(--black-white);
-          color: var(--white-black);
-          font-size: 13px;
-          text-decoration: none;
-          text-align: center;
-          cursor: pointer;
-          &:active {
-            transform: translateY(1px);
+        .block-profile-int {
+          p {
+            font-size: 15px;
           }
         }
       }
     }
-    .block-profile-right {
-      //overflow-y: scroll;
-      height: fit-content;
-      width: 800px;
-      padding: 0 0 0 400px;
-      @include mx-border("right");
-      .block-profile-post {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .block-profile-postbox {
-          width: 600px;
-          margin: 20px 0;
-          padding: 10px;
-          border: 1px solid;
-          background-color: $white;
-          //color: var(--black-white);
-          .block-profile-top {
-            .block-profile-3 {
-              display: flex;
-              align-items: center;
-              .block-profile-postimg {
-                @extend %position-center;
-                height: 50px;
-                width: 50px;
-                border: 1px solid;
-                border-radius: 50%;
-                background-color: $white;
-                margin-right: 15px;
-                cursor: pointer;
-                svg {
-                  height: 30px;
-                  width: 30px;
-                }
-              }
-            }
-            .block-profile-detail {
-              font-size: 14px;
-            }
-            .block-profile-tag {
-              opacity: 0.75;
-              font-size: 11px;
-            }
-          }
-          .block-profile-imagebox {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid;
-            background-color: $white;
-            .block-profile-onlyload {
-              display: flex;
-              justify-content: center;
-              button {
-                background-color: #00000000;
-                border: 0;
-                .block-profile-image {
-                  width: 80px;
-                  height: 80px;
-                  margin: 0 5px;
-                  border: 1px solid;
-                }
-              }
-            }
-            .block-profile-hidden {
-              display: none;
-              overflow: hidden;
-              .block-profile-overflow {
-                position: relative;
-                max-width: 500px;
-                max-height: 500px;
-                margin: 30px auto;
-                .btn-profile-hidden {
-                  position: absolute;
-                  top: 3px;
-                  right: 0;
-                  background-color: $transparent;
-                  border: 0;
-                }
-                .img-profile-hidden {
-                  @include mx-size("max", inherit, inherit);
-                  object-fit: contain;
-                }
-              }
-            }
-          }
-        }
+  }
+  .block-profile-1 {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0 0 0;
+    border-top: solid();
+    border-bottom: solid();
+    p {
+      text-align: center;
+    }
+  }
+  .block-profile-2 {
+    margin: 20px 0;
+    padding: 10px;
+    .btn-profile-post {
+      margin: 10px;
+      height: 40px;
+      width: 300px;
+      padding: 5px 5px 0 5px;
+      border: solid();
+      border-radius: $radius;
+      background-color: var(--black-white);
+      color: var(--white-black);
+      font-size: 13px;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      &:active {
+        transform: translateY(1px);
       }
     }
+  }
+}
+
+.block-profile-right {
+  height: fit-content;
+  width: 800px;
+  padding: 0 0 0 400px;
+  @include mx-border("right");
+  .block-profile-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

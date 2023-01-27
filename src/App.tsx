@@ -25,6 +25,18 @@ function App() {
     } else {
       document.documentElement.setAttribute("data-theme", "light");
     }
+    return () => {
+      const theme: string = sessionStorage.getItem("theme");
+      if (theme) {
+        if (theme === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      } else {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    };
   }, []);
   return (
     <BrowserRouter>

@@ -43,45 +43,51 @@ export default function Settings() {
     );
   }
 
+  function SettingLeft() {
+    return (
+      <div className="block-settings-left">
+        <h2>Settings</h2>
+        <ul>
+          <li
+            onMouseEnter={() => {
+              setName("user Setting");
+            }}
+          >
+            user Setting
+          </li>
+          <li
+            onMouseEnter={() => {
+              setName("post Setting");
+            }}
+          >
+            post Setting
+          </li>
+          <li
+            onMouseEnter={() => {
+              setName("page Setting");
+            }}
+          >
+            page Setting
+          </li>
+          <li
+            onMouseEnter={() => {
+              setName("Logout");
+            }}
+          >
+            <p>Logout</p>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
   return (
     <div>
       <ImageUpload />
       <div className="page-settings">
         <Header />
         <div className="block-settings-inner">
-          <div className="block-settings-left">
-            <h2>Settings</h2>
-            <ul>
-              <li
-                onMouseEnter={() => {
-                  setName("user Setting");
-                }}
-              >
-                user Setting
-              </li>
-              <li
-                onMouseEnter={() => {
-                  setName("post Setting");
-                }}
-              >
-                post Setting
-              </li>
-              <li
-                onMouseEnter={() => {
-                  setName("page Setting");
-                }}
-              >
-                page Setting
-              </li>
-              <li
-                onMouseEnter={() => {
-                  setName("Logout");
-                }}
-              >
-                <p>Logout</p>
-              </li>
-            </ul>
-          </div>
+          <SettingLeft />
           <SettingRight title={name} />
         </div>
       </div>

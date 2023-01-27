@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "../getscss.scss";
+import styles from "./Alertpopup.module.scss";
 
 export function Follow() {
   function pointermove(string: string) {
@@ -13,9 +13,9 @@ export function Follow() {
     pointermove("follow");
   });
   return (
-    <div id="follow" className="follow">
-      <div className="circle1"></div>
-      <div className="circle2"></div>
+    <div id="follow" className={styles["follow"]}>
+      <div className={styles["circle1"]}></div>
+      <div className={styles["circle2"]}></div>
     </div>
   );
 }

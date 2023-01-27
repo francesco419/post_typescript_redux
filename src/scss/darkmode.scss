@@ -1,0 +1,13 @@
+html[data-theme="light"] {
+  --black-white: #{$black};
+  --white-black: #{$white};
+  --color-background: #{$white};
+  --size0: 0;
+}
+
+html[data-theme="dark"] {
+  --black-white: #{$white};
+  --white-black: #{$black};
+  --color-background: #323232;
+  --size0: 1;
+}

@@ -39,6 +39,9 @@ export default function PostBox(num: numProp) {
 
     return `${nowYear}-${nowMonth}-${nowDate}`;
   };
+
+  const dull: string = "https://cdn-icons-png.flaticon.com/512/666/666201.png";
+  console.log(user.img);
   return (
     <div className={styles["block-outter"]}>
       {loading ? (
@@ -46,7 +49,10 @@ export default function PostBox(num: numProp) {
           <ImageSlide imgsrc={test.img} />
           <div className={styles["block-statusbox"]}>
             <div className={styles["block-userstatus"]}>
-              <img src={user.img} alt="myprofile" />
+              <img
+                src={user.img !== "null" ? user.img : dull}
+                alt="myprofile"
+              />
               <p>{test.user_id}</p>
               <button id="followbtn">Follow</button>
             </div>

@@ -1,137 +1,70 @@
 @import "../getscss.scss";
 
 .page-main {
-  display: flex;
   padding: 50px 0;
   margin: 70px 0 0 0;
-  font-size: 14px;
-  .slide-box {
-    display: flex;
-    align-items: center;
-    width: 1650px;
-    height: 800px;
-    margin: 0 auto;
-    overflow: hidden;
-    .slidetest {
-      display: flex;
-      align-items: center;
-      width: 1650px;
-      height: 800px;
-      margin: 0 auto;
-      transform: translateX(-500px);
-      .btn-slide-left {
-        height: 50px;
-        margin: 0 8px 0 0;
-        border: 0;
-        border-radius: $radius;
-        //background-color: #00000000;
-        &:hover {
-          background-color: #00000033;
-        }
-        &:active {
-          background-color: #00000066;
-        }
-      }
-      .btn-slide-right {
-        height: 50px;
-        margin: 0 0 0 8px;
-        border: 0;
-        border-radius: $radius;
-        //background-color: #00000000;
-        &:hover {
-          background-color: #00000033;
-        }
-        &:active {
-          background-color: #00000066;
-        }
-      }
-      .slide-left {
-        transform: scale(0.5);
-        margin: automargin();
-      }
-      .slide-middle {
-        margin: automargin();
-      }
-      .slide-right {
-        transform: scale(0.5);
-        margin: automargin();
-      }
-    }
-  }
+}
+.slide-box {
+  width: 1650px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.slidetest {
+  display: flex;
+  align-items: center;
+  width: 1650px;
+  transform: translateX(-500px);
   .slide-hidden {
     transform: scale(0.5);
-    //display: none;
+  }
+  .slide-left {
+    transform: scale(0.5);
+  }
+  .btn-slide-left {
+    height: 50px;
+    margin: 0 8px 0 0;
+    border: 0;
+    border-radius: $radius;
+    @extend %btn-hoverActive;
+  }
+  .slide-right {
+    transform: scale(0.5);
+  }
+  .btn-slide-right {
+    height: 50px;
+    margin: 0 0 0 8px;
+    border: 0;
+    border-radius: $radius;
+    @extend %btn-hoverActive;
   }
 }
 
 /*-----왼쪽으로 이동------*/
 .move-slideL {
-  animation: slideMoveL 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(slideMoveL, 0, -562px, 1, 0.5);
+  //0.3s
 }
 .move-slideR {
-  animation: slideMoveR 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(slideMoveR, 0, -562px, 0.5, 1);
 }
 .move-slideH {
-  animation: slideMoveH 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(slideMoveH, 0, -502px, 0.5, 0.5);
 }
 .move-slideO {
-  animation: slideMoveO 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(slideMoveO, 0, -1000px, 0.5, 0.5);
 }
 
 /*-----왼쪽으로 이동------*/
 
 .move-Lslide {
-  animation: LslideMove 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(LslideMove, 0, 562px, 1, 0.5);
 }
 .move-Rslide {
-  animation: RslideMove 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(RslideMove, 0, 500px, 0.5, 0.5);
 }
 .move-Hslide {
-  animation: HslideMove 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(HslideMove, 0, 502px, 0.5, 0.5);
 }
 .move-Oslide {
-  animation: OslideMove 0.3s linear forwards;
-  margin: automargin();
   @include mx-movepost(OslideMove, 0, 562px, 0.5, 1);
-}
-
-.hide000 {
-  width: 250px;
-  transform: scale(0.5);
-  margin: automargin();
-}
-
-.loading-spinner {
-  position: absolute;
-  top: 45%;
-  left: 45%;
-  height: 200px;
-  width: 200px;
-  animation: spinner 0.8s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
-}
-
-@keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
 }
