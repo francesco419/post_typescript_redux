@@ -107,7 +107,10 @@ function Profile() {
         <div className="block-profile-right">
           <div className="block-profile-post">
             {inOrderPost
-              .filter((data) => user.id === data.user_id || "anonymous")
+              .filter(
+                (data) =>
+                  user.id === data.user_id || data.user_id === "anonymous"
+              )
               .map((data, index) => (
                 <ProfilePost PostState={data} index={index} />
               ))}

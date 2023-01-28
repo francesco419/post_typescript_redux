@@ -1,0 +1,12 @@
+@import "../getscss.scss";
+
+.search-page {
+  margin: 80px 0 0 0;
+  padding: 30px 0 0 0;
+  .block-search-container {
+    width: 1000px;
+    height: 1000px;
+    margin: automargin();
+    border: solid();
+  }
+}

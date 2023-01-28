@@ -2,8 +2,9 @@ import "./Header.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 /*-------------redux------------------------------------- */
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { reset } from "../redux/Slices/userSlice";
+import { selectUser } from "../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
 import { Follow } from "./extra/Follow";
 import { ReactComponent as Menu } from "../pictures/menu.svg";
@@ -15,19 +16,14 @@ export function Header() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const nav = useNavigate();
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     loginCheck();
   }, []);
 
   function loginCheck() {
-    const isLog = JSON.parse(sessionStorage.getItem("persist:root"));
-    if (!isLog) {
-      return;
-    }
-    const user = JSON.parse(isLog.user);
-    const password: string = user.value.password;
-    if (password !== "anonymous") {
+    if (user.password !== "anonymous") {
       setLoggedIn((loggedIn) => true);
     }
   }
@@ -80,7 +76,9 @@ export function Header() {
           <h2>Social Network</h2>
         </div>
         <Menu />
-        <span className="block-header-2"></span>
+        <Link className="block-header-2" to={"/Search/anonymous"}>
+          search
+        </Link>
       </nav>
     </header>
   );

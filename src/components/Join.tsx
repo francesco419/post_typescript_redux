@@ -1,6 +1,7 @@
 import "./Join.scss";
 import { useState } from "react";
 import axios from "axios";
+import { sendAxiosState, postInterceptor } from "../functions/APIInterceptor";
 
 interface InputProps {
   user_id: string;
@@ -9,8 +10,6 @@ interface InputProps {
   user_birth: string;
   user_email: string;
 }
-
-const url = "http://localhost:8080/login/register";
 
 export default function Join() {
   const [inputs, setInputs] = useState<InputProps>({
@@ -22,6 +21,7 @@ export default function Join() {
   });
 
   const { user_id, user_name, user_password, user_birth, user_email } = inputs;
+
   const [ConfirmPassword, setConfirmPassword] = useState<string>();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,31 +50,23 @@ export default function Join() {
       return false;
     }
 
-    let data: InputProps = {
-      user_id: user_id,
-      user_name: user_name,
-      user_password: user_password,
-      user_birth: user_birth,
-      user_email: user_email,
+    let data: sendAxiosState = {
+      url: "http://localhost:8080/login/register",
+      config: {
+        user_id: user_id,
+        user_name: user_name,
+        user_password: user_password,
+        user_birth: user_birth,
+        user_email: user_email,
+      },
+      callback: function () {
+        (
+          document.getElementById("success") as HTMLDivElement | null
+        ).style.display = "block";
+      },
     };
 
-    const registerUser = async (input: InputProps) => {
-      try {
-        const request = await axios.post<InputProps>(url, input);
-        console.log(request);
-        if (request.data) {
-          (
-            document.getElementById("success") as HTMLDivElement | null
-          ).style.display = "block";
-        }
-        /* const { data, status } = await axios.get<Getres>(url);
-      console.log(data + " : " + status); */
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    registerUser(data);
+    postInterceptor(data);
   };
 
   function SuccessReg() {

@@ -12,22 +12,21 @@ import timetoday from "../hooks/Timetoday";
 import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
 /*-------------redux------------------------------------- */
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 import { selectUser } from "../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
 import axios from "axios";
+import { postInterceptor, sendAxiosState } from "../functions/APIInterceptor";
 
 export default function Post() {
   const [tag, setTag] = useState<string[]>([]);
-  const [text, setText] = useState<string>("내용");
+  const [text, setText] = useState<string>("");
   const [textOverflow, setTextOverflow] = useState<string>();
   const [textShow, setTextShow] = useState<boolean>(false);
   const [files, setFiles] = useState<string[]>([]);
   const nav = useNavigate();
 
   const user = useAppSelector(selectUser);
-
-  //useEffect(() => {}, [files]);
 
   const onChangeTag = () => {
     const doc = document.getElementById("post-tag") as HTMLInputElement | null;
@@ -64,39 +63,30 @@ export default function Post() {
   };
 
   const postHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const doc_text = document.getElementById(
-      "post-textarea"
-    ) as HTMLTextAreaElement | null;
-    const doc_tag = document.getElementById(
-      "post-tag"
-    ) as HTMLInputElement | null;
-    const doc_img = document.getElementById(
-      "post-img"
-    ) as HTMLInputElement | null;
-
-    if (!(doc_text && doc_img)) {
+    if (text === "") {
+      return false;
+    }
+    if (user.id === "anonymous") {
       return false;
     }
 
     logInCheck();
-
     nav("/Profile");
   };
 
   const logInCheck = async () => {
-    try {
-      const request = await axios.post("http://localhost:8080/post", {
+    let data: sendAxiosState = {
+      url: "http://localhost:8080/post",
+      config: {
         user_id: user.name,
         text: text,
         tag: JSON.stringify(tag),
         img: JSON.stringify(files),
-      });
-      console.log(JSON.stringify(files));
-      console.log(files);
-      //window.location.reload();
-    } catch (e) {
-      console.log(e);
-    }
+      },
+      callback: null,
+    };
+
+    postInterceptor(data);
   };
 
   const onClickHandler = (file: string, index: number) => {
@@ -115,15 +105,6 @@ export default function Post() {
   };
 
   function PreviewPost() {
-    //유저정보를 sessionstorage를 통해서 가져오기
-    const userInfo = JSON.parse(sessionStorage.getItem("persist:root"));
-    if (!userInfo) {
-      return;
-    }
-    const users = JSON.parse(userInfo.user);
-    const name: string = users.value.name;
-    //const img : string = user.value.
-
     return (
       <div className={styles["block-outter"]} style={{ minHeight: "800px" }}>
         <div className={styles["block-inner"]}>
@@ -138,8 +119,11 @@ export default function Post() {
           />
           <div className={styles["block-statusbox"]}>
             <div className={styles["block-userstatus"]}>
-              <img src={user.img} alt="myprofile" />
-              <p>{name}</p>
+              <img
+                src={user.img === "null" ? null : user.img}
+                alt="myprofile"
+              />
+              <p>{user.name}</p>
               <button id="followbtn">Follow</button>
             </div>
             <div className={styles["block-poststatus"]}>
@@ -183,7 +167,9 @@ export default function Post() {
       <div className="block-post-inner">
         <div className="block-post-container">
           <div className="block-post-absolute">
-            <button onClick={(e) => postHandler(e)}>Post</button>
+            <button type="submit" onClick={(e) => postHandler(e)}>
+              Post
+            </button>
             <button
               type="button"
               onClick={() => {

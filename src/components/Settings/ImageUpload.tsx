@@ -2,7 +2,11 @@ import "./ImageUpload.scss";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectUser, setImg } from "../../redux/Slices/userSlice";
-import axios from "axios";
+import { AxiosResponse } from "axios";
+import {
+  sendAxiosState,
+  postInterceptor,
+} from "../../functions/APIInterceptor";
 
 export function ImageUpload() {
   const dispatch = useAppDispatch();
@@ -48,17 +52,12 @@ export function ImageUpload() {
   }
 
   const updateProfileImg = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/update/propfileimg",
-        { id: user.id, url: url }
-      );
-      if (response) {
-        console.log(response);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    let data: sendAxiosState = {
+      url: "http://localhost:8080/update/propfileimg",
+      config: { id: user.id, url: url },
+      callback: null,
+    };
+    postInterceptor(data);
   };
 
   return (

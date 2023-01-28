@@ -21,6 +21,7 @@ export default function PostBox(num: numProp) {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const [test, setTest] = useState<PostState>();
+  const dull: string = "https://cdn-icons-png.flaticon.com/512/666/666201.png";
 
   useEffect(() => {
     setTest((test) => post.value[num.num]);
@@ -40,8 +41,6 @@ export default function PostBox(num: numProp) {
     return `${nowYear}-${nowMonth}-${nowDate}`;
   };
 
-  const dull: string = "https://cdn-icons-png.flaticon.com/512/666/666201.png";
-  console.log(user.img);
   return (
     <div className={styles["block-outter"]}>
       {loading ? (

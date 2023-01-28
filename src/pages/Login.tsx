@@ -10,7 +10,9 @@ import {
   Userstate,
 } from "../redux/Slices/userSlice";
 import Join from "../components/Join";
-import axios from "axios";
+import { sendAxiosState, postInterceptor } from "../functions/APIInterceptor";
+import { callbackify } from "util";
+import { AxiosResponse } from "axios";
 
 type LoginProps = {
   user_id: string;
@@ -73,23 +75,23 @@ function Login() {
       logInCheck();
     };
 
+    const postcallback = (response: AxiosResponse<any, any>) => {
+      const id: string = response.data[0].id;
+      const password: string = response.data[0].password;
+      dispatch(setInitial(response.data[0]));
+      navigate("/");
+    };
+
     const logInCheck = async () => {
-      try {
-        const request = await axios.post("http://localhost:8080/login", {
+      let data: sendAxiosState = {
+        url: "http://localhost:8080/login",
+        config: {
           user_id: input.user_id,
           password: input.password,
-        });
-        if (request) {
-          const id: string = request.data[0].id;
-          const password: string = request.data[0].password;
-          dispatch(setInitial(request.data[0]));
-          //dispatch(setUserID(id));
-          //dispatch(setPassword(password));
-          navigate("/");
-        }
-      } catch (e) {
-        console.log(e);
-      }
+        },
+        callback: postcallback,
+      };
+      postInterceptor(data);
     };
 
     return (

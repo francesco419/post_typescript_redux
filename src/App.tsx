@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Post from "./pages/Post";
-import About from "./pages/About";
+import Search from "./pages/Search";
 /*-------------redux------------------------------------- */
 /*-------------extra------------------------------------- */
 const LazyMain = React.lazy(() => import("./pages/Main"));
@@ -42,6 +42,7 @@ function App() {
     <BrowserRouter>
       <React.Suspense fallback="Loading...">
         <Routes>
+          <Route path={`/Search/:id`} element={<Search />} />
           <Route path={`/Post`} element={<Post />} />
           <Route path={`/settings`} element={<Settings />} />
           <Route path={`/profile`} element={<Profile />} />

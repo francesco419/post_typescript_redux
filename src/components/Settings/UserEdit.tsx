@@ -11,7 +11,11 @@ import {
   setInfo,
   setBirth,
 } from "../../redux/Slices/userSlice";
-import axios from "axios";
+import {
+  sendAxiosState,
+  postInterceptor,
+} from "../../functions/APIInterceptor";
+import AxiosResponse from "axios";
 
 type EditProps = {
   id: string;
@@ -51,6 +55,7 @@ export function UserEdit() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
     if (input.name !== "") {
       if (duplicate !== "enable to use name") {
         return;
@@ -60,13 +65,11 @@ export function UserEdit() {
     dispatch(ShowUserEdit());
   };
 
-  const postUserEdit = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/userEdit",
-        input
-      );
-      if (response) {
+  const postUserEdit = () => {
+    let data: sendAxiosState = {
+      url: "http://localhost:8080/userEdit",
+      config: input,
+      callback: function (response: AxiosResponse) {
         let data = JSON.parse(response.config.data);
         console.log(data);
         if (data.name !== "") {
@@ -84,10 +87,9 @@ export function UserEdit() {
         if (data.info !== "") {
           dispatch(setInfo(data.info));
         }
-      }
-    } catch (e) {
-      console.log(e);
-    }
+      },
+    };
+    postInterceptor(data);
   };
 
   const CheckDuplicate = () => {
@@ -98,22 +100,19 @@ export function UserEdit() {
     postDuplicate();
   };
 
-  const postDuplicate = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/checkDuplicate",
-        { name: input.name }
-      );
-      if (response) {
+  const postDuplicate = () => {
+    let data: sendAxiosState = {
+      url: "http://localhost:8080/checkDuplicate",
+      config: { name: input.name },
+      callback: function (response: AxiosResponse) {
         if (response.data) {
           setDuplicate("Name already in use");
         } else {
           setDuplicate("enable to use name");
         }
-      }
-    } catch (e) {
-      console.log(e);
-    }
+      },
+    };
+    postInterceptor(data);
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
