@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styles from "./Alertpopup.module.scss";
+import styles from "./Extra.module.scss";
 
 export function Follow() {
   function pointermove(string: string) {

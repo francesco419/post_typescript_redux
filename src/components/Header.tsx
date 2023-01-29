@@ -1,6 +1,7 @@
 import "./Header.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 /*-------------redux------------------------------------- */
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { reset } from "../redux/Slices/userSlice";
@@ -10,20 +11,22 @@ import { Follow } from "./extra/Follow";
 import { ReactComponent as Menu } from "../pictures/menu.svg";
 import { ReactComponent as Icon } from "../pictures/wolf.svg";
 import ToggleSwitch from "./extra/ToggleSwitch";
+import { selectFunc } from "../redux/Slices/funcSlice";
 
 export function Header() {
   const [bool, setBool] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const nav = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const follow = useAppSelector(selectFunc);
 
   useEffect(() => {
     loginCheck();
   }, []);
 
   function loginCheck() {
-    if (user.password !== "anonymous") {
+    if (user.value.password !== "anonymous") {
       setLoggedIn((loggedIn) => true);
     }
   }
@@ -64,8 +67,8 @@ export function Header() {
 
   return (
     <header id="header" className="header-container">
-      <Follow />
-      <nav className="block-header-inner">
+      {follow.value.pointer && <Follow />}
+      <nav>
         <div
           className="block-header-0"
           onClick={() => {
@@ -76,10 +79,33 @@ export function Header() {
           <h2>Social Network</h2>
         </div>
         <Menu />
-        <Link className="block-header-2" to={"/Search/anonymous"}>
-          search
-        </Link>
+        <NavSearch />
       </nav>
     </header>
+  );
+}
+
+function NavSearch() {
+  const [searchText, setSearchText] = useState<string>();
+  const nav = useNavigate();
+
+  return (
+    <div className="header-search">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          nav(`/Search/${searchText}`);
+        }}
+      >
+        <input
+          onChange={(e) => {
+            setSearchText((searchText) => e.target.value);
+          }}
+          type="text"
+          autoComplete="off"
+          placeholder="search..."
+        />
+      </form>
+    </div>
   );
 }

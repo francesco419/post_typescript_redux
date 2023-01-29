@@ -1,19 +1,19 @@
 import "./UserSetting.scss";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { selectUser } from "../../redux/Slices/userSlice";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { selectUser2 } from "../../../redux/Slices/userSlice";
 import {
   selectShow,
   ShowUserEdit,
   setInitial,
-} from "../../redux/Slices/showSlice";
-import { ReactComponent as Edit } from "../../pictures/edit.svg";
+} from "../../../redux/Slices/showSlice";
+import { ReactComponent as Edit } from "../../../pictures/edit.svg";
 import { UserEdit } from "./UserEdit";
 import { useEffect, useState } from "react";
 
 export function UserSetting() {
   const dispatch = useAppDispatch();
   const show = useAppSelector(selectShow);
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser2);
   const temp: string[] = [
     `Name : ${user.name}`,
     "Password",
@@ -44,8 +44,8 @@ export function UserSetting() {
         </button>
       </div>
       <div className="block-usersettings-1">
-        {temp.map((data) => (
-          <div>
+        {temp.map((data, index) => (
+          <div key={index}>
             <p>{data}</p>
           </div>
         ))}

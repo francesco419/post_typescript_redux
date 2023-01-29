@@ -91,8 +91,16 @@ $marginSide: 0 10px;
               content: "";
             }
             li {
-              &:hover {
-                color: #ffffff80;
+              margin: 2px 0;
+              button {
+                width: 60px;
+                border: 0;
+                background-color: #00000000;
+                color: $white;
+                font-size: 15px;
+                &:hover {
+                  color: #c0c0c0;
+                }
               }
             }
           }

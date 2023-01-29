@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import likesReducer from "./Slices/likesSlice";
 import userReducer from "./Slices/userSlice";
-import darkReducer from "./Slices/darkSlice";
+import funcReducer from "./Slices/funcSlice";
 import settingsReducer from "./Slices/settingsSlice";
 import postReducer from "./Slices/postSlice";
 import countReducer from "./Slices/countSlice";
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   show: showReducer,
   counter: countReducer,
   post: postReducer,
-  dark: darkReducer,
+  func: funcReducer,
   likes: likesReducer,
   user: userReducer,
   settings: settingsReducer,

@@ -4,9 +4,14 @@
   margin: 80px 0 0 0;
   padding: 30px 0 0 0;
   .block-search-container {
-    width: 1000px;
-    height: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 1400px;
     margin: automargin();
-    border: solid();
+    .block-search-post {
+      margin: 0 20px;
+    }
   }
 }

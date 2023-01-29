@@ -10,7 +10,7 @@
   z-index: 99;
   color: var(--black-white);
   background-color: var(--color-background);
-  .block-header-inner {
+  nav {
     @include mx-dis(flex, flex-start, center);
     height: $full;
     margin: automargin();
@@ -68,6 +68,26 @@
     .block-header-2 {
       display: block;
       width: 200px;
+    }
+    .header-search {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 120px;
+      height: 25px;
+      padding: 0 10px;
+      margin: 0 0 0 40px;
+      border: 2px solid $black;
+      border-radius: 40px;
+      background-color: $white;
+      input {
+        width: 120px;
+        border: 0;
+        padding: 0;
+        &:focus {
+          outline: none;
+        }
+      }
     }
   }
 }

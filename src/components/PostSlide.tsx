@@ -14,8 +14,15 @@ import { sendAxiosState } from "../functions/APIInterceptor";
 import { getInterceptor } from "../functions/APIInterceptor";
 import { AxiosResponse } from "axios";
 import LoadingSpinner from "./extra/LoadingSpinner";
+import PostComp from "./PostComp";
 
-const LazyAbout = React.lazy(() => import("../components/PostBox"));
+export interface Mainpost {
+  value: {
+    id: string;
+    classname: string;
+    counterLength: number;
+  };
+}
 
 export default function PostSlide() {
   const dispatch = useAppDispatch();
@@ -37,16 +44,7 @@ export default function PostSlide() {
     };
   }, [postDetail]);
 
-  const resetCount = () => {
-    let countt: number[] = [];
-    postDetail.map((x, index) => {
-      countt = [...countt, index];
-    });
-    dispatch(setCounter(countt));
-    if (postDetail) {
-      dispatch(setPost(postDetail));
-    }
-  };
+  /** ------------통신----------------------  */
 
   const postCallback = (response: AxiosResponse<any, any>) => {
     setPostDetail([]);
@@ -55,6 +53,7 @@ export default function PostSlide() {
         user_id: response.data[i].id,
         text: response.data[i].text,
         tag: JSON.parse(response.data[i].tag),
+        date: response.data[i].date,
         img: JSON.parse(response.data[i].img),
       };
       setPostDetail((postDetail) => [...postDetail, temp]);
@@ -73,6 +72,21 @@ export default function PostSlide() {
 
     getInterceptor(data);
   };
+
+  /** ------------counter reducer 초기화----------------------  */
+
+  const resetCount = () => {
+    let countt: number[] = [];
+    postDetail.map((x, index) => {
+      countt = [...countt, index];
+    });
+    dispatch(setCounter(countt));
+    if (postDetail) {
+      dispatch(setPost(postDetail));
+    }
+  };
+
+  /** ------------슬라이드 이동----------------------  */
 
   const move = (id: string, style: string) => {
     const doc = document.getElementById(id) as HTMLDivElement | null;
@@ -121,14 +135,22 @@ export default function PostSlide() {
     <div>
       {loading ? (
         <div className={styles["slide-box"]}>
-          <React.Suspense>
+          <React.Suspense fallback="helloooooo">
             <div className={styles["slidetest"]}>
-              <div id="slide-hidden-right" className={styles["slide-hidden"]}>
-                <LazyAbout num={counter[counter.length - 2]} />
-              </div>
-              <div id="slide-left" className={styles["slide-left"]}>
-                <LazyAbout num={counter[counter.length - 1]} />
-              </div>
+              <PostComp
+                value={{
+                  id: "slide-hidden-right",
+                  classname: "slide-hidden",
+                  counterLength: counter.length - 2,
+                }}
+              />
+              <PostComp
+                value={{
+                  id: "slide-left",
+                  classname: "slide-left",
+                  counterLength: counter.length - 1,
+                }}
+              />
               <button
                 id="slide-left-btn"
                 className={styles["btn-slide-left"]}
@@ -138,9 +160,13 @@ export default function PostSlide() {
               >
                 <ArrowtoLeft />
               </button>
-              <div id="slide-middle" className={styles["slide-middle"]}>
-                <LazyAbout num={counter[0]} />
-              </div>
+              <PostComp
+                value={{
+                  id: "slide-middle",
+                  classname: "slide-middle",
+                  counterLength: 0,
+                }}
+              />
               <button
                 id="slide-right-btn"
                 className={styles["btn-slide-right"]}
@@ -150,12 +176,20 @@ export default function PostSlide() {
               >
                 <ArrowtoRight />
               </button>
-              <div id="slide-right" className={styles["slide-right"]}>
-                <LazyAbout num={counter[1]} />
-              </div>
-              <div id="slide-hidden-left" className={styles["slide-hidden"]}>
-                <LazyAbout num={counter[2]} />
-              </div>
+              <PostComp
+                value={{
+                  id: "slide-right",
+                  classname: "slide-right",
+                  counterLength: 1,
+                }}
+              />
+              <PostComp
+                value={{
+                  id: "slide-hidden-left",
+                  classname: "slide-hidden",
+                  counterLength: 2,
+                }}
+              />
             </div>
           </React.Suspense>
         </div>

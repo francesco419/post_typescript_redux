@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./UserEdit.scss";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { ShowUserEdit } from "../../redux/Slices/showSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { ShowUserEdit } from "../../../redux/Slices/showSlice";
 import {
   selectUser,
   setUsername,
@@ -10,12 +10,12 @@ import {
   setEmail,
   setInfo,
   setBirth,
-} from "../../redux/Slices/userSlice";
+} from "../../../redux/Slices/userSlice";
 import {
   sendAxiosState,
   postInterceptor,
-} from "../../functions/APIInterceptor";
-import AxiosResponse from "axios";
+} from "../../../functions/APIInterceptor";
+import { AxiosResponse } from "axios";
 
 type EditProps = {
   id: string;
@@ -47,7 +47,7 @@ export function UserEdit() {
   useEffect(() => {
     setInput({
       ...input,
-      ["id"]: user.id,
+      ["id"]: user.value.id,
     });
   }, []);
 
@@ -189,7 +189,7 @@ export function UserEdit() {
             />
             <button
               onClick={() => {
-                if (input.checkpassword === user.password) {
+                if (input.checkpassword === user.value.password) {
                   setHide(false);
                 }
               }}

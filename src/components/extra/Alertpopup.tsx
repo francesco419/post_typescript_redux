@@ -1,4 +1,4 @@
-import styles from "./Alertpopup.module.scss";
+import styles from "./Extra.module.scss";
 import { ReactComponent as Info } from "../../pictures/info.svg";
 
 interface ChildTypes {
@@ -15,7 +15,7 @@ export const Alertpopup = ({ text, width, height }: ChildTypes) => {
         height={height ? `${height}px` : "20px"}
       />
       <div className={styles["textbox"]}>
-        <div>{text}</div>
+        <p>{text}</p>
       </div>
     </div>
   );

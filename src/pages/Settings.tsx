@@ -2,10 +2,10 @@ import "./Settings.scss";
 import { useEffect, useState } from "react";
 /*----------component-------------------------- */
 import { Header } from "../components/Header";
-import { ImageUpload } from "../components/Settings/ImageUpload";
-import { UserEdit } from "../components/Settings/UserEdit";
-import { UserSetting } from "../components/Settings/UserSetting";
-import { PageSetting } from "../components/Settings/PageSetting";
+import { ImageUpload } from "../components/Settings/userSettings/ImageUpload";
+import { UserEdit } from "../components/Settings/userSettings/UserEdit";
+import { UserSetting } from "../components/Settings/userSettings/UserSetting";
+import { PageSetting } from "../components/Settings/pageSettings/PageSetting";
 /*------------redux-------------------------- */
 
 export default function Settings() {

@@ -95,6 +95,7 @@ export const {
   setCopy,
 } = userSlice.actions;
 
-export const selectUser = (state: RootState) => state.user.value;
+export const selectUser = (state: RootState) => state.user;
+export const selectUser2 = (state: RootState) => state.user.value;
 
 export default userSlice.reducer;

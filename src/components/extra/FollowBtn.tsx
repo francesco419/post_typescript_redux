@@ -20,7 +20,7 @@ export default function FollowBtn(props: followName) {
   const axiosUpdateFollow = async () => {
     try {
       const response = await axios.post("http://localhost:8080/update/follow", {
-        id: user.id,
+        id: user.value.id,
         toID: props.followName,
       });
       if (response) {

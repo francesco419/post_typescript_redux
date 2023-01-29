@@ -66,7 +66,7 @@ export default function Post() {
     if (text === "") {
       return false;
     }
-    if (user.id === "anonymous") {
+    if (user.value.id === "anonymous") {
       return false;
     }
 
@@ -78,8 +78,9 @@ export default function Post() {
     let data: sendAxiosState = {
       url: "http://localhost:8080/post",
       config: {
-        user_id: user.name,
+        user_id: user.value.name,
         text: text,
+        date: timetoday(),
         tag: JSON.stringify(tag),
         img: JSON.stringify(files),
       },
@@ -120,10 +121,10 @@ export default function Post() {
           <div className={styles["block-statusbox"]}>
             <div className={styles["block-userstatus"]}>
               <img
-                src={user.img === "null" ? null : user.img}
+                src={user.value.img === "null" ? null : user.value.img}
                 alt="myprofile"
               />
-              <p>{user.name}</p>
+              <p>{user.value.name}</p>
               <button id="followbtn">Follow</button>
             </div>
             <div className={styles["block-poststatus"]}>

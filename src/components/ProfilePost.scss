@@ -25,13 +25,29 @@
           width: 30px;
         }
       }
+      p {
+        display: block;
+        margin: 0;
+        color: #c0c0c0;
+        font-size: 10px;
+      }
     }
     .block-profile-detail {
       font-size: 14px;
     }
     .block-profile-tag {
+      display: flex;
       color: $tooltip;
-      font-size: 11px;
+      a {
+        margin: 5px 0;
+        color: $tooltip;
+        font-size: 11px;
+        font-weight: bold;
+        text-decoration: none;
+        &:hover {
+          color: $mygray;
+        }
+      }
     }
   }
   .block-profile-imagebox {

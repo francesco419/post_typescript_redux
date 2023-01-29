@@ -5,6 +5,7 @@ export interface PostState {
   user_id: string;
   text: string;
   tag: string[];
+  date: string;
   img: string[];
 }
 
@@ -27,7 +28,7 @@ export const postSlice = createSlice({
     setPost: (state, action: PayloadAction<PostState[]>) => {
       state.value = action.payload;
     },
-    setNoConnection: (state) => {
+    /*  setNoConnection: (state) => {
       state.value = [
         {
           user_id: "anonymous",
@@ -73,11 +74,11 @@ export const postSlice = createSlice({
         },
       ];
       console.log(1);
-    },
+    }, */
   },
 });
 
-export const { setPost, setNoConnection } = postSlice.actions;
+export const { setPost } = postSlice.actions;
 
 export const selectPost = (state: RootState) => state.post;
 

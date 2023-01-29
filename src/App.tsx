@@ -40,7 +40,7 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
-      <React.Suspense fallback="Loading...">
+      <React.Suspense>
         <Routes>
           <Route path={`/Search/:id`} element={<Search />} />
           <Route path={`/Post`} element={<Post />} />

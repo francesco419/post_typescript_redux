@@ -1,6 +1,7 @@
 import "./ProfilePost.scss";
 import { ProfileImage } from "../pages/Profile";
 import { PostState } from "../redux/Slices/postSlice";
+import { Link } from "react-router-dom";
 
 type PostChild = {
   PostState: PostState;
@@ -22,132 +23,56 @@ export default function ProfilePost(postState: PostChild, index: number) {
   const handleimageClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    //console.log(e.currentTarget.value);
-
-    let img = new Image();
-    let temp: number;
-    let fixedHeight: number;
-    let cnt: number = 1;
-
-    if (!e.currentTarget.value) {
-      return;
-    }
-
     const src: string = e.currentTarget.value;
-    const exist: string = (document.getElementById(id_hid) as HTMLImageElement)
-      .src;
+    const exist: HTMLImageElement = document.getElementById(
+      id_hid
+    ) as HTMLImageElement | null;
     const overflow = document.getElementById(id_id);
 
-    if (exist === e.currentTarget.value) {
-      if (!overflow && !exist) {
-        return;
-      }
-
-      img.src = exist;
-
-      if (img.height <= 500) {
-        temp = img.height;
-        fixedHeight = img.height;
-      } else {
-        fixedHeight = 500;
-        temp = 500;
-      }
-
-      setInterval(
-        () => {
-          if (101 !== cnt) {
-            overflow.style.maxHeight = `${
-              fixedHeight - (fixedHeight / 100) * cnt
-            }px`;
-            cnt++;
-            temp -= fixedHeight / 100;
-          }
-        },
-        cnt === 101 ? null : 3
-      );
-
-      setTimeout(() => {
-        (document.getElementById(id_hid) as HTMLImageElement).src =
-          "http://localhost:3000/profile";
-        overflow.style.display = "none";
-        overflow.style.maxHeight = `580px`;
-      }, 500);
-    } else {
-      if (exist !== "http://localhost:3000/profile") {
-        (document.getElementById(id_hid) as HTMLImageElement).src = src;
-        return;
-      }
-
-      (document.getElementById(id_hid) as HTMLImageElement).src = src;
-
-      if (!overflow && !src) {
-        return;
-      }
-
-      overflow.style.maxHeight = "0px";
-      overflow.style.display = "block";
-      img.src = src;
-
-      if (img.height <= 500) {
-        temp = img.height + 80;
-        fixedHeight = img.height / 100;
-      } else {
-        fixedHeight = 5;
-        temp = 500 + 80;
-      }
-
-      let limit: number = temp / fixedHeight;
-
-      const timer = setInterval(
-        () => {
-          if (cnt < limit) {
-            overflow.style.maxHeight = `${fixedHeight * cnt}px`;
-            cnt++;
-          } else {
-            clearInterval(timer);
-          }
-        },
-        cnt < limit ? null : 3
-      );
-    }
-  };
-
-  const handlehideClick = () => {
     let img = new Image();
-    let temp: number;
     let fixedHeight: number;
-    let cnt: number = 1;
-    const overflow = document.getElementById(id_id) as HTMLDivElement;
-    const src = (document.getElementById(id_hid) as HTMLImageElement).src;
-    if (overflow && src) {
-      img.src = src;
-      if (img.height <= 500) {
-        temp = img.height;
-        fixedHeight = img.height;
-      } else {
-        fixedHeight = 500;
-        temp = 500;
-      }
-      setInterval(
-        () => {
-          if (101 !== cnt) {
-            console.log(`${fixedHeight - (fixedHeight / 100) * cnt}px`);
-            overflow.style.maxHeight = `${
-              fixedHeight - (fixedHeight / 100) * cnt
-            }px`;
-            cnt++;
-            temp -= fixedHeight / 100;
-          }
-        },
-        cnt === 101 ? null : 3
-      );
+    let a: number;
+
+    if (exist.src !== src) {
+      //숨겨진 img의 src가 null일때
+      img.src = src; //image 객체에 클릭 이미지 할당
+      exist.src = src; // 숨겨진 img에 이미지 할당
+
+      overflow.style.display = "block"; // 숨겨진 img 보여주기
+      overflow.style.height = "0px"; // 숨겨진 img 높이 0 셋팅
+
+      img.height > 550 ? (fixedHeight = 550) : (fixedHeight = img.height); //최대높이 600 설정.
+
+      a = 100;
+      const timer = setInterval(() => {
+        if (a !== 0) {
+          overflow.style.height = `${fixedHeight - (fixedHeight / 100) * a}px`;
+        } else {
+          clearInterval(timer);
+        }
+        a--;
+      }, 3);
+
+      return;
     }
-    setTimeout(() => {
-      (document.getElementById(id_hid) as HTMLImageElement).src =
-        "http://localhost:3000/profile";
-      overflow.style.display = "none";
-      overflow.style.maxHeight = `580px`;
-    }, 500);
+    if (exist.src === src) {
+      img.src = src;
+      img.height > 550 ? (fixedHeight = 550) : (fixedHeight = img.height);
+
+      a = 0;
+      const timer = setInterval(() => {
+        if (a !== 100) {
+          overflow.style.height = `${fixedHeight - (fixedHeight / 100) * a}px`;
+        } else {
+          clearInterval(timer);
+          exist.src =
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm0wn1zg4zsGH4UQip7UGTQPfVT_VpxBf_lg&usqp=CAU";
+        }
+        a++;
+      }, 3);
+
+      return;
+    }
   };
 
   return (
@@ -155,23 +80,30 @@ export default function ProfilePost(postState: PostChild, index: number) {
       <div className="block-profile-top">
         <div className="block-profile-3">
           <ProfileImage data={"block-profile-postimg"} />
-          <strong>{post_data.user_id}</strong>
+          <div>
+            <strong>{post_data.user_id}</strong>
+            <p>{post_data.date}</p>
+          </div>
         </div>
         <div className="block-profile-detail">
           <p>{post_data.text}</p>
         </div>
         <div className="block-profile-tag">
-          <p>
-            {post_data.tag.map((tag) => {
-              return `${tag} `;
-            })}
-          </p>
+          {post_data.tag.map((tag, index) => (
+            <Link to={`/Search/${tag}`} key={`${tag}${index}`}>
+              {`${tag}`}
+            </Link>
+          ))}
         </div>
       </div>
       <div className="block-profile-imagebox">
         <div className="block-profile-onlyload">
           {post_data.img.map((data, index) => (
-            <button value={data} onClick={(e) => handleimageClick(e)}>
+            <button
+              value={data}
+              onClick={(e) => handleimageClick(e)}
+              key={`postImg${index}`}
+            >
               <img
                 id={index.toString()}
                 className="block-profile-image"
@@ -183,13 +115,10 @@ export default function ProfilePost(postState: PostChild, index: number) {
         </div>
         <div id={id_id} className="block-profile-hidden">
           <div id="hidden" className="block-profile-overflow">
-            <button className="btn-profile-hidden" onClick={handlehideClick}>
-              X
-            </button>
             <img
               id={id_hid}
+              src={null}
               className="img-profile-hidden"
-              src=""
               alt="hidden"
             ></img>
           </div>
