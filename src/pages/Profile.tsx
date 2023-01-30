@@ -1,5 +1,5 @@
 import "./Profile.scss";
-import { Header } from "../components/Header";
+import { Header } from "../components/header/Header";
 import { ReactComponent as Icon } from "../pictures/wolf.svg";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
@@ -7,7 +7,7 @@ import { selectUser, Userstate } from "../redux/Slices/userSlice";
 import { PostState, selectPost } from "../redux/Slices/postSlice";
 import ProfilePost from "../components/ProfilePost";
 import { useEffect, useState } from "react";
-import ProfileMe from "../components/ProfileMe";
+import ProfileMe from "../components/profile/ProfileMe";
 
 export type ProfileProps = {
   data: string;

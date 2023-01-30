@@ -1,6 +1,6 @@
 import styles from "./Main.module.scss";
-import { Header } from "../components/Header";
-import PostSlide from "../components/PostSlide";
+import { Header } from "../components/header/Header";
+import PostSlide from "../components/main/PostSlide";
 
 function Main() {
   return (

@@ -53,7 +53,8 @@ export function ImageUpload() {
   const updateProfileImg = async () => {
     let data: sendAxiosState = {
       url: "http://localhost:8080/update/propfileimg",
-      config: { id: user.value.id, url: url },
+      data: { id: user.value.id, url: url },
+      config: null,
       callback: null,
     };
     postInterceptor(data);

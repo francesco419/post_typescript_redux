@@ -9,21 +9,21 @@ const instance = axios.create();
 
 instance.interceptors.request.use(
   //요청보내기
-  (config: AxiosRequestConfig) => {
-    config.headers["Context-Type"] = "application/json; charset=utf-8";
+  (config) => {
+    console.log(config);
     return config;
   },
-  (error: AxiosRequestConfig) => {
+  (error) => {
     return Promise.reject(error);
   }
 );
 
 instance.interceptors.response.use(
   //요청 받기
-  (req: AxiosRequestConfig) => {
+  (req) => {
     return req;
   },
-  (error: AxiosRequestConfig) => {
+  (error) => {
     /* const config = error.config as AxiosCustomRequestConfig;
     config.retryCount = config.retryCount ?? 0;
 
@@ -47,13 +47,14 @@ instance.interceptors.response.use(
 
 export interface sendAxiosState {
   url: string;
+  data: Object;
   config: Object;
   callback(response: AxiosResponse): void;
 }
 
 export const getInterceptor = async (data: sendAxiosState) => {
   return instance
-    .get(data.url, data.config)
+    .get(data.url, data.data)
     .then((response: AxiosResponse) => {
       data.callback(response);
       console.log("GET: Data 1");
@@ -64,8 +65,9 @@ export const getInterceptor = async (data: sendAxiosState) => {
 };
 
 export const postInterceptor = async (data: sendAxiosState) => {
+  console.log(data);
   return instance
-    .post(data.url, data.config)
+    .post(data.url, data.data, data.config)
     .then((response: AxiosResponse) => {
       data.callback(response);
       console.log("POST: Data");

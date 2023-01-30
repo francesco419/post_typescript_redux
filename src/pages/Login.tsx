@@ -9,7 +9,7 @@ import {
   setInitial,
   Userstate,
 } from "../redux/Slices/userSlice";
-import Join from "../components/Join";
+import Join from "../components/Login/Join";
 import { sendAxiosState, postInterceptor } from "../functions/APIInterceptor";
 import { callbackify } from "util";
 import { AxiosResponse } from "axios";
@@ -85,10 +85,11 @@ function Login() {
     const logInCheck = async () => {
       let data: sendAxiosState = {
         url: "http://localhost:8080/login",
-        config: {
+        data: {
           user_id: input.user_id,
           password: input.password,
         },
+        config: null,
         callback: postcallback,
       };
       postInterceptor(data);

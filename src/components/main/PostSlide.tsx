@@ -1,19 +1,19 @@
-import styles from "../pages/Main.module.scss";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setPost } from "../redux/Slices/postSlice";
+import styles from "../../pages/Main.module.scss";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setPost } from "../../redux/Slices/postSlice";
 import {
   selectCounter,
   setCounter,
   moveCounter,
-} from "../redux/Slices/countSlice";
+} from "../../redux/Slices/countSlice";
 import React, { useEffect, useState } from "react";
-import { ReactComponent as ArrowtoRight } from "../pictures/arrow_left.svg";
-import { ReactComponent as ArrowtoLeft } from "../pictures/arrow_right.svg";
-import { PostState } from "../redux/Slices/postSlice";
-import { sendAxiosState } from "../functions/APIInterceptor";
-import { getInterceptor } from "../functions/APIInterceptor";
+import { ReactComponent as ArrowtoRight } from "../../pictures/arrow_left.svg";
+import { ReactComponent as ArrowtoLeft } from "../../pictures/arrow_right.svg";
+import { PostState } from "../../redux/Slices/postSlice";
+import { sendAxiosState } from "../../functions/APIInterceptor";
+import { getInterceptor } from "../../functions/APIInterceptor";
 import { AxiosResponse } from "axios";
-import LoadingSpinner from "./extra/LoadingSpinner";
+import LoadingSpinner from "../extra/LoadingSpinner";
 import PostComp from "./PostComp";
 
 export interface Mainpost {
@@ -58,14 +58,13 @@ export default function PostSlide() {
       };
       setPostDetail((postDetail) => [...postDetail, temp]);
     }
-    setTimeout(() => {
-      setLoading(true);
-    }, 500);
+    setLoading(true);
   };
 
   const sendRequest = () => {
     let data: sendAxiosState = {
       url: `http://localhost:8080/fetch/post`,
+      data: null,
       config: null,
       callback: postCallback,
     };

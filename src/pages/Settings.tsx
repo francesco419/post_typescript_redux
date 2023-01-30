@@ -1,7 +1,7 @@
 import "./Settings.scss";
 import { useEffect, useState } from "react";
 /*----------component-------------------------- */
-import { Header } from "../components/Header";
+import { Header } from "../components/header/Header";
 import { ImageUpload } from "../components/Settings/userSettings/ImageUpload";
 import { UserEdit } from "../components/Settings/userSettings/UserEdit";
 import { UserSetting } from "../components/Settings/userSettings/UserSetting";

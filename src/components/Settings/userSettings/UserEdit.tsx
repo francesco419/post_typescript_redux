@@ -68,7 +68,8 @@ export function UserEdit() {
   const postUserEdit = () => {
     let data: sendAxiosState = {
       url: "http://localhost:8080/userEdit",
-      config: input,
+      data: input,
+      config: null,
       callback: function (response: AxiosResponse) {
         let data = JSON.parse(response.config.data);
         console.log(data);
@@ -103,7 +104,8 @@ export function UserEdit() {
   const postDuplicate = () => {
     let data: sendAxiosState = {
       url: "http://localhost:8080/checkDuplicate",
-      config: { name: input.name },
+      data: { name: input.name },
+      config: null,
       callback: function (response: AxiosResponse) {
         if (response.data) {
           setDuplicate("Name already in use");

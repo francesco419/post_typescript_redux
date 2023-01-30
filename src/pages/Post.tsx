@@ -1,11 +1,10 @@
 import "./Post.scss";
-import styles from "../components/PostBox.module.scss";
+import styles from "../components/post/PostBox.module.scss";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 /*-------------Component------------------------------------- */
-import { Header } from "../components/Header";
-import PostBox from "../components/PostBox";
-import ImageSlide from "../components/ImageSlide";
+import { Header } from "../components/header/Header";
+import ImageSlide from "../components/post/ImageSlide";
 /*-------------Hooks------------------------------------- */
 import timetoday from "../hooks/Timetoday";
 /*-------------Component------------------------------------- */
@@ -15,8 +14,8 @@ import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
 import { useAppSelector } from "../redux/hooks";
 import { selectUser } from "../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
-import axios from "axios";
 import { postInterceptor, sendAxiosState } from "../functions/APIInterceptor";
+import { json } from "stream/consumers";
 
 export default function Post() {
   const [tag, setTag] = useState<string[]>([]);
@@ -24,6 +23,8 @@ export default function Post() {
   const [textOverflow, setTextOverflow] = useState<string>();
   const [textShow, setTextShow] = useState<boolean>(false);
   const [files, setFiles] = useState<string[]>([]);
+  const [testfile, settestfile] = useState<FormData>();
+  const [awe, setawe] = useState<File>();
   const nav = useNavigate();
 
   const user = useAppSelector(selectUser);
@@ -57,9 +58,11 @@ export default function Post() {
     if (fetchFile.length >= 7) {
       return;
     }
-    for (let i = 0; i < fetchFile.length; i++) {
-      setFiles((files) => [...files, URL.createObjectURL(fetchFile[i])]);
+    if (fetchFile.length <= 1) {
+      console.log("1밑");
+      setawe(fetchFile[0]);
     }
+    //settestfile((testfile) => [...testfile, temp]);
   };
 
   const postHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -70,20 +73,39 @@ export default function Post() {
       return false;
     }
 
-    logInCheck();
-    nav("/Profile");
+    let formData = new FormData();
+    formData.append(`img`, awe, `img$.png`);
+    settestfile((testfile) => formData);
+
+    let file: sendAxiosState = {
+      url: "http://localhost:8080/upload",
+      data: {
+        formData,
+      },
+      config: {
+        headers: {
+          "Content-Type": `multipart/form-data`,
+        },
+      },
+      callback: null,
+    };
+    postInterceptor(file);
+
+    /* logInCheck();
+    nav("/Profile"); */
   };
 
   const logInCheck = async () => {
     let data: sendAxiosState = {
       url: "http://localhost:8080/post",
-      config: {
+      data: {
         user_id: user.value.name,
         text: text,
         date: timetoday(),
         tag: JSON.stringify(tag),
         img: JSON.stringify(files),
       },
+      config: null,
       callback: null,
     };
 
@@ -167,8 +189,9 @@ export default function Post() {
       <Header />
       <div className="block-post-inner">
         <div className="block-post-container">
+          {/**-----오른쪽 버튼-------*/}
           <div className="block-post-absolute">
-            <button type="submit" onClick={(e) => postHandler(e)}>
+            <button type="submit" name="img" onClick={(e) => postHandler(e)}>
               Post
             </button>
             <button
@@ -185,6 +208,7 @@ export default function Post() {
             </button>
           </div>
           <div className="block-post-content">
+            {/**-----내용-------*/}
             <h2># 내용</h2>
             <textarea
               id="post-textarea"
@@ -193,6 +217,7 @@ export default function Post() {
               onBlur={(e) => onBlurHandler(e)}
               className="textarea-post-text"
             ></textarea>
+            {/**-----태크-------*/}
             <h2># 태그</h2>
             <input
               id="post-tag"
@@ -201,6 +226,7 @@ export default function Post() {
               autoComplete="off"
             ></input>
             <p id="tag-example">{"ex) #tag1 #tag2 #tag3"}</p>
+            {/**-----이미지-------*/}
             <h2># 이미지</h2>
             <div className="block-post-imgInput">
               <input
@@ -208,7 +234,22 @@ export default function Post() {
                 type="file"
                 accept="img/*"
                 multiple
+                name="img"
                 onChange={onChangeHandler}
+              ></input>
+              <input
+                id="post-imgtext"
+                type="text"
+                autoComplete="off"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}
+                onBlur={(e) => {
+                  if (e.target.value !== "") {
+                    setFiles((files) => [...files, e.target.value]);
+                    e.target.value = "";
+                  }
+                }}
               ></input>
             </div>
             <div className="block-post-preview">

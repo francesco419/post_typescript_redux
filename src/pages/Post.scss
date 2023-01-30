@@ -77,14 +77,8 @@
         .block-post-imgInput {
           display: flex;
           justify-content: space-between;
-          .btn-post-ImgConfirm {
-            width: 70px;
-            height: 20px;
-            padding: 0;
-            border: solid();
-            color: var(--white-black);
-            background-color: var(--black-white);
-            font-size: 12px;
+          input {
+            width: 200px;
           }
         }
         .block-post-preview {

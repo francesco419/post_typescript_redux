@@ -1,13 +1,13 @@
 import styles from "./PostBox.module.scss";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 //import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
-import { selectUser } from "../redux/Slices/userSlice";
+import { selectUser } from "../../redux/Slices/userSlice";
 import ImageSlide from "./ImageSlide";
 import { useEffect, useState } from "react";
 //import { ReactComponent as Likes } from "../pictures/likes.svg";
-import { ReactComponent as Meatball } from "../pictures/menuMeatball.svg";
+import { ReactComponent as Meatball } from "../../pictures/menuMeatball.svg";
 import { Link } from "react-router-dom";
-import { PostState, selectPost } from "../redux/Slices/postSlice";
+import { PostState, selectPost } from "../../redux/Slices/postSlice";
 
 type numProp = {
   num: number;
@@ -15,9 +15,9 @@ type numProp = {
 
 export default function PostBox(num: numProp) {
   const [display, setDisplay] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
   const post = useAppSelector(selectPost);
-  const [loading, setLoading] = useState<boolean>(false);
   const [test, setTest] = useState<PostState>();
   const dull: string = "https://cdn-icons-png.flaticon.com/512/666/666201.png";
 

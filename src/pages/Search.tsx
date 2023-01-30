@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Header } from "../components/Header";
+import { Header } from "../components/header/Header";
 import {
   getInterceptor,
   sendAxiosState,
@@ -9,7 +9,7 @@ import {
 } from "../functions/APIInterceptor";
 import "./Search.scss";
 import { PostState } from "../redux/Slices/postSlice";
-import ImageSlide from "../components/ImageSlide";
+import ImageSlide from "../components/post/ImageSlide";
 import ProfilePost from "../components/ProfilePost";
 
 export default function Search() {
@@ -24,9 +24,10 @@ export default function Search() {
   const getSearchPost = () => {
     let data: sendAxiosState = {
       url: "http://localhost:8080/search/post",
-      config: {
+      data: {
         name: paramName,
       },
+      config: null,
       callback: function (response: AxiosResponse) {
         if (response.data.length > 0) {
           for (let i = 0; i < response.data.length; i++) {

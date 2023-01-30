@@ -1,10 +1,10 @@
 import { Mainpost } from "./PostSlide";
-import styles from "../pages/Main.module.scss";
-import { selectCounter } from "../redux/Slices/countSlice";
-import { useAppSelector } from "../redux/hooks";
+import styles from "../../pages/Main.module.scss";
+import { selectCounter } from "../../redux/Slices/countSlice";
+import { useAppSelector } from "../../redux/hooks";
 import React from "react";
 
-const LazyAbout = React.lazy(() => import("../components/PostBox"));
+const LazyAbout = React.lazy(() => import("../post/PostBox"));
 
 export default function PostComp(data: Mainpost) {
   const counter = useAppSelector(selectCounter);

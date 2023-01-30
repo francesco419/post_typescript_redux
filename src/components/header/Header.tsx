@@ -3,15 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 /*-------------redux------------------------------------- */
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { reset } from "../redux/Slices/userSlice";
-import { selectUser } from "../redux/Slices/userSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { reset } from "../../redux/Slices/userSlice";
+import { selectUser } from "../../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
-import { Follow } from "./extra/Follow";
-import { ReactComponent as Menu } from "../pictures/menu.svg";
-import { ReactComponent as Icon } from "../pictures/wolf.svg";
-import ToggleSwitch from "./extra/ToggleSwitch";
-import { selectFunc } from "../redux/Slices/funcSlice";
+import { Follow } from "../extra/Follow";
+import { ReactComponent as Menu } from "../../pictures/menu.svg";
+import { ReactComponent as Icon } from "../../pictures/wolf.svg";
+import ToggleSwitch from "../extra/ToggleSwitch";
+import { selectFunc } from "../../redux/Slices/funcSlice";
 
 export function Header() {
   const [bool, setBool] = useState<boolean>(false);

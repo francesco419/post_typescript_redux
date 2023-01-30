@@ -1,6 +1,6 @@
-import { Userstate } from "../redux/Slices/userSlice";
+import { Userstate } from "../../redux/Slices/userSlice";
 import { useNavigate } from "react-router";
-import { ProfileImage } from "../pages/Profile";
+import { ProfileImage } from "../../pages/Profile";
 
 type ProfileMe = {
   user: Userstate;

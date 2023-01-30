@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./ImageSlide.scss";
-import { ReactComponent as Heart } from "../pictures/heart.svg";
-import { selectLikes } from "../redux/Slices/likesSlice";
-import { useAppSelector } from "../redux/hooks";
+import { ReactComponent as Heart } from "../../pictures/heart.svg";
+import { selectLikes } from "../../redux/Slices/likesSlice";
+import { useAppSelector } from "../../redux/hooks";
 
 interface SlideProps {
   imgsrc: string[];

@@ -1,7 +1,10 @@
 import "./Join.scss";
 import { useState } from "react";
 import axios from "axios";
-import { sendAxiosState, postInterceptor } from "../functions/APIInterceptor";
+import {
+  sendAxiosState,
+  postInterceptor,
+} from "../../functions/APIInterceptor";
 
 interface InputProps {
   user_id: string;
@@ -52,13 +55,14 @@ export default function Join() {
 
     let data: sendAxiosState = {
       url: "http://localhost:8080/login/register",
-      config: {
+      data: {
         user_id: user_id,
         user_name: user_name,
         user_password: user_password,
         user_birth: user_birth,
         user_email: user_email,
       },
+      config: null,
       callback: function () {
         (
           document.getElementById("success") as HTMLDivElement | null
