@@ -10,7 +10,6 @@ const instance = axios.create();
 instance.interceptors.request.use(
   //요청보내기
   (config) => {
-    console.log(config);
     return config;
   },
   (error) => {
@@ -65,7 +64,6 @@ export const getInterceptor = async (data: sendAxiosState) => {
 };
 
 export const postInterceptor = async (data: sendAxiosState) => {
-  console.log(data);
   return instance
     .post(data.url, data.data, data.config)
     .then((response: AxiosResponse) => {

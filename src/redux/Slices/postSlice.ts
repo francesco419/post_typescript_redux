@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface PostState {
-  user_id: string;
+  id: string;
+  name: string;
   text: string;
   tag: string[];
   date: string;

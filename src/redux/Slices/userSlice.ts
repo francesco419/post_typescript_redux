@@ -53,6 +53,7 @@ export const userSlice = createSlice({
       state.value.email = action.payload;
     },
     setImg: (state, action: PayloadAction<string>) => {
+      console.log(action.payload);
       state.value.img = action.payload;
     },
     setInfo: (state, action: PayloadAction<string>) => {

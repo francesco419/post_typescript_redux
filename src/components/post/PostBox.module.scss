@@ -9,6 +9,7 @@ $marginSide: 0 10px;
   padding: 5px 0 0 0;
   border: solid();
   background-color: var(--color-background);
+  white-space: pre-line;
   .block-inner {
     width: 450px;
     margin: automargin();

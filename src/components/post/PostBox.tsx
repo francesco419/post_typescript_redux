@@ -44,7 +44,7 @@ export default function PostBox(num: numProp) {
                 src={user.value.img !== "null" ? user.value.img : dull}
                 alt="myprofile"
               />
-              <p>{test.user_id}</p>
+              <p>{test.name}</p>
               <button id="followbtn">Follow</button>
             </div>
             <div className={styles["block-poststatus"]}>

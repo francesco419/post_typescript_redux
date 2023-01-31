@@ -117,11 +117,16 @@ export function UserEdit() {
     postInterceptor(data);
   };
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    console.log(e.target.value);
     const { name, value } = e.target;
     setInput({
       ...input,
-      [name]: value,
+      [name]: value, //.replace(/(?:\r\n|\r|\n)/g, "<br/>"),
     });
   };
 
@@ -238,10 +243,9 @@ export function UserEdit() {
         <div className="user-secondary-block">
           <div className="user-secondary">
             <p>{"<Info>"}</p>
-            <input
+            <textarea
               id="setting-intro"
               className="user-input-info"
-              type="text"
               name="info"
               maxLength={150}
               onChange={(e) => onChangeHandler(e)}

@@ -35,7 +35,7 @@ export default function ImageSlide(array: SlideProps) {
         }
       } else if (side === "left") {
         if (count === 0) {
-          setCount((count) => array.imgsrc.length - 1);
+          setCount((count) => array.imgsrc.length);
         } else {
           setCount((count) => count - 1);
         }

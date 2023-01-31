@@ -31,7 +31,7 @@ $none_black: #00000000;
     .img-image {
       width: inherit;
       height: inherit;
-      object-fit: cover;
+      object-fit: contain;
     }
     .block-image-button {
       display: flex;

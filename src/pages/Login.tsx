@@ -2,17 +2,11 @@ import "./Login.scss";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import {
-  setUserID,
-  setPassword,
-  selectUser,
-  setInitial,
-  Userstate,
-} from "../redux/Slices/userSlice";
+import { selectUser, setInitial, setImg } from "../redux/Slices/userSlice";
 import Join from "../components/Login/Join";
 import { sendAxiosState, postInterceptor } from "../functions/APIInterceptor";
-import { callbackify } from "util";
 import { AxiosResponse } from "axios";
+import { setImagePath } from "../functions/setImagePath";
 
 type LoginProps = {
   user_id: string;
@@ -79,6 +73,8 @@ function Login() {
       const id: string = response.data[0].id;
       const password: string = response.data[0].password;
       dispatch(setInitial(response.data[0]));
+      let temp = setImagePath(response.data[0].img);
+      dispatch(setImg(temp[0]));
       navigate("/");
     };
 

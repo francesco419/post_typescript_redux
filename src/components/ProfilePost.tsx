@@ -81,7 +81,7 @@ export default function ProfilePost(postState: PostChild, index: number) {
         <div className="block-profile-3">
           <ProfileImage data={"block-profile-postimg"} />
           <div>
-            <strong>{post_data.user_id}</strong>
+            <strong>{post_data.name}</strong>
             <p>{post_data.date}</p>
           </div>
         </div>
@@ -90,7 +90,10 @@ export default function ProfilePost(postState: PostChild, index: number) {
         </div>
         <div className="block-profile-tag">
           {post_data.tag.map((tag, index) => (
-            <Link to={`/Search/${tag}`} key={`${tag}${index}`}>
+            <Link
+              to={`/Search/${tag.substring(1)}`}
+              key={`${tag.substring(1)}${index}`}
+            >
               {`${tag}`}
             </Link>
           ))}

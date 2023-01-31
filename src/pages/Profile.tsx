@@ -37,7 +37,7 @@ function Profile() {
   const changeIndex = () => {
     let temp: PostState[] = [...post.value];
     post.value.map((data, index) => {
-      if (data.user_id === user.value.name) {
+      if (data.name === user.value.name) {
         temp.splice(index, 1);
         temp.unshift(data);
       }
@@ -61,8 +61,7 @@ function Profile() {
           <div className="block-profile-post">
             {inOrderPost
               .filter(
-                (data) =>
-                  user.value.id === data.user_id || data.user_id === "anonymous"
+                (data) => user.value.id === data.id || data.name === "anonymous"
               )
               .map((data, index) => (
                 <ProfilePost PostState={data} index={index} />

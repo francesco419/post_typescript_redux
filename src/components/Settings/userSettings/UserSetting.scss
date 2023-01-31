@@ -9,6 +9,7 @@
 .block-usersettings-display {
   display: flex;
   flex-wrap: wrap;
+  white-space: pre-line;
   .block-usersettings-0 {
     display: flex;
     justify-content: center;

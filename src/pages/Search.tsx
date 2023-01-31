@@ -11,6 +11,7 @@ import "./Search.scss";
 import { PostState } from "../redux/Slices/postSlice";
 import ImageSlide from "../components/post/ImageSlide";
 import ProfilePost from "../components/ProfilePost";
+import { setImagePath } from "../functions/setImagePath";
 
 export default function Search() {
   const params = useParams();
@@ -32,11 +33,12 @@ export default function Search() {
         if (response.data.length > 0) {
           for (let i = 0; i < response.data.length; i++) {
             let temp: PostState = {
-              user_id: response.data[i].id,
+              id: response.data[i].id,
+              name: response.data[i].name,
               text: response.data[i].text,
               date: response.data[i].date,
               tag: JSON.parse(response.data[i].tag),
-              img: JSON.parse(response.data[i].img),
+              img: setImagePath(response.data[i].img),
             };
             setPost((post) => [...post, temp]);
           }
@@ -46,7 +48,8 @@ export default function Search() {
           setPost((post) => [
             ...post,
             {
-              user_id: "결색결과 없음",
+              id: "결색결과 없음",
+              name: "결색결과 없음",
               text: "결색결과 없음",
               date: "0000-00-00",
               tag: ["#검색결과없음"],
@@ -68,7 +71,7 @@ export default function Search() {
       <div className="search-page">
         <div className="block-search-container">
           {post.map((data, index) => (
-            <div className="block-search-post">
+            <div className="block-search-post" key={`search${index}`}>
               <ProfilePost PostState={data} index={index} />
             </div>
           ))}

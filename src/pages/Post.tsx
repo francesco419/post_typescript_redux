@@ -15,16 +15,14 @@ import { useAppSelector } from "../redux/hooks";
 import { selectUser } from "../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
 import { postInterceptor, sendAxiosState } from "../functions/APIInterceptor";
-import { json } from "stream/consumers";
+import { AxiosResponse } from "axios";
 
 export default function Post() {
   const [tag, setTag] = useState<string[]>([]);
   const [text, setText] = useState<string>("");
   const [textOverflow, setTextOverflow] = useState<string>();
   const [textShow, setTextShow] = useState<boolean>(false);
-  const [files, setFiles] = useState<string[]>([]);
-  const [testfile, settestfile] = useState<FormData>();
-  const [awe, setawe] = useState<File>();
+  const [files, setFiles] = useState<File[]>([]);
   const nav = useNavigate();
 
   const user = useAppSelector(selectUser);
@@ -58,11 +56,9 @@ export default function Post() {
     if (fetchFile.length >= 7) {
       return;
     }
-    if (fetchFile.length <= 1) {
-      console.log("1밑");
-      setawe(fetchFile[0]);
+    for (let i = 0; i < fetchFile.length; i++) {
+      setFiles((files) => [...files, fetchFile[i]]);
     }
-    //settestfile((testfile) => [...testfile, temp]);
   };
 
   const postHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -73,15 +69,22 @@ export default function Post() {
       return false;
     }
 
-    let formData = new FormData();
-    formData.append(`img`, awe, `img$.png`);
-    settestfile((testfile) => formData);
+    let formdata = new FormData();
+
+    files.map((file, index) => {
+      formdata.append(`img+${index}`, file);
+    });
+
+    formdata.append("id", user.value.id);
+    formdata.append("name", user.value.name);
+    formdata.append("text", text);
+    formdata.append("time", timetoday());
+    formdata.append("tag", JSON.stringify(tag));
+    //console.log(blob);
 
     let file: sendAxiosState = {
       url: "http://localhost:8080/upload",
-      data: {
-        formData,
-      },
+      data: formdata,
       config: {
         headers: {
           "Content-Type": `multipart/form-data`,
@@ -89,35 +92,17 @@ export default function Post() {
       },
       callback: null,
     };
+
     postInterceptor(file);
-
-    /* logInCheck();
-    nav("/Profile"); */
+    nav("/Profile");
   };
 
-  const logInCheck = async () => {
-    let data: sendAxiosState = {
-      url: "http://localhost:8080/post",
-      data: {
-        user_id: user.value.name,
-        text: text,
-        date: timetoday(),
-        tag: JSON.stringify(tag),
-        img: JSON.stringify(files),
-      },
-      config: null,
-      callback: null,
-    };
-
-    postInterceptor(data);
-  };
-
-  const onClickHandler = (file: string, index: number) => {
+  const onClickHandler = (file: File, index: number) => {
     const doc = document.getElementById(
       `preview_${index}`
     ) as HTMLDivElement | null;
     if (doc) {
-      let temp: string[] = files.filter((data) => {
+      let temp: File[] = files.filter((data) => {
         if (data !== file) {
           return data;
         }
@@ -128,13 +113,18 @@ export default function Post() {
   };
 
   function PreviewPost() {
+    const arr: string[] = [];
+    files.map((files) => {
+      return arr.push(window.URL.createObjectURL(files));
+    });
+
     return (
       <div className={styles["block-outter"]} style={{ minHeight: "800px" }}>
         <div className={styles["block-inner"]}>
           <ImageSlide
             imgsrc={
               files.length !== 0
-                ? files
+                ? arr
                 : [
                     "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg",
                   ]
@@ -188,7 +178,12 @@ export default function Post() {
     <div className="page-post">
       <Header />
       <div className="block-post-inner">
-        <div className="block-post-container">
+        <form
+          className="block-post-container"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           {/**-----오른쪽 버튼-------*/}
           <div className="block-post-absolute">
             <button type="submit" name="img" onClick={(e) => postHandler(e)}>
@@ -237,20 +232,6 @@ export default function Post() {
                 name="img"
                 onChange={onChangeHandler}
               ></input>
-              <input
-                id="post-imgtext"
-                type="text"
-                autoComplete="off"
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-                onBlur={(e) => {
-                  if (e.target.value !== "") {
-                    setFiles((files) => [...files, e.target.value]);
-                    e.target.value = "";
-                  }
-                }}
-              ></input>
             </div>
             <div className="block-post-preview">
               {files.map((file, index) => (
@@ -265,7 +246,7 @@ export default function Post() {
                   </button>
                   <img
                     id={`img_${index}`}
-                    src={file}
+                    src={window.URL.createObjectURL(file)}
                     className="img-post"
                     key={`preview${index}`}
                   />
@@ -276,7 +257,7 @@ export default function Post() {
           <div>
             <PreviewPost />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

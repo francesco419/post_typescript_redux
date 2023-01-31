@@ -34,6 +34,9 @@ export function UserSetting() {
     dispatch(ShowUserEdit());
   };
 
+  //const text = user.info.replaceAll("<br/>", "\r\n");
+  //console.log(text);
+
   return (
     <div className="block-usersettings-display">
       {show.userEdit && <UserEdit />}
@@ -75,9 +78,6 @@ export function UserSetting() {
             <p>{user.info}</p>
           </div>
         </div>
-      </div>
-      <div className="block-usersettings-4">
-        <button>Save</button>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import { getInterceptor } from "../../functions/APIInterceptor";
 import { AxiosResponse } from "axios";
 import LoadingSpinner from "../extra/LoadingSpinner";
 import PostComp from "./PostComp";
+import { setImagePath } from "../../functions/setImagePath";
 
 export interface Mainpost {
   value: {
@@ -50,15 +51,24 @@ export default function PostSlide() {
     setPostDetail([]);
     for (let i = 0; i < response.data.length; i++) {
       let temp: PostState = {
-        user_id: response.data[i].id,
+        id: response.data[i].id,
+        name: response.data[i].name,
         text: response.data[i].text,
         tag: JSON.parse(response.data[i].tag),
         date: response.data[i].date,
-        img: JSON.parse(response.data[i].img),
+        img: setImagePath(response.data[i].img),
       };
       setPostDetail((postDetail) => [...postDetail, temp]);
     }
     setLoading(true);
+  };
+
+  const createURL = (img: string[]) => {
+    let createdURL: string[];
+    img.map((url) => {
+      console.log(url);
+      //createdURL.push(window.URL.createObjectURL());
+    });
   };
 
   const sendRequest = () => {
@@ -68,7 +78,6 @@ export default function PostSlide() {
       config: null,
       callback: postCallback,
     };
-
     getInterceptor(data);
   };
 
