@@ -241,16 +241,14 @@ export function UserEdit() {
           </div>
         </div>
         <div className="user-secondary-block">
-          <div className="user-secondary">
-            <p>{"<Info>"}</p>
-            <textarea
-              id="setting-intro"
-              className="user-input-info"
-              name="info"
-              maxLength={150}
-              onChange={(e) => onChangeHandler(e)}
-            />
-          </div>
+          <p>{"<Info>"}</p>
+          <textarea
+            id="setting-intro"
+            className="user-input-info"
+            name="info"
+            maxLength={150}
+            onChange={(e) => onChangeHandler(e)}
+          />
         </div>
         <div className="user-save">
           <button

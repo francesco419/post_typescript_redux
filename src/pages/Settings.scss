@@ -1,4 +1,4 @@
-@import "../getscss.scss";
+@import "../styles.scss";
 
 $setting-padding: 20px;
 
@@ -7,11 +7,12 @@ $setting-padding: 20px;
   color: var(--black-white);
   .block-settings-inner {
     display: flex;
-    @include mx-size(0, 700px, 700px);
+    @include size(700px, 700px);
     margin: automargin();
     border: solid();
+    background-color: var(--color-element);
     .block-settings-left {
-      @include mx-size(0, 200px, auto);
+      @include size(200px, auto);
       text-align: center;
       h2 {
         margin: 50px 0;
@@ -59,7 +60,7 @@ $setting-padding: 20px;
   }
 }
 .block-settings-right {
-  @include mx-size(0, 500px, auto);
-  padding: $setting-padding;
+  @include size(500px, auto);
+  padding: 20px;
   border-left: 1px solid var(--black-white);
 }

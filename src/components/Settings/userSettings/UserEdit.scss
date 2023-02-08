@@ -1,4 +1,4 @@
-@import "../../../getscss.scss";
+@import "../../../styles.scss";
 
 .wrapper-Edit {
   position: fixed;
@@ -6,33 +6,26 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #00000055;
+  background-color: #00000066;
   z-index: 90;
   color: $black;
   .user-edit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 500px;
+    @include position-center();
+    width: fit-content;
     height: fit-content;
     padding: 20px 10px;
     margin: 0 auto;
     border: 1px solid;
     background-color: $white;
-    transform: translate(-50%, -50%);
     .user-primary-block {
       margin: 0 20px;
       .user-primary {
-        display: flex;
-        align-items: center;
+        @include mx-flexbox(start);
         .user-input {
           height: 25px;
           margin: 0 15px;
           border: 0;
-          background-color: #e7e7e7;
-          &:focus {
-            outline: none;
-          }
+          background-color: $input-background;
         }
         button {
           border: 1px solid;
@@ -45,15 +38,14 @@
     }
     .user-secondary-block {
       margin: 0 20px;
-      .user-secondary {
-        .user-input-info {
-          width: 400px;
-          height: 150px;
-          border: 0;
-          background-color: #e7e7e7;
-          &:focus {
-            outline: none;
-          }
+      .user-input-info {
+        width: 400px;
+        height: 150px;
+        border: 0;
+        background-color: $input-background;
+        resize: none;
+        &:focus {
+          outline: none;
         }
       }
     }
@@ -96,23 +88,21 @@
 
 .ask-exit {
   flex-direction: column;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  @include position-center();
   width: 200px;
   height: 100px;
   padding: 10px;
   border: 1px solid;
   background-color: $white;
-  transform: translate(-50%, -50%);
   p {
     margin: 10px;
   }
   .ask-exit-btn {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     button {
-      margin: 0 5px;
+      cursor: pointer;
+      margin: 10px 5px 0;
     }
   }
 }

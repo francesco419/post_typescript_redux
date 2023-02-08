@@ -5,12 +5,14 @@ export interface FuncState {
   value: {
     dark: boolean;
     pointer: boolean;
+    swapView: boolean;
   };
 }
 const initialState: FuncState = {
   value: {
     dark: false,
     pointer: true,
+    swapView: true,
   },
 };
 
@@ -31,10 +33,13 @@ export const funcSlice = createSlice({
     setPointerMode: (state, action: PayloadAction<boolean>) => {
       state.value.pointer = action.payload;
     },
+    setSwapView: (state) => {
+      state.value.swapView = !state.value.swapView;
+    },
   },
 });
 
-export const { setDarkMode, setPointerMode } = funcSlice.actions;
+export const { setDarkMode, setPointerMode, setSwapView } = funcSlice.actions;
 
 export const selectFunc = (state: RootState) => state.func;
 

@@ -16,6 +16,7 @@ import { AxiosResponse } from "axios";
 import LoadingSpinner from "../extra/LoadingSpinner";
 import PostComp from "./PostComp";
 import { setImagePath } from "../../functions/setImagePath";
+import { selectPost } from "../../redux/Slices/postSlice";
 
 export interface Mainpost {
   value: {
@@ -30,6 +31,7 @@ export default function PostSlide() {
   const [postDetail, setPostDetail] = useState<PostState[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const counter = useAppSelector(selectCounter);
+  const post = useAppSelector(selectPost);
 
   useEffect(() => {
     sendRequest();
@@ -57,18 +59,12 @@ export default function PostSlide() {
         tag: JSON.parse(response.data[i].tag),
         date: response.data[i].date,
         img: setImagePath(response.data[i].img),
+        code: response.data[i].code,
       };
       setPostDetail((postDetail) => [...postDetail, temp]);
+      console.log(11);
     }
     setLoading(true);
-  };
-
-  const createURL = (img: string[]) => {
-    let createdURL: string[];
-    img.map((url) => {
-      console.log(url);
-      //createdURL.push(window.URL.createObjectURL());
-    });
   };
 
   const sendRequest = () => {
@@ -143,7 +139,7 @@ export default function PostSlide() {
     <div>
       {loading ? (
         <div className={styles["slide-box"]}>
-          <React.Suspense fallback="helloooooo">
+          <React.Suspense>
             <div className={styles["slidetest"]}>
               <PostComp
                 value={{

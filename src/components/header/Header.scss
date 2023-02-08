@@ -1,8 +1,7 @@
-@import "../../getscss.scss";
+@import "../../styles.scss";
 
 .header-container {
-  position: fixed;
-  top: 0;
+  @include position-top(fixed);
   width: $full;
   height: 80px;
   border: 0;
@@ -11,19 +10,19 @@
   color: var(--black-white);
   background-color: var(--color-background);
   nav {
-    @include mx-dis(flex, flex-start, center);
+    @include mx-flexbox(start);
     height: $full;
     margin: automargin();
     max-width: $wid + 900px;
-    min-width: 600px;
     .block-header-0 {
       display: flex;
       align-items: center;
       margin: 0 30px 0 0;
       cursor: pointer;
       svg {
+        width: 50px;
+        height: 50px;
         margin: 0 10px 0 0;
-        fill: var(--black-white);
       }
       h2 {
         width: 100px;
@@ -31,33 +30,16 @@
     }
 
     .block-header-1 {
-      display: flex;
-      align-items: center;
-      font-size: 15px;
-      .header-link {
+      @include mx-flexbox(start);
+      a {
+        line-height: 50px;
+      }
+      * {
+        @include font-style(middle, $gray);
         height: 50px;
         width: 80px;
-        margin: 0 20px;
-        text-decoration: none;
         text-align: center;
-        line-height: 52px;
-        color: #c0c0c0;
-        transition: all 0.1s ease-in;
-        &:hover {
-          border-bottom: 2px solid #000;
-          color: #000;
-        }
-      }
-      .btn-header-link {
-        height: 50px;
-        width: 100px;
         margin: 0 20px;
-        border: 0;
-        font-size: 15px;
-        color: #c0c0c0;
-        background-color: #00000000;
-        text-decoration: none;
-        text-align: center;
         transition: all 0.1s ease-in;
         &:hover {
           border-bottom: 2px solid #000;
@@ -70,23 +52,18 @@
       width: 200px;
     }
     .header-search {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include mx-flexbox();
       width: 120px;
       height: 25px;
       padding: 0 10px;
       margin: 0 0 0 40px;
-      border: 2px solid $black;
+      border: 1px solid $gray;
       border-radius: 40px;
       background-color: $white;
       input {
         width: 120px;
         border: 0;
         padding: 0;
-        &:focus {
-          outline: none;
-        }
       }
     }
   }

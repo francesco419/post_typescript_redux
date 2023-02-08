@@ -1,4 +1,4 @@
-@import "../getscss.scss";
+@import "../styles.scss";
 
 .page-profile {
   @extend %page-start;
@@ -8,90 +8,66 @@
     width: fit-content;
     height: 100%;
     margin: automargin();
+    .block-profile-right {
+      @include mx-flexbox(start);
+      flex-direction: column;
+      height: fit-content;
+      width: 800px;
+      padding: 0 0 0 400px;
+      @include mx-border("right");
+    }
   }
 }
 
 .block-profile-left {
   position: fixed;
-  width: 340px;
-  height: 100%;
-  background-color: var(--color-background);
-  padding: 100px 29px;
+  @include size(340px, 100%);
+  background-color: var(--color-element);
+  padding: 100px 30px;
+  @include font-style(middle);
   color: var(--black-white);
   @include mx-border("right");
   @include mx-border("left");
+  text-align: center;
   .block-profile-0 {
     .block-profile-photo {
       @extend %position-center;
-      height: 150px;
-      width: 150px;
+      @extend %image-profile;
+      @include size(150px, 150px);
       margin: automargin();
-      border: solid();
-      border-radius: 50%;
       background-color: $white;
-      svg {
-        height: 100px;
-        width: 100px;
-      }
     }
     .block-profile-name {
-      margin: automargin();
       padding: 10px;
-      text-align: center;
       .block-profile-id {
-        p {
-          font-size: 25px;
+        h1 {
           margin: 10px 0;
-        }
-        .block-profile-int {
-          p {
-            font-size: 15px;
-          }
         }
       }
     }
   }
   .block-profile-1 {
-    display: flex;
-    justify-content: space-around;
+    @include mx-flexbox(around);
     margin: 20px 0 0 0;
     border-top: solid();
     border-bottom: solid();
-    p {
-      text-align: center;
-    }
   }
   .block-profile-2 {
     margin: 20px 0;
     padding: 10px;
-    .btn-profile-post {
+    button {
+      @include size(300px, 40px);
       margin: 10px;
-      height: 40px;
-      width: 300px;
       padding: 5px 5px 0 5px;
       border: solid();
       border-radius: $radius;
       background-color: var(--black-white);
+      @include font-style(middle);
       color: var(--white-black);
-      font-size: 13px;
-      text-decoration: none;
-      text-align: center;
       cursor: pointer;
       &:active {
         transform: translateY(1px);
       }
     }
-  }
-}
-
-.block-profile-right {
-  height: fit-content;
-  width: 800px;
-  padding: 0 0 0 400px;
-  @include mx-border("right");
-  .block-profile-post {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 }

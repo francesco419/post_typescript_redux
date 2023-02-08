@@ -1,4 +1,4 @@
-@import "../../getscss.scss";
+@import "../../styles.scss";
 
 $marginSide: 0 10px;
 
@@ -8,63 +8,58 @@ $marginSide: 0 10px;
   margin: automargin();
   padding: 5px 0 0 0;
   border: solid();
-  background-color: var(--color-background);
+  background-color: var(--color-element);
   white-space: pre-line;
   .block-inner {
     width: 450px;
     margin: automargin();
     .block-statusbox {
-      display: flex;
-      flex-direction: column;
       color: var(--black-white);
       .block-userstatus {
-        display: flex;
-        align-items: center;
+        @include mx-flexbox(start);
         width: 100%;
-        padding: 5px 0;
+        padding: 10px 0;
         border-bottom: solid();
         img {
-          background-color: $white;
-          border: solid();
-          border-radius: $radius;
-          @include mx-size(0, 35px, 35px);
+          @include mx-round($radius);
+          @include size(35px, 35px);
         }
-        p {
-          margin: $marginSide;
-        }
-        button {
-          margin: $marginSide;
-          background-color: #00000000;
+        * {
+          margin-right: 15px;
         }
       }
       .block-poststatus {
-        display: flex;
-        align-items: center;
+        @include mx-flexbox(start);
         width: 100%;
-        //margin: 10px 0;
         border: solid();
-        .block-poststatus-div {
+        p {
           width: fit-content;
-          margin: $marginSide;
+          margin: 0 10px;
           padding: 1px;
           text-align: center;
         }
-        .btn-likes-01-off {
+        /* .btn-likes-01-off {
           width: 25px;
           height: 25px;
-          margin: $marginSide;
+          margin: 0 10px;
           transition: all 0.2s ease;
+        } */
+        .block-poststatus-svg {
+          svg {
+            width: 35px;
+            height: 35px;
+          }
         }
-        .block-poststatus-report {
+        .block-poststatus-meatball {
           position: relative;
           height: 20px;
           width: 20px;
           border: 0;
           margin: 10px;
-          border-radius: 50%;
-          box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+          padding: 2px;
+          @include mx-round(50%);
           &:hover {
-            background-color: #4b4d4e;
+            background-color: $gray;
           }
           .block-poststatus-meatball {
             display: none;
@@ -75,10 +70,10 @@ $marginSide: 0 10px;
             height: fit-content;
             margin: 0;
             padding: 5px 10px;
-            border-radius: 10px;
+            @include mx-round(10px);
             color: $white;
-            background-color: #0984e3;
-            list-style-type: none;
+            background-color: $coolblue;
+            list-style: none;
             &::after {
               position: absolute;
               top: 5px;
@@ -86,7 +81,7 @@ $marginSide: 0 10px;
               width: 0;
               height: 0;
               border-bottom: 8px solid transparent;
-              border-top: 8px solid #0984e3;
+              border-top: 8px solid $coolblue;
               border-left: 8px solid transparent;
               border-right: 8px solid transparent;
               content: "";
@@ -96,11 +91,11 @@ $marginSide: 0 10px;
               button {
                 width: 60px;
                 border: 0;
-                background-color: #00000000;
+                background-color: transparent;
                 color: $white;
-                font-size: 15px;
+                @include font-style(middle);
                 &:hover {
-                  color: #c0c0c0;
+                  color: $gray;
                 }
               }
             }
@@ -114,10 +109,9 @@ $marginSide: 0 10px;
       .block-tag {
         max-width: 300px;
         margin: 0 0 10px 0;
-        .link-postbox-to {
+        a {
           margin: 0 10px 0 0;
-          color: $tooltip;
-          text-decoration: none;
+          color: $coolblue;
         }
       }
     }

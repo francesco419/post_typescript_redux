@@ -143,14 +143,8 @@ export default function Post() {
               <div className={styles["block-poststatus-div"]}>
                 {timetoday()}
               </div>
-              <Likes className={styles["btn-likes-01-off"]}>Likes</Likes>
-              <div className={styles["block-poststatus-report"]}>
+              <div className={styles["block-poststatus-meatball"]}>
                 <Meatball width="20px" height="20px" />
-                <ul id="send" className={styles["block-poststatus-meatball"]}>
-                  <li>Send</li>
-                  <li>Send</li>
-                  <li>Send</li>
-                </ul>
               </div>
             </div>
             <div
@@ -223,16 +217,14 @@ export default function Post() {
             <p id="tag-example">{"ex) #tag1 #tag2 #tag3"}</p>
             {/**-----이미지-------*/}
             <h2># 이미지</h2>
-            <div className="block-post-imgInput">
-              <input
-                id="post-img"
-                type="file"
-                accept="img/*"
-                multiple
-                name="img"
-                onChange={onChangeHandler}
-              ></input>
-            </div>
+            <input
+              id="post-img"
+              type="file"
+              accept="img/*"
+              multiple
+              name="img"
+              onChange={onChangeHandler}
+            ></input>
             <div className="block-post-preview">
               {files.map((file, index) => (
                 <div id={`preview_${index}`} className="block-post-img">

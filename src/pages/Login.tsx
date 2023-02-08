@@ -42,10 +42,10 @@ function Login() {
       function nullAnimation(id: string) {
         const doc = document.getElementById(id) as HTMLLabelElement | null;
         console.log(doc);
-        doc.classList.add("none");
+        doc.classList.add("error-blank");
 
         setTimeout(() => {
-          doc.classList.remove("none");
+          doc.classList.remove("error-blank");
         }, 1000);
       }
 
@@ -117,7 +117,6 @@ function Login() {
           <button type="submit">Login</button>
           <button
             type="button"
-            className="btn-login-join"
             onClick={() => {
               setJoin((join) => !join);
             }}

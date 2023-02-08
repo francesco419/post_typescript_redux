@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 /*----------component-------------------------- */
 import { Header } from "../components/header/Header";
 import { ImageUpload } from "../components/Settings/userSettings/ImageUpload";
-import { UserEdit } from "../components/Settings/userSettings/UserEdit";
 import { UserSetting } from "../components/Settings/userSettings/UserSetting";
 import { PageSetting } from "../components/Settings/pageSettings/PageSetting";
 /*------------redux-------------------------- */
+import { reset } from "../redux/Slices/userSlice";
+import { useAppDispatch } from "../redux/hooks";
 
 export default function Settings() {
   //const user = useAppSelector(selectUser);
   const [name, setName] = useState<string>();
+  const dispatch = useAppDispatch();
 
   interface SettingsType {
     title: string;
@@ -70,8 +72,8 @@ export default function Settings() {
             page Setting
           </li>
           <li
-            onMouseEnter={() => {
-              setName("Logout");
+            onClick={() => {
+              dispatch(reset());
             }}
           >
             <p>Logout</p>

@@ -1,4 +1,4 @@
-@import "../getscss.scss";
+@import "../styles.scss";
 
 .block-profile-postbox {
   width: 600px;
@@ -9,14 +9,13 @@
   //color: var(--black-white);
   .block-profile-top {
     .block-profile-3 {
-      display: flex;
-      align-items: center;
+      @include mx-flexbox(start);
       .block-profile-postimg {
-        @extend %position-center;
+        @include mx-flexbox();
         height: 50px;
         width: 50px;
         border: 1px solid;
-        border-radius: 50%;
+        @include mx-round(50%);
         background-color: $white;
         margin-right: 15px;
         cursor: pointer;
@@ -26,68 +25,53 @@
         }
       }
       p {
-        display: block;
         margin: 0;
-        color: #c0c0c0;
-        font-size: 10px;
+        @include font-style(small, $gray);
       }
     }
     .block-profile-detail {
-      font-size: 14px;
+      @include font-style(middle);
     }
     .block-profile-tag {
       display: flex;
-      color: $tooltip;
       a {
         margin: 5px 0;
-        color: $tooltip;
-        font-size: 11px;
+        @include font-style(small, $coolblue);
         font-weight: bold;
-        text-decoration: none;
         &:hover {
-          color: $mygray;
+          color: $gray;
         }
       }
     }
   }
   .block-profile-imagebox {
     padding: 10px;
-    border-radius: 5px;
     border: 1px solid;
+    border-radius: 5px;
     background-color: $white;
     .block-profile-onlyload {
-      display: flex;
-      justify-content: center;
+      @include mx-flexbox();
       button {
-        background-color: #00000000;
         border: 0;
-        .block-profile-image {
+        background: none;
+        img {
           width: 80px;
           height: 80px;
           margin: 0 5px;
-          border: 1px solid;
         }
       }
     }
     .block-profile-hidden {
       display: none;
       overflow: hidden;
+      padding: 20px;
       .block-profile-overflow {
-        display: flex;
-        justify-content: center;
-        position: relative;
-        max-width: 500px;
-        max-height: 500px;
-        margin: 30px auto;
-        .btn-profile-hidden {
-          position: absolute;
-          top: 3px;
-          right: 0;
-          background-color: $transparent;
-          border: 0;
-        }
-        .img-profile-hidden {
-          @include mx-size("max", inherit, inherit);
+        @extend %image-default;
+        @include mx-flexbox();
+        width: 500px;
+        height: 500px;
+        margin: 0 auto;
+        img {
           object-fit: contain;
         }
       }

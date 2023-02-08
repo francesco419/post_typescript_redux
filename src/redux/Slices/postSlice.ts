@@ -8,6 +8,7 @@ export interface PostState {
   tag: string[];
   date: string;
   img: string[];
+  code: string | null;
 }
 
 //interface PostState extends Array<PostState> {}

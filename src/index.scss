@@ -1,4 +1,4 @@
-@import "getscss.scss";
+@import "./styles.scss";
 
 html,
 body {
@@ -7,39 +7,42 @@ body {
   }
   font-family: "Pretendard-Regular";
   font-weight: 500;
+  font-size: 16px;
   margin: 0;
   height: 100%;
   background-color: var(--color-background);
-  min-width: 767px;
-  a {
-    color: var(--black-white);
-    font-family: "Pretendard-Regular";
-    font-weight: 500;
-  }
-  button {
-    font-family: "Pretendard-Regular";
-    font-weight: 500;
-  }
-  input {
-    font-family: "Pretendard-Regular";
-    font-weight: 500;
-  }
-  textarea {
-    font-family: "Pretendard-Regular";
-    font-weight: 500;
-  }
-  p {
-    font-family: "Pretendard-Regular";
-    font-weight: 600;
+}
+
+a {
+  color: var(--black-white);
+  font-family: "Pretendard-Regular";
+  font-weight: 500;
+  text-decoration: none;
+}
+button {
+  font-family: "Pretendard-Regular";
+  font-weight: 500;
+  border: 0;
+  background: none;
+}
+input {
+  font-family: "Pretendard-Regular";
+  font-weight: 500;
+  &:focus {
+    outline: none;
   }
 }
-/* @font-face {
-  font-family: "yg-jalnan";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-} */
+textarea {
+  font-family: "Pretendard-Regular";
+  font-weight: 500;
+  &:focus {
+    outline: none;
+  }
+}
+p {
+  font-family: "Pretendard-Regular";
+  font-weight: 600;
+}
 
 @font-face {
   font-family: "Pretendard-Regular";
@@ -49,7 +52,18 @@ body {
   font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+html[data-theme="light"] {
+  --black-white: #{$black};
+  --white-black: #{$white};
+  --color-background: #{$backgroud};
+  --color-element: #{#fff};
+  --size0: 0;
+}
+
+html[data-theme="dark"] {
+  --black-white: #{$white};
+  --white-black: #{$black};
+  --color-background: #323232;
+  --color-element: #{#424242};
+  --size0: 1;
 }

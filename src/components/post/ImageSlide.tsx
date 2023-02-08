@@ -3,6 +3,7 @@ import "./ImageSlide.scss";
 import { ReactComponent as Heart } from "../../pictures/heart.svg";
 import { selectLikes } from "../../redux/Slices/likesSlice";
 import { useAppSelector } from "../../redux/hooks";
+import no_image from "../../pictures/image_not_found.jpg";
 
 interface SlideProps {
   imgsrc: string[];
@@ -11,12 +12,12 @@ interface SlideProps {
 export default function ImageSlide(array: SlideProps) {
   const likes = useAppSelector(selectLikes);
   const [image, setImage] = useState<string[]>(
-    [...array.imgsrc, "https://picsum.photos/800/800"] || null
+    [...array.imgsrc, no_image] || null
   );
   const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
-    setImage([...array.imgsrc, "https://picsum.photos/800/800"] || null);
+    setImage([...array.imgsrc, no_image] || null);
     setCount(0);
   }, [array]);
 

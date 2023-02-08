@@ -1,4 +1,4 @@
-@import "../../getscss.scss";
+@import "../../styles.scss";
 
 $none_black: #00000000;
 
@@ -28,11 +28,13 @@ $none_black: #00000000;
       color: #fde8b6;
       border: 0;
     }
+
     .img-image {
       width: inherit;
       height: inherit;
       object-fit: contain;
     }
+
     .block-image-button {
       display: flex;
       justify-content: space-between;

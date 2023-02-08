@@ -1,4 +1,3 @@
-import "./App.scss";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";

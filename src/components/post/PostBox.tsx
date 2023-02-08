@@ -6,8 +6,13 @@ import ImageSlide from "./ImageSlide";
 import { useEffect, useState } from "react";
 //import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../../pictures/menuMeatball.svg";
+import { ReactComponent as Comment } from "../../pictures/comment.svg";
 import { Link } from "react-router-dom";
 import { PostState, selectPost } from "../../redux/Slices/postSlice";
+import {
+  postInterceptor,
+  sendAxiosState,
+} from "../../functions/APIInterceptor";
 
 type numProp = {
   num: number;
@@ -33,6 +38,18 @@ export default function PostBox(num: numProp) {
     setTest((test) => post.value[num.num]);
   }, [num.num]);
 
+  const deletePost = () => {
+    let data: sendAxiosState = {
+      url: `http://localhost:8080/post/delete`,
+      data: {
+        code: test.code,
+      },
+      config: null,
+      callback: null,
+    };
+    postInterceptor(data);
+  };
+
   return (
     <div className={styles["block-outter"]}>
       {loading ? (
@@ -48,7 +65,7 @@ export default function PostBox(num: numProp) {
               <button id="followbtn">Follow</button>
             </div>
             <div className={styles["block-poststatus"]}>
-              <div className={styles["block-poststatus-div"]}>{test.date}</div>
+              <p>{test.date}</p>
               {/* <Likes
                 className={styles["btn-likes-01-off"]}
                 fill={likes ? "#ff0000" : "#616161"}
@@ -56,8 +73,11 @@ export default function PostBox(num: numProp) {
               >
                 Likes
               </Likes> */}
+              <div className={styles["block-poststatus-svg"]}>
+                <Comment />
+              </div>
               <div
-                className={styles["block-poststatus-report"]}
+                className={styles["block-poststatus-meatball"]}
                 onClick={() => setDisplay((display) => !display)}
               >
                 <Meatball width="20px" height="20px" />
@@ -75,6 +95,13 @@ export default function PostBox(num: numProp) {
                   <li>
                     <button>Save</button>
                   </li>
+                  <li
+                    style={{
+                      display: user.value.id === test.id ? "block" : "none",
+                    }}
+                  >
+                    <button onClick={deletePost}>Delete</button>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -86,8 +113,7 @@ export default function PostBox(num: numProp) {
             <div className={styles["block-tag"]}>
               {test.tag.map((tag_: string, index) => (
                 <Link
-                  className={styles["link-postbox-to"]}
-                  to={`/Search/${tag_}`}
+                  to={`/Search/${tag_.substring(1)}`}
                   key={`${tag_}${index}`}
                 >
                   {tag_}

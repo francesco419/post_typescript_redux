@@ -22,6 +22,12 @@ export default function Search() {
     getSearchPost();
   }, []);
 
+  const subHashTag = (data: string) => {
+    if (data.includes("#")) {
+      return data.substring(1);
+    }
+  };
+
   const getSearchPost = () => {
     let data: sendAxiosState = {
       url: "http://localhost:8080/search/post",
@@ -30,6 +36,7 @@ export default function Search() {
       },
       config: null,
       callback: function (response: AxiosResponse) {
+        console.log(response);
         if (response.data.length > 0) {
           for (let i = 0; i < response.data.length; i++) {
             let temp: PostState = {
@@ -39,6 +46,7 @@ export default function Search() {
               date: response.data[i].date,
               tag: JSON.parse(response.data[i].tag),
               img: setImagePath(response.data[i].img),
+              code: response.data[i].code,
             };
             setPost((post) => [...post, temp]);
           }
@@ -54,6 +62,7 @@ export default function Search() {
               date: "0000-00-00",
               tag: ["#검색결과없음"],
               img: [],
+              code: null,
             },
           ]);
           return;

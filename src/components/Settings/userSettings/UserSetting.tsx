@@ -48,9 +48,7 @@ export function UserSetting() {
       </div>
       <div className="block-usersettings-1">
         {temp.map((data, index) => (
-          <div key={index}>
-            <p>{data}</p>
-          </div>
+          <p key={index}>{data}</p>
         ))}
         <Edit onClick={handleUserEdit} />
       </div>
@@ -74,9 +72,8 @@ export function UserSetting() {
             <p>Intro</p>
             <Edit onClick={handleUserEdit} />
           </div>
-          <div>
-            <p>{user.info}</p>
-          </div>
+
+          <p>{user.info}</p>
         </div>
       </div>
     </div>

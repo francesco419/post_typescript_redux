@@ -1,8 +1,24 @@
-@import "../getscss.scss";
+@import "../styles.scss";
 
 .page-main {
   padding: 50px 0;
   margin: 70px 0 0 0;
+}
+.btn-main-swapview {
+  @include mx-flexbox();
+  width: 40px;
+  height: 40px;
+  border: 0;
+  @include mx-round(10px);
+  margin: 0 0 0 300px;
+  background-color: $white;
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+  &:hover {
+    background-color: $gray;
+  }
 }
 .slide-box {
   width: 1650px;
@@ -10,39 +26,33 @@
   overflow: hidden;
 }
 .slidetest {
-  display: flex;
-  align-items: center;
+  @include mx-flexbox(start);
   width: 1650px;
   transform: translateX(-500px);
   .slide-hidden {
     transform: scale(0.5);
   }
-  .slide-left {
-    transform: scale(0.5);
-  }
-  .btn-slide-left {
+  button {
     height: 50px;
-    margin: 0 8px 0 0;
     border: 0;
     border-radius: $radius;
     @extend %btn-hoverActive;
   }
+  button:first-child {
+    margin: 0 8px 0 0;
+  }
+  button:nth-child(2) {
+    margin: 0 0 0 8px;
+  }
+  .slide-left,
   .slide-right {
     transform: scale(0.5);
-  }
-  .btn-slide-right {
-    height: 50px;
-    margin: 0 0 0 8px;
-    border: 0;
-    border-radius: $radius;
-    @extend %btn-hoverActive;
   }
 }
 
 /*-----왼쪽으로 이동------*/
 .move-slideL {
   @include mx-movepost(slideMoveL, 0, -562px, 1, 0.5);
-  //0.3s
 }
 .move-slideR {
   @include mx-movepost(slideMoveR, 0, -562px, 0.5, 1);

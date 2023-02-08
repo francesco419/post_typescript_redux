@@ -9,26 +9,6 @@ import ProfilePost from "../components/ProfilePost";
 import { useEffect, useState } from "react";
 import ProfileMe from "../components/profile/ProfileMe";
 
-export type ProfileProps = {
-  data: string;
-};
-
-export const ProfileImage = (data: ProfileProps) => {
-  let nav = useNavigate();
-  const gotoprofile = () => {
-    nav(`/profile`);
-  };
-  return (
-    <div
-      className={data.data}
-      onClick={gotoprofile}
-      style={{ cursor: "pointer" }}
-    >
-      <Icon />
-    </div>
-  );
-};
-
 function Profile() {
   const post = useAppSelector(selectPost);
   const user = useAppSelector(selectUser);
@@ -58,15 +38,13 @@ function Profile() {
       <div className="block-profile-inner">
         <ProfileMe user={user} />
         <div className="block-profile-right">
-          <div className="block-profile-post">
-            {inOrderPost
-              .filter(
-                (data) => user.value.id === data.id || data.name === "anonymous"
-              )
-              .map((data, index) => (
-                <ProfilePost PostState={data} index={index} />
-              ))}
-          </div>
+          {inOrderPost
+            .filter(
+              (data) => user.value.id === data.id || data.name === "anonymous"
+            )
+            .map((data, index) => (
+              <ProfilePost PostState={data} index={index} />
+            ))}
         </div>
       </div>
     </div>

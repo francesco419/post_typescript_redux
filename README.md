@@ -661,7 +661,48 @@
 
     - 게시물에 대한 사용자 id , no(자동증가인덱스) 컬럼 추가.
 
-###
+### 2.1.1 (23.02.01)
+
+- main페이지에 테이블 방식의 뷰를 보여주는 컴포넌트 및 버튼 제작.
+
+  - funcSlice의 swapView를 통해서 뷰 설정 상태 관리.
+
+- 프로필 페이지의 게시물 이미지가 보여지는 방식에 대한 수정 & 단축화.
+
+### 2.2.1 (23.02.08)
+
+- 프로필 이미지 표현 수정.
+- 게시물 삭제 기능 추가.
+
+  - DB 게시물 테이블에 code 컬럼 추가.
+  - 백엔드에서 게시물 저장시 랜덤코드를 생성하여 테이블에 게시물 데이터와 함께 저장한다.
+
+  ```js
+  function randomString() {
+    const chars =
+      "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    const stringLength = 6; //6자리 코드생성
+    let randomstring = "";
+    for (let i = 0; i < stringLength; i++) {
+      const rnum = Math.floor(Math.random() * chars.length);
+      randomstring += chars.substring(rnum, rnum + 1);
+    }
+    return randomstring; //소문자,대문자,숫자가 들어간 랜덤 코드생성 리턴.
+  }
+  ```
+
+  - 해당 코드를 통해 삭제시 게시물 코드와 일치하는 데이터 삭제.
+    - 중복될수도 있는 경우의 수가 있지만. 백엔드 파트는 간단하게...(스킵)
+  - 또한 코드를 이용하여 댓글기능을 추가 할 예정.
+    - DB에 게시물 코드를 추가한 댓글 테이블을 제작하여 따로 저장.
+
+- getscss -> styles
+
+  - 자주 사용하는 항목에 대해 mixin, function 등을 제작하여 재사용성을 높임.
+  - flex, position(absolute/fixed), font-style
+  - 해당 기능을 사용하여 모든 스타일시트 수정.
+
+- 불필요한 엘리먼트 삭제 및 수정.
 
 # 예정 (v1.3.2 ~ )
 

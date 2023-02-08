@@ -1,0 +1,59 @@
+@import "../../styles.scss";
+
+.block-tableview {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.block-tableview-0 {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1200px;
+}
+
+.block-tablecomp {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  margin: 20px;
+  padding: 5px;
+  border: 0;
+  border-radius: 15px;
+  background-color: $white;
+  transition: all 0.5s;
+  p {
+    margin: 0;
+  }
+  .block-tablecomp-img {
+    img {
+      border-radius: 15px;
+      width: 200px;
+      height: 200px;
+    }
+  }
+  .block-tablecomp-hidden {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    top: 0;
+    left: 0;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: $transparent-66;
+    @include font-style(middle, #fff);
+    p {
+      margin: 10px auto;
+    }
+  }
+  &:hover .block-tablecomp-hidden {
+    display: flex;
+  }
+  &:hover {
+    transform: scale(1.3);
+    z-index: 90;
+  }
+}
