@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import "./ProfileImage.scss";
+import "./profileImage.scss";
 
 export type ProfileProps = {
   data: string;

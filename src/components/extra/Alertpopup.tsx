@@ -1,4 +1,4 @@
-import styles from "./Extra.module.scss";
+import styles from "./extra.module.scss";
 import { ReactComponent as Info } from "../../pictures/info.svg";
 
 interface ChildTypes {

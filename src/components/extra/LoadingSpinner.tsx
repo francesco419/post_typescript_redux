@@ -1,5 +1,5 @@
 import { ReactComponent as Spinner } from "../../pictures/loading.svg";
-import styles from "./Extra.module.scss";
+import styles from "./extra.module.scss";
 
 export default function LoadingSpinner() {
   return (

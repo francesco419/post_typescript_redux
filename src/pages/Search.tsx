@@ -1,16 +1,16 @@
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Header } from "../components/header/Header";
+import { Header } from "../components/header/header";
 import {
   getInterceptor,
   sendAxiosState,
   postInterceptor,
 } from "../functions/APIInterceptor";
-import "./Search.scss";
+import "./search.scss";
 import { PostState } from "../redux/Slices/postSlice";
-import ImageSlide from "../components/post/ImageSlide";
-import ProfilePost from "../components/ProfilePost";
+import ImageSlide from "../components/imageSlide";
+import ProfilePost from "../components/profilePost";
 import { setImagePath } from "../functions/setImagePath";
 
 export default function Search() {

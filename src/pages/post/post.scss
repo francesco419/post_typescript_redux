@@ -1,0 +1,142 @@
+@import "../../styles.scss";
+
+.post {
+  display: flex;
+  padding: 50px 0 0;
+  margin: 70px 0 0 0;
+
+  &__box {
+    @include mx-flexbox();
+    width: $full;
+    height: fit-content;
+    margin: 20px 0 0 0;
+  }
+
+  &__form {
+    @include mx-flexbox();
+    width: $full;
+    position: relative;
+    height: fit-content;
+    padding: 20px;
+  }
+
+  &__buttonbox {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: -60px;
+    top: 20px;
+    height: fit-content;
+    &__button {
+      height: 50px;
+      width: 80px;
+      padding: 0;
+      margin: 5px 0;
+      color: $gray;
+      transition: all 0.1s ease-in;
+      cursor: pointer;
+      &:hover {
+        color: var(--black-white);
+        background-color: var(--white-black);
+      }
+    }
+  }
+
+  &__content {
+    margin: 0 20px;
+    padding: 0 10px;
+
+    h2 {
+      color: var(--black-white);
+    }
+
+    textarea {
+      width: 500px;
+      height: 200px;
+      padding: 10px;
+      @include mx-round();
+      @include font-style(middle, var(--black-white));
+      background-color: var(--color-element);
+      resize: none;
+    }
+
+    input[type="text"] {
+      width: 500px;
+      height: 30px;
+      padding: 0 10px;
+      border: solid();
+      @include mx-round();
+      color: var(--black-white);
+      background-color: var(--color-element);
+      &:focus {
+        outline: none;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 12px;
+      color: $coolblue;
+    }
+  }
+
+  &__preview {
+    @include mx-flexbox();
+    width: 500px;
+    margin: 10px 0 0 0;
+    padding: 10px;
+    background-color: #ff0000;
+  }
+
+  &__imgbox {
+    position: relative;
+    margin: 0 5px;
+    @include size(80px, 80px);
+
+    &:hover &__button {
+      display: block;
+    }
+
+    &__button {
+      display: none;
+      position: absolute;
+      right: 0;
+      @include size(15px, 15px);
+      padding: 0;
+      border: 0;
+      color: $white;
+      background-color: $transparent-66;
+    }
+
+    &__img {
+      @include size(80px, 80px);
+    }
+  }
+}
+
+.tag-example {
+  color: #ff0000;
+  animation: shake 0.2s;
+  animation-iteration-count: 5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(-2px);
+  }
+  20% {
+    transform: translateX(4px);
+  }
+  40% {
+    transform: translateX(-4px);
+  }
+  60% {
+    transform: translateX(4px);
+  }
+  80% {
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: translateX(4px);
+  }
+}

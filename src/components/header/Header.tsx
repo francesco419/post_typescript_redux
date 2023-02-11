@@ -1,13 +1,13 @@
-import "./Header.scss";
+import "./header.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 /*-------------redux------------------------------------- */
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectUser, reset } from "../../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
-import { Follow } from "../extra/Follow";
+import { Follow } from "../extra/follow";
 import { ReactComponent as Icon } from "../../pictures/triangle_logo.svg";
-import ToggleSwitch from "../extra/ToggleSwitch";
+import ToggleSwitch from "../extra/toggleSwitch";
 import { selectFunc } from "../../redux/Slices/funcSlice";
 
 export function Header() {

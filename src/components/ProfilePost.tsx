@@ -1,5 +1,5 @@
-import "./ProfilePost.scss";
-import { ProfileImage } from "./ProfileImage";
+import "./profilePost.scss";
+import { ProfileImage } from "./profileImage";
 import { PostState } from "../redux/Slices/postSlice";
 import { Link } from "react-router-dom";
 import { selectUser } from "../redux/Slices/userSlice";

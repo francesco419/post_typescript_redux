@@ -1,0 +1,73 @@
+@import "../../styles.scss";
+
+.page-profile {
+  @extend %page-start;
+  padding: 0;
+  .block-profile-inner {
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    margin: automargin();
+    .block-profile-right {
+      @include mx-flexbox(start);
+      flex-direction: column;
+      height: fit-content;
+      width: 800px;
+      padding: 0 0 0 400px;
+      @include mx-border("right");
+    }
+  }
+}
+
+.block-profile-left {
+  position: fixed;
+  @include size(340px, 100%);
+  background-color: var(--color-element);
+  padding: 100px 30px;
+  @include font-style(middle);
+  color: var(--black-white);
+  @include mx-border("right");
+  @include mx-border("left");
+  text-align: center;
+  .block-profile-0 {
+    .block-profile-photo {
+      @extend %position-center;
+      @extend %image-profile;
+      @include size(150px, 150px);
+      margin: automargin();
+      background-color: $white;
+    }
+    .block-profile-name {
+      padding: 10px;
+      .block-profile-id {
+        h1 {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+  .block-profile-1 {
+    @include mx-flexbox(around);
+    margin: 20px 0 0 0;
+    border-top: solid();
+    border-bottom: solid();
+  }
+  .block-profile-2 {
+    margin: 20px 0;
+    padding: 10px;
+    button {
+      @include size(300px, 40px);
+      margin: 10px;
+      padding: 5px 5px 0 5px;
+      border: solid();
+      border-radius: $radius;
+      background-color: var(--black-white);
+      @include font-style(middle);
+      color: var(--white-black);
+      cursor: pointer;
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+  }
+}

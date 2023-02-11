@@ -2,15 +2,15 @@ import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";
 /*-------------pages------------------------------------- */
-import Main from "./pages/Main";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Settings from "./pages/Settings";
-import Post from "./pages/Post";
-import Search from "./pages/Search";
+import Main from "./pages/main/main";
+import Login from "./pages/login/login";
+import Profile from "./pages/profile/profile";
+import Settings from "./pages/Settings/settings";
+import Post from "./pages/post/post";
+import Search from "./pages/search";
 /*-------------redux------------------------------------- */
 /*-------------extra------------------------------------- */
-const LazyMain = React.lazy(() => import("./pages/Main"));
+const LazyMain = React.lazy(() => import("./pages/main/main"));
 
 function App() {
   useEffect(() => {
@@ -37,6 +37,7 @@ function App() {
       }
     };
   }, []);
+
   return (
     <BrowserRouter>
       <React.Suspense>

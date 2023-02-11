@@ -1,4 +1,4 @@
-import "./ToggleSwitch.scss";
+import "./toggleSwitch.scss";
 
 export default function ToggleSwitch() {
   return (
