@@ -10,10 +10,6 @@ interface TableComp {
 export default function PostTableView() {
   const post = useAppSelector(selectPost);
 
-  useEffect(() => {
-    console.log(2);
-  }, []);
-
   return (
     <div className="block-tableview">
       <div className="block-tableview-0">

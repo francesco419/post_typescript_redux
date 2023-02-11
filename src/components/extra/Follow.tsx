@@ -11,6 +11,9 @@ export function Follow() {
   }
   useEffect(() => {
     pointermove("follow");
+    return () => {
+      document.removeEventListener("mousemove", (e: MouseEvent) => {});
+    };
   });
   return (
     <div id="follow" className={styles["follow"]}>

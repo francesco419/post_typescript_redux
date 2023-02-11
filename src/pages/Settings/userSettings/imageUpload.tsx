@@ -18,6 +18,9 @@ export function ImageUpload() {
   useEffect(() => {
     const btn = document.getElementById("saveimg") as HTMLButtonElement;
     btn.setAttribute("disabled", "");
+    return () => {
+      btn.removeAttribute("disabled");
+    };
   }, []);
 
   function setimage(e: React.ChangeEvent<HTMLInputElement>) {

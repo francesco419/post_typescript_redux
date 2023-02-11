@@ -30,9 +30,6 @@ function Main() {
 
   useEffect(() => {
     sendRequest();
-    return () => {
-      sendRequest();
-    };
   }, []);
 
   /** ------------통신----------------------  */

@@ -21,10 +21,6 @@ export default function PostSlide() {
     }, 250);
   };
 
-  useEffect(() => {
-    console.log(1);
-  }, []);
-
   const onClickhandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     bool: boolean

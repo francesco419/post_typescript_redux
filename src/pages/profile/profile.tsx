@@ -27,9 +27,6 @@ function Profile() {
 
   useEffect(() => {
     changeIndex();
-    return () => {
-      changeIndex();
-    };
   }, []);
 
   return (
