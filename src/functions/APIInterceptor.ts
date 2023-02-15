@@ -56,7 +56,6 @@ export const getInterceptor = async (data: sendAxiosState) => {
     .get(data.url, data.data)
     .then((response: AxiosResponse) => {
       data.callback(response);
-      console.log("GET: Data 1");
     })
     .catch((e) => {
       console.log(e);
@@ -68,9 +67,43 @@ export const postInterceptor = async (data: sendAxiosState) => {
     .post(data.url, data.data, data.config)
     .then((response: AxiosResponse) => {
       data.callback(response);
-      console.log("POST: Data");
     })
     .catch((e) => {
       console.log(e);
     });
+};
+
+export const getsInterceptor = async (data: sendAxiosState) => {
+  return setSuspense(instance.get(data.url, data.data));
+};
+
+const setSuspense = (promise: Promise<AxiosResponse<any, any>>) => {
+  let status = "pending";
+  let result: AxiosResponse<any, any>;
+  let suspender = promise.then(
+    (r) => {
+      status = "success";
+      result = r;
+    },
+    (e) => {
+      status = "error";
+      result = e;
+    }
+  );
+
+  return {
+    read() {
+      console.log(status);
+      if (status === "pending") {
+        console.log(suspender);
+        throw suspender;
+      }
+      if (status === "success") {
+        return result;
+      }
+      if (status === "error") {
+        throw result;
+      }
+    },
+  };
 };

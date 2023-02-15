@@ -76,19 +76,30 @@ function Menu() {
 function NavSearch() {
   const [searchText, setSearchText] = useState<string>();
   const nav = useNavigate();
+  let timer: ReturnType<typeof setTimeout>;
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      setSearchText((searchText) => e.target.value);
+      console.log(searchText);
+    }, 300);
+  };
 
   return (
     <div className="header-search">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          nav(`/Search/${searchText}`);
+          setTimeout(() => {
+            nav(`/Search/${searchText}`);
+          }, 1000);
         }}
       >
         <input
-          onChange={(e) => {
-            setSearchText((searchText) => e.target.value);
-          }}
+          onChange={(e) => onChangeHandler(e)}
           type="text"
           autoComplete="off"
           placeholder="search..."

@@ -58,63 +58,61 @@ export default function PostSlide() {
   return (
     <div>
       <div className={styles["slide-box"]}>
-        <React.Suspense>
-          <div className={styles["slidetest"]}>
-            <PostComp
-              value={{
-                id: "slide-hidden-right",
-                classname: "slide-hidden",
-                counterLength: counter.length - 2,
-              }}
-            />
-            <PostComp
-              value={{
-                id: "slide-left",
-                classname: "slide-left",
-                counterLength: counter.length - 1,
-              }}
-            />
-            <button
-              id="slide-left-btn"
-              className={styles["btn-slide-left"]}
-              onClick={(e) => {
-                onClickhandler(e, false);
-              }}
-            >
-              <ArrowtoLeft />
-            </button>
-            <PostComp
-              value={{
-                id: "slide-middle",
-                classname: "slide-middle",
-                counterLength: 0,
-              }}
-            />
-            <button
-              id="slide-right-btn"
-              className={styles["btn-slide-right"]}
-              onClick={(e) => {
-                onClickhandler(e, true);
-              }}
-            >
-              <ArrowtoRight />
-            </button>
-            <PostComp
-              value={{
-                id: "slide-right",
-                classname: "slide-right",
-                counterLength: 1,
-              }}
-            />
-            <PostComp
-              value={{
-                id: "slide-hidden-left",
-                classname: "slide-hidden",
-                counterLength: 2,
-              }}
-            />
-          </div>
-        </React.Suspense>
+        <div className={styles["slidetest"]}>
+          <PostComp
+            value={{
+              id: "slide-hidden-right",
+              classname: "slide-hidden",
+              counterLength: counter.length - 2,
+            }}
+          />
+          <PostComp
+            value={{
+              id: "slide-left",
+              classname: "slide-left",
+              counterLength: counter.length - 1,
+            }}
+          />
+          <button
+            id="slide-left-btn"
+            className={styles["btn-slide-left"]}
+            onClick={(e) => {
+              onClickhandler(e, false);
+            }}
+          >
+            <ArrowtoLeft />
+          </button>
+          <PostComp
+            value={{
+              id: "slide-middle",
+              classname: "slide-middle",
+              counterLength: 0,
+            }}
+          />
+          <button
+            id="slide-right-btn"
+            className={styles["btn-slide-right"]}
+            onClick={(e) => {
+              onClickhandler(e, true);
+            }}
+          >
+            <ArrowtoRight />
+          </button>
+          <PostComp
+            value={{
+              id: "slide-right",
+              classname: "slide-right",
+              counterLength: 1,
+            }}
+          />
+          <PostComp
+            value={{
+              id: "slide-hidden-left",
+              classname: "slide-hidden",
+              counterLength: 2,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ export default function Search() {
   const params = useParams();
   const paramName = params.id;
   const [post, setPost] = useState<PostState[]>([]);
+  const [posp, setPosp] = useState<string>("");
 
   useEffect(() => {
     getSearchPost();

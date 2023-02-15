@@ -1,7 +1,7 @@
 import styles from "./main.module.scss";
 import { Header } from "../../components/header/header";
 import PostSlide from "./postSlide";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostTableView from "./postTableView";
 import { ReactComponent as Tableview } from "../../pictures/table_view.svg";
 import { ReactComponent as Cardview } from "../../pictures/card_view.svg";
@@ -34,6 +34,16 @@ function Main() {
 
   /** ------------통신----------------------  */
 
+  const sendRequest = () => {
+    let data: sendAxiosState = {
+      url: `http://localhost:8080/fetch/post`,
+      data: null,
+      config: null,
+      callback: postCallback,
+    };
+    getInterceptor(data);
+  };
+
   const postCallback = (response: AxiosResponse<any, any>) => {
     let arr: PostState[] = [];
 
@@ -55,16 +65,6 @@ function Main() {
     setLoading(true);
   };
 
-  const sendRequest = () => {
-    let data: sendAxiosState = {
-      url: `http://localhost:8080/fetch/post`,
-      data: null,
-      config: null,
-      callback: postCallback,
-    };
-    getInterceptor(data);
-  };
-
   /** ------------counter reducer 초기화----------------------  */
 
   const resetCount = () => {
@@ -75,7 +75,7 @@ function Main() {
   return (
     <div className={styles["page-main"]}>
       <Header />
-      {loading ? (
+      <React.Suspense fallback={<LoadingSpinner />}>
         <>
           <button
             className={styles["btn-main-swapview"]}
@@ -87,9 +87,7 @@ function Main() {
           </button>
           {func.value.swapView ? <PostSlide /> : <PostTableView />}
         </>
-      ) : (
-        <LoadingSpinner />
-      )}
+      </React.Suspense>
     </div>
   );
 }

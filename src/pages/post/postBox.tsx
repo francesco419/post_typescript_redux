@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 //import { setLikes, selectLikes } from "../redux/Slices/likesSlice";
 import { selectUser } from "../../redux/Slices/userSlice";
 import ImageSlide from "../../components/imageSlide";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 //import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../../pictures/menuMeatball.svg";
 import { ReactComponent as Comment } from "../../pictures/comment.svg";
@@ -13,12 +13,13 @@ import {
   postInterceptor,
   sendAxiosState,
 } from "../../functions/APIInterceptor";
+import Post from "./post";
 
 type numProp = {
   num: number;
 };
 
-export default function PostBox(num: numProp) {
+export default function PostBoxs(num: numProp) {
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
