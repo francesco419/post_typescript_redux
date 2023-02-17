@@ -11,7 +11,7 @@ import { setImagePath } from "../../functions/setImagePath";
 import { PostState } from "../../redux/Slices/postSlice";
 import { AxiosResponse } from "axios";
 import { sendAxiosState } from "../../functions/APIInterceptor";
-import { getInterceptor } from "../../functions/APIInterceptor";
+import { getsInterceptor } from "../../functions/APIInterceptor";
 import { selectPost } from "../../redux/Slices/postSlice";
 import { setPost } from "../../redux/Slices/postSlice";
 import { range } from "../../functions/range";
@@ -22,27 +22,13 @@ import {
   moveCounter,
 } from "../../redux/Slices/countSlice";
 
+const LazyAbout = React.lazy(() => import("./postSlide"));
+
 function Main() {
   const func = useAppSelector(selectFunc);
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const post = useAppSelector(selectPost);
-
-  useEffect(() => {
-    sendRequest();
-  }, []);
-
-  /** ------------통신----------------------  */
-
-  const sendRequest = () => {
-    let data: sendAxiosState = {
-      url: `http://localhost:8080/fetch/post`,
-      data: null,
-      config: null,
-      callback: postCallback,
-    };
-    getInterceptor(data);
-  };
 
   const postCallback = (response: AxiosResponse<any, any>) => {
     let arr: PostState[] = [];
@@ -62,8 +48,26 @@ function Main() {
 
     dispatch(setPost(arr));
     resetCount();
-    setLoading(true);
+    setTimeout(() => {
+      setLoading(true);
+    }, 1000);
   };
+
+  const sendRequest = () => {
+    let data: sendAxiosState = {
+      url: `http://localhost:8080/fetch/post`,
+      data: null,
+      config: null,
+      callback: postCallback,
+    };
+    getsInterceptor(data);
+  };
+
+  let resource = sendRequest();
+
+  useEffect(() => {}, []);
+
+  /** ------------통신----------------------  */
 
   /** ------------counter reducer 초기화----------------------  */
 
@@ -75,7 +79,7 @@ function Main() {
   return (
     <div className={styles["page-main"]}>
       <Header />
-      <React.Suspense fallback={<LoadingSpinner />}>
+      {loading ? (
         <>
           <button
             className={styles["btn-main-swapview"]}
@@ -85,9 +89,13 @@ function Main() {
           >
             {func.value.swapView ? <Tableview /> : <Cardview />}
           </button>
-          {func.value.swapView ? <PostSlide /> : <PostTableView />}
+          <React.Suspense fallback={<LoadingSpinner />}>
+            <LazyAbout state={resource} />
+          </React.Suspense>
         </>
-      </React.Suspense>
+      ) : (
+        <LoadingSpinner />
+      )}
     </div>
   );
 }

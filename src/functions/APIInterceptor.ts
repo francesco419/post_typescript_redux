@@ -74,10 +74,20 @@ export const postInterceptor = async (data: sendAxiosState) => {
 };
 
 export const getsInterceptor = async (data: sendAxiosState) => {
-  return setSuspense(instance.get(data.url, data.data));
+  return instance
+    .get(data.url, data.data)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 };
 
-const setSuspense = (promise: Promise<AxiosResponse<any, any>>) => {
+export const setSuspense = (promise: Promise<AxiosResponse<any, any>>) => {
+  const Promise = promise;
+  return {
+    data: wrapPromise(Promise),
+  };
+};
+
+const wrapPromise = (promise: Promise<AxiosResponse<any, any>>) => {
   let status = "pending";
   let result: AxiosResponse<any, any>;
   let suspender = promise.then(
@@ -93,9 +103,7 @@ const setSuspense = (promise: Promise<AxiosResponse<any, any>>) => {
 
   return {
     read() {
-      console.log(status);
       if (status === "pending") {
-        console.log(suspender);
         throw suspender;
       }
       if (status === "success") {

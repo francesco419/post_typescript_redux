@@ -19,7 +19,7 @@ type numProp = {
   num: number;
 };
 
-export default function PostBoxs(num: numProp) {
+export default function PostBox(num: numProp) {
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const user = useAppSelector(selectUser);

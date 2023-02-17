@@ -6,7 +6,7 @@ import { ReactComponent as ArrowtoRight } from "../../pictures/arrow_left.svg";
 import { ReactComponent as ArrowtoLeft } from "../../pictures/arrow_right.svg";
 import PostComp from "./postComp";
 
-export default function PostSlide() {
+export default function PostSlide(state: any) {
   const dispatch = useAppDispatch();
   const counter = useAppSelector(selectCounter);
 
