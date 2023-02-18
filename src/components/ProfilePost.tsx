@@ -4,17 +4,21 @@ import { PostState } from "../redux/Slices/postSlice";
 import { Link } from "react-router-dom";
 import { selectUser } from "../redux/Slices/userSlice";
 import { useAppSelector } from "../redux/hooks";
+import { ReactComponent as Option } from "../pictures/vertical_menu.svg";
+import React, { useState, useEffect } from "react";
+import { deleteInterceptor, sendAxiosState } from "../functions/APIInterceptor";
+import { useNavigate } from "react-router-dom";
 
-type PostChild = {
-  PostState: PostState;
+interface PostChild {
+  postState: PostState;
   index: number;
-};
+}
 
-export default function ProfilePost(postState: PostChild, index: number) {
-  const id_id: string = `overflow${postState.index}`;
-  const id_hid: string = `hid${postState.index}`;
+export default function ProfilePost(props: PostChild, index: number) {
+  const id_id: string = `overflow${props.index}`;
+  const id_hid: string = `hid${props.index}`;
   const user = useAppSelector(selectUser);
-  const post_data = postState.PostState;
+  const post_data = props.postState;
 
   const handleimageClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -29,7 +33,6 @@ export default function ProfilePost(postState: PostChild, index: number) {
 
     if (exist.src === "http://localhost:3000/profile") {
       //localhost는 공백 src를 대신하기 위함. src=" " 는 윗 주소 자동설정됨.
-      console.log(2);
       //숨겨진 img의 src가 null일때
       exist.src = src; // 숨겨진 img에 이미지 할당
 
@@ -72,7 +75,7 @@ export default function ProfilePost(postState: PostChild, index: number) {
   };
 
   return (
-    <div className="block-profile-postbox">
+    <div id={`${post_data.code}`} className="block-profile-postbox">
       <div className="block-profile-top">
         <div className="block-profile-3">
           <ProfileImage data={user.value.img} />
@@ -117,6 +120,93 @@ export default function ProfilePost(postState: PostChild, index: number) {
           </div>
         </div>
       </div>
+      <div className="block-profile-comment">
+        <p>0 개의 댓글</p>
+      </div>
+      {user.value.id === post_data.id && <PostMenu code={post_data.code} />}
+      <EditPost props={post_data} />
+    </div>
+  );
+}
+
+type Code = {
+  code: string;
+};
+
+function PostMenu({ code }: Code) {
+  const [dropMenu, setDropMenu] = useState<boolean>(false);
+  const nav = useNavigate();
+
+  let data: sendAxiosState = {
+    url: "/deletepost",
+    data: code,
+  };
+
+  const deletePost = () => {
+    deleteInterceptor(data);
+    document.getElementById(code).style.display = "none";
+  };
+
+  const editPost = () => {
+    document.getElementById(`edit${code}`).style.display = "flex";
+  };
+
+  return (
+    <div className="profile-post">
+      <button
+        type="button"
+        onClick={() => {
+          setDropMenu((dropMenu) => !dropMenu);
+        }}
+      >
+        <Option />
+      </button>
+      {dropMenu && (
+        <div className="profile-post__dropdown">
+          <button type="button" onClick={deletePost}>
+            Delete
+          </button>
+          <button type="button" onClick={editPost}>
+            Edit
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+type Edit = {
+  props: PostState;
+};
+
+function EditPost({ props }: Edit) {
+  let text: string = props.text;
+  let tagArr: string[] = [...props.tag];
+
+  const onChangeTag = (e: React.FocusEvent<HTMLInputElement>) => {
+    const text = e.target.value;
+    const arr = text.split(" ");
+    arr.map((tag) => {
+      let temp = tag.trim();
+      if (tag.charAt(0) === "#") {
+        tagArr.push(temp);
+      }
+    });
+  };
+
+  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    text = e.target.value;
+  };
+
+  return (
+    <div id={`edit${props.code}`} className="edit-post">
+      <textarea
+        autoComplete="off"
+        value={text}
+        onChange={(e) => onChangeText(e)}
+      ></textarea>
+      <input type="text" autoComplete="off" onBlur={(e) => onChangeTag(e)} />
+      <input type="file" accept="img/*" multiple />
     </div>
   );
 }

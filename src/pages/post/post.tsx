@@ -8,7 +8,6 @@ import ImageSlide from "../../components/imageSlide";
 /*-------------Hooks------------------------------------- */
 import timetoday from "../../hooks/Timetoday";
 /*-------------Component------------------------------------- */
-import { ReactComponent as Likes } from "../pictures/likes.svg";
 import { ReactComponent as Meatball } from "../../pictures/menuMeatball.svg";
 /*-------------redux------------------------------------- */
 import { useAppSelector } from "../../redux/hooks";
@@ -18,7 +17,6 @@ import {
   postInterceptor,
   sendAxiosState,
 } from "../../functions/APIInterceptor";
-import { AxiosResponse } from "axios";
 
 export default function Post() {
   const [tag, setTag] = useState<string[]>([]);
@@ -56,6 +54,7 @@ export default function Post() {
     if (fetchFile.length >= 7) {
       return;
     }
+    setFiles([]);
     for (let i = 0; i < fetchFile.length; i++) {
       setFiles((files) => [...files, fetchFile[i]]);
     }
@@ -182,11 +181,19 @@ export default function Post() {
           <div className="post__buttonbox">
             <button
               className="post__buttonbox__button"
-              type="submit"
+              type="button"
               name="img"
               onClick={(e) => postHandler(e)}
             >
               Post
+            </button>
+            <button
+              className="post__buttonbox__button"
+              type="button"
+              name="img"
+              onClick={(e) => postHandler(e)}
+            >
+              Edit
             </button>
             <button
               type="button"
@@ -231,25 +238,31 @@ export default function Post() {
               onChange={onChangeHandler}
             ></input>
             <div className="post__preview">
-              {files.map((file, index) => (
-                <div id={`preview_${index}`} className="post__imgbox">
-                  <button
-                    type="button"
-                    className="post__imgbox__button"
-                    onClick={() => {
-                      onClickHandler(file, index);
-                    }}
-                  >
-                    X
-                  </button>
-                  <img
-                    id={`img_${index}`}
-                    src={window.URL.createObjectURL(file)}
-                    className="post__imgbox__img"
-                    key={`preview${index}`}
-                  />
-                </div>
-              ))}
+              {files.map((file, index) => {
+                if (index > 6) {
+                  return false;
+                }
+                return (
+                  <div id={`preview_${index}`} className="post__imgbox">
+                    <button
+                      type="button"
+                      className="post__imgbox__button"
+                      onClick={() => {
+                        onClickHandler(file, index);
+                      }}
+                    >
+                      X
+                    </button>
+                    <img
+                      id={`img_${index}`}
+                      src={window.URL.createObjectURL(file)}
+                      className="post__imgbox__img"
+                      key={`preview${index}`}
+                      alt="img"
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div>

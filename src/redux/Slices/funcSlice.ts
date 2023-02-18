@@ -5,14 +5,14 @@ export interface FuncState {
   value: {
     dark: boolean;
     pointer: boolean;
-    swapView: boolean;
+    listOrder: string;
   };
 }
 const initialState: FuncState = {
   value: {
     dark: false,
     pointer: true,
-    swapView: true,
+    listOrder: "최신순",
   },
 };
 
@@ -33,13 +33,14 @@ export const funcSlice = createSlice({
     setPointerMode: (state, action: PayloadAction<boolean>) => {
       state.value.pointer = action.payload;
     },
-    setSwapView: (state) => {
-      state.value.swapView = !state.value.swapView;
+    setListOrder: (state, action: PayloadAction<string>) => {
+      state.value.listOrder = action.payload;
+      console.log(state.value.listOrder);
     },
   },
 });
 
-export const { setDarkMode, setPointerMode, setSwapView } = funcSlice.actions;
+export const { setDarkMode, setPointerMode, setListOrder } = funcSlice.actions;
 
 export const selectFunc = (state: RootState) => state.func;
 

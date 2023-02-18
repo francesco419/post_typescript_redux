@@ -46,9 +46,9 @@ instance.interceptors.response.use(
 
 export interface sendAxiosState {
   url: string;
-  data: Object;
-  config: Object;
-  callback(response: AxiosResponse): void;
+  data?: Object;
+  config?: Object;
+  callback?(response: AxiosResponse): void;
 }
 
 export const getInterceptor = async (data: sendAxiosState) => {
@@ -73,45 +73,13 @@ export const postInterceptor = async (data: sendAxiosState) => {
     });
 };
 
-export const getsInterceptor = async (data: sendAxiosState) => {
+export const deleteInterceptor = async (data: sendAxiosState) => {
   return instance
-    .get(data.url, data.data)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-};
-
-export const setSuspense = (promise: Promise<AxiosResponse<any, any>>) => {
-  const Promise = promise;
-  return {
-    data: wrapPromise(Promise),
-  };
-};
-
-const wrapPromise = (promise: Promise<AxiosResponse<any, any>>) => {
-  let status = "pending";
-  let result: AxiosResponse<any, any>;
-  let suspender = promise.then(
-    (r) => {
-      status = "success";
-      result = r;
-    },
-    (e) => {
-      status = "error";
-      result = e;
-    }
-  );
-
-  return {
-    read() {
-      if (status === "pending") {
-        throw suspender;
-      }
-      if (status === "success") {
-        return result;
-      }
-      if (status === "error") {
-        throw result;
-      }
-    },
-  };
+    .delete(data.url, { data: { code: data.data } })
+    .then((response: AxiosResponse) => {
+      console.log(response);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 };

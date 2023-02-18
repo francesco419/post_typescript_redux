@@ -78,6 +78,12 @@ $backgroud: #fafafa;
 }
 
 /*------------mixin--------------------------------------------*/
+@mixin defaultTransition($type: all) {
+  transition: $type 3s;
+  opacity: 1;
+}
+
+/*------------mixin--------------------------------------------*/
 
 @mixin mx-round($radius: 15px) {
   border-radius: $radius;

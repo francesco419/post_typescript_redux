@@ -10,7 +10,6 @@ export const ProfileImage = (data: ProfileProps) => {
   const gotoprofile = () => {
     nav(`/profile`);
   };
-  console.log(data);
   return (
     <div className="block-profileimg" onClick={gotoprofile}>
       <img src={data.data} />

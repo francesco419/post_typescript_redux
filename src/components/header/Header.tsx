@@ -7,12 +7,15 @@ import { selectUser, reset } from "../../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
 import { Follow } from "../extra/follow";
 import { ReactComponent as Icon } from "../../pictures/triangle_logo.svg";
-import ToggleSwitch from "../extra/toggleSwitch";
 import { selectFunc } from "../../redux/Slices/funcSlice";
 
 export function Header() {
   const follow = useAppSelector(selectFunc);
   const nav = useNavigate();
+
+  useEffect(() => {
+    console.log("i am header");
+  }, []);
 
   return (
     <header id="header" className="header-container">
@@ -52,7 +55,6 @@ function Menu() {
     <div className="block-header-1">
       <Link to={`${process.env.PUBLIC_URL}/`}>Home</Link>
       <Link to="/profile">My Profile</Link>
-      <Link to={`/POST`}>Post</Link>
       <Link to="/settings">Settings</Link>
       {loggedIn ? (
         <button

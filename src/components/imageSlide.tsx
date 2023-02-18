@@ -25,8 +25,6 @@ export default function ImageSlide(array: SlideProps) {
     //const dev: HTMLImageElement = document.getElementById("showimg") as HTMLImageElement | null;
     if (image.length !== 0) {
       //let index: number = image.indexOf(dev.src);
-      let temp: string;
-      let arr: string[] = [...image];
 
       if (side === "right") {
         if (count + 1 >= image.length) {

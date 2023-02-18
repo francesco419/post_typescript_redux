@@ -10,7 +10,6 @@ import Post from "./pages/post/post";
 import Search from "./pages/search";
 /*-------------redux------------------------------------- */
 /*-------------extra------------------------------------- */
-const LazyMain = React.lazy(() => import("./pages/main/main"));
 
 function App() {
   useEffect(() => {
@@ -44,11 +43,11 @@ function App() {
         <Routes>
           <Route path={`/Search/:id`} element={<Search />} />
           <Route path={`/Post`} element={<Post />} />
+          <Route path={`/Post/:id`} element={<Post />} />
           <Route path={`/settings`} element={<Settings />} />
           <Route path={`/profile`} element={<Profile />} />
           <Route path={`/Login`} element={<Login />} />
-          <Route path={`${process.env.PUBLIC_URL}/`} element={<LazyMain />} />
-          {/* <Route path={`${process.env.PUBLIC_URL}/`} element={<Main />} /> */}
+          <Route path={`${process.env.PUBLIC_URL}/`} element={<Main />} />
         </Routes>
       </React.Suspense>
     </BrowserRouter>

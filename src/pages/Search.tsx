@@ -82,7 +82,7 @@ export default function Search() {
         <div className="block-search-container">
           {post.map((data, index) => (
             <div className="block-search-post" key={`search${index}`}>
-              <ProfilePost PostState={data} index={index} />
+              <ProfilePost postState={data} index={index} />
             </div>
           ))}
         </div>
