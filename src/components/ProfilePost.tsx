@@ -4,10 +4,9 @@ import { PostState } from "../redux/Slices/postSlice";
 import { Link } from "react-router-dom";
 import { selectUser } from "../redux/Slices/userSlice";
 import { useAppSelector } from "../redux/hooks";
-import { ReactComponent as Option } from "../pictures/vertical_menu.svg";
-import React, { useState, useEffect } from "react";
-import { deleteInterceptor, sendAxiosState } from "../functions/APIInterceptor";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import EditPost from "../pages/post/EditPost";
+import PostMenu from "../pages/post/postMenu";
 
 interface PostChild {
   postState: PostState;
@@ -15,10 +14,15 @@ interface PostChild {
 }
 
 export default function ProfilePost(props: PostChild, index: number) {
+  const [editShow, setEditShow] = useState<boolean>(false);
   const id_id: string = `overflow${props.index}`;
   const id_hid: string = `hid${props.index}`;
   const user = useAppSelector(selectUser);
   const post_data = props.postState;
+
+  const onChangeEditShow = () => {
+    setEditShow((editShow) => !editShow);
+  };
 
   const handleimageClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -123,90 +127,10 @@ export default function ProfilePost(props: PostChild, index: number) {
       <div className="block-profile-comment">
         <p>0 개의 댓글</p>
       </div>
-      {user.value.id === post_data.id && <PostMenu code={post_data.code} />}
-      <EditPost props={post_data} />
-    </div>
-  );
-}
-
-type Code = {
-  code: string;
-};
-
-function PostMenu({ code }: Code) {
-  const [dropMenu, setDropMenu] = useState<boolean>(false);
-  const nav = useNavigate();
-
-  let data: sendAxiosState = {
-    url: "/deletepost",
-    data: code,
-  };
-
-  const deletePost = () => {
-    deleteInterceptor(data);
-    document.getElementById(code).style.display = "none";
-  };
-
-  const editPost = () => {
-    document.getElementById(`edit${code}`).style.display = "flex";
-  };
-
-  return (
-    <div className="profile-post">
-      <button
-        type="button"
-        onClick={() => {
-          setDropMenu((dropMenu) => !dropMenu);
-        }}
-      >
-        <Option />
-      </button>
-      {dropMenu && (
-        <div className="profile-post__dropdown">
-          <button type="button" onClick={deletePost}>
-            Delete
-          </button>
-          <button type="button" onClick={editPost}>
-            Edit
-          </button>
-        </div>
+      {user.value.id === post_data.id && (
+        <PostMenu code={post_data.code} func={onChangeEditShow} />
       )}
-    </div>
-  );
-}
-
-type Edit = {
-  props: PostState;
-};
-
-function EditPost({ props }: Edit) {
-  let text: string = props.text;
-  let tagArr: string[] = [...props.tag];
-
-  const onChangeTag = (e: React.FocusEvent<HTMLInputElement>) => {
-    const text = e.target.value;
-    const arr = text.split(" ");
-    arr.map((tag) => {
-      let temp = tag.trim();
-      if (tag.charAt(0) === "#") {
-        tagArr.push(temp);
-      }
-    });
-  };
-
-  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    text = e.target.value;
-  };
-
-  return (
-    <div id={`edit${props.code}`} className="edit-post">
-      <textarea
-        autoComplete="off"
-        value={text}
-        onChange={(e) => onChangeText(e)}
-      ></textarea>
-      <input type="text" autoComplete="off" onBlur={(e) => onChangeTag(e)} />
-      <input type="file" accept="img/*" multiple />
+      {editShow && <EditPost props={post_data} func={onChangeEditShow} />}
     </div>
   );
 }

@@ -17,6 +17,12 @@ import {
   postInterceptor,
   sendAxiosState,
 } from "../../functions/APIInterceptor";
+import { PostState } from "../../redux/Slices/postSlice";
+import {
+  sendFilesPost,
+  setFilesOnState,
+  setTagsOnState,
+} from "../../functions/Formdata";
 
 export default function Post() {
   const [tag, setTag] = useState<string[]>([]);
@@ -27,20 +33,6 @@ export default function Post() {
   const nav = useNavigate();
   const user = useAppSelector(selectUser);
 
-  const onChangeTag = () => {
-    const doc = document.getElementById("post-tag") as HTMLInputElement | null;
-    const text: string = doc.value;
-    const arr = text.split(" ");
-    let newArr: string[] = [];
-    arr.map((tag) => {
-      let temp = tag.trim();
-      if (tag.charAt(0) === "#") {
-        newArr.push(temp);
-      }
-    });
-    setTag((tag) => newArr);
-  };
-
   const onBlurHandler = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     let temp = e.target.value;
     setText((text) => temp);
@@ -49,54 +41,11 @@ export default function Post() {
     }
   };
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fetchFile = e.currentTarget.files;
-    if (fetchFile.length >= 7) {
-      return;
-    }
-    setFiles([]);
-    for (let i = 0; i < fetchFile.length; i++) {
-      setFiles((files) => [...files, fetchFile[i]]);
-    }
-  };
-
-  const postHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (text === "") {
-      return false;
-    }
-    if (user.value.id === "anonymous") {
-      return false;
-    }
-
-    let formdata = new FormData();
-
-    files.map((file, index) => {
-      formdata.append(`img+${index}`, file);
-    });
-
-    formdata.append("id", user.value.id);
-    formdata.append("name", user.value.name);
-    formdata.append("text", text);
-    formdata.append("time", timetoday());
-    formdata.append("tag", JSON.stringify(tag));
-    //console.log(blob);
-
-    let file: sendAxiosState = {
-      url: "http://localhost:8080/upload",
-      data: formdata,
-      config: {
-        headers: {
-          "Content-Type": `multipart/form-data`,
-        },
-      },
-      callback: null,
-    };
-
-    postInterceptor(file);
+  const toProfile = () => {
     nav("/Profile");
   };
 
-  const onClickHandler = (file: File, index: number) => {
+  const deleteImgHandler = (file: File, index: number) => {
     const doc = document.getElementById(
       `preview_${index}`
     ) as HTMLDivElement | null;
@@ -109,6 +58,16 @@ export default function Post() {
       });
       setFiles((files) => [...temp]);
     }
+  };
+
+  let temp: PostState = {
+    id: user.value.id,
+    name: user.value.name,
+    text: text,
+    tag: tag,
+    date: timetoday(),
+    img: null,
+    code: null,
   };
 
   function PreviewPost() {
@@ -183,17 +142,9 @@ export default function Post() {
               className="post__buttonbox__button"
               type="button"
               name="img"
-              onClick={(e) => postHandler(e)}
+              onClick={() => sendFilesPost(temp, files, "post", toProfile)}
             >
               Post
-            </button>
-            <button
-              className="post__buttonbox__button"
-              type="button"
-              name="img"
-              onClick={(e) => postHandler(e)}
-            >
-              Edit
             </button>
             <button
               type="button"
@@ -223,7 +174,7 @@ export default function Post() {
             <input
               id="post-tag"
               type="text"
-              onBlur={onChangeTag}
+              onBlur={(e) => setTagsOnState(setTag, e)}
               autoComplete="off"
             ></input>
             <p id="tag-example">{"ex) #tag1 #tag2 #tag3"}</p>
@@ -235,7 +186,7 @@ export default function Post() {
               accept="img/*"
               multiple
               name="img"
-              onChange={onChangeHandler}
+              onChange={(e) => setFilesOnState(e, setFiles)}
             ></input>
             <div className="post__preview">
               {files.map((file, index) => {
@@ -248,7 +199,7 @@ export default function Post() {
                       type="button"
                       className="post__imgbox__button"
                       onClick={() => {
-                        onClickHandler(file, index);
+                        deleteImgHandler(file, index);
                       }}
                     >
                       X

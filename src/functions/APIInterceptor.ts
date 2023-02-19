@@ -10,6 +10,7 @@ const instance = axios.create();
 instance.interceptors.request.use(
   //요청보내기
   (config) => {
+    console.log(config);
     return config;
   },
   (error) => {
@@ -76,6 +77,17 @@ export const postInterceptor = async (data: sendAxiosState) => {
 export const deleteInterceptor = async (data: sendAxiosState) => {
   return instance
     .delete(data.url, { data: { code: data.data } })
+    .then((response: AxiosResponse) => {
+      console.log(response);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+export const putInterceptor = async (data: sendAxiosState) => {
+  return instance
+    .put(data.url, data.data)
     .then((response: AxiosResponse) => {
       console.log(response);
     })

@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface PostState {
-  id: string;
-  name: string;
-  text: string;
-  tag: string[];
-  date: string;
-  img: string[];
-  code: string | null;
+  id?: string;
+  name?: string;
+  text?: string;
+  tag?: string[];
+  date?: string;
+  img?: string[];
+  code?: string | null;
 }
 
 //interface PostState extends Array<PostState> {}
