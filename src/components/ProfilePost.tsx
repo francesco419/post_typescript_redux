@@ -7,6 +7,7 @@ import { useAppSelector } from "../redux/hooks";
 import React, { useState } from "react";
 import EditPost from "../pages/post/EditPost";
 import PostMenu from "../pages/post/postMenu";
+import PostComment from "./postComment";
 
 interface PostChild {
   postState: PostState;
@@ -15,6 +16,7 @@ interface PostChild {
 
 export default function ProfilePost(props: PostChild, index: number) {
   const [editShow, setEditShow] = useState<boolean>(false);
+  const [commentShow, setCommentShow] = useState<boolean>(false);
   const id_id: string = `overflow${props.index}`;
   const id_hid: string = `hid${props.index}`;
   const user = useAppSelector(selectUser);
@@ -22,6 +24,13 @@ export default function ProfilePost(props: PostChild, index: number) {
 
   const onChangeEditShow = () => {
     setEditShow((editShow) => !editShow);
+  };
+
+  const onChangeCommentShow = () => {
+    if (post_data.commentCount === 0 || post_data.commentCount === null) {
+      return false;
+    }
+    setCommentShow((commentShow) => !commentShow);
   };
 
   const handleimageClick = (
@@ -125,7 +134,19 @@ export default function ProfilePost(props: PostChild, index: number) {
         </div>
       </div>
       <div className="block-profile-comment">
-        <p>0 개의 댓글</p>
+        <p
+          className="block-profile-comment__click"
+          onClick={onChangeCommentShow}
+        >
+          {post_data.commentCount > 0 ? post_data.commentCount : 0} 개의 댓글
+        </p>
+        {commentShow && (
+          <PostComment
+            name={user.value.name}
+            code={post_data.code}
+            index={index}
+          />
+        )}
       </div>
       {user.value.id === post_data.id && (
         <PostMenu code={post_data.code} func={onChangeEditShow} />

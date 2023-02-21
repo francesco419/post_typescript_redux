@@ -9,8 +9,13 @@ import PostTableView from "./postTableView";
 import { ReactComponent as Order } from "../../pictures/order.svg";
 import { selectFunc, setListOrder } from "../../redux/Slices/funcSlice";
 import { Link } from "react-router-dom";
+import PostSkeleton from "../../components/postSkeleton";
 
-function MainSection() {
+type Loader = {
+  loader: boolean;
+};
+
+function MainSection({ loader }: Loader) {
   const [swapView, setSwapView] = useState<Boolean>(true);
   const [checked, setChecked] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
@@ -68,7 +73,13 @@ function MainSection() {
           ↑
         </button>
       </div>
-      {swapView ? <MainPost text={text} check={checked} /> : <PostTableView />}
+      {loader ? (
+        <PostSkeleton />
+      ) : swapView ? (
+        <MainPost text={text} check={checked} />
+      ) : (
+        <PostTableView />
+      )}
     </div>
   );
 }

@@ -48,13 +48,14 @@ instance.interceptors.response.use(
 export interface sendAxiosState {
   url: string;
   data?: Object;
+  params?: Object;
   config?: Object;
   callback?(response: AxiosResponse): void;
 }
 
 export const getInterceptor = async (data: sendAxiosState) => {
   return instance
-    .get(data.url, data.data)
+    .get(data.url, { params: data.data })
     .then((response: AxiosResponse) => {
       data.callback(response);
     })

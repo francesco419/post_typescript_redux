@@ -9,6 +9,7 @@ export interface PostState {
   date?: string;
   img?: string[];
   code?: string | null;
+  commentCount?: number;
 }
 
 //interface PostState extends Array<PostState> {}

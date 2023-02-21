@@ -48,6 +48,7 @@ function Main() {
         date: data.date,
         img: setImagePath(data.img),
         code: data.code,
+        commentCount: data.commentCount,
       };
       arr.push(temp);
     });
@@ -68,13 +69,7 @@ function Main() {
   return (
     <div className={styles["page-main"]}>
       <Header />
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <>
-          <MainSection />
-        </>
-      )}
+      <MainSection loader={loading} />
     </div>
   );
 }

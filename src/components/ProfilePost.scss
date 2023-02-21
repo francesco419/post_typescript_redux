@@ -81,7 +81,7 @@
   }
   .block-profile-comment {
     margin: 10px 0;
-    p {
+    &__click {
       margin: 5px 0;
       @include font-style(small, $coolblue);
       font-weight: bold;

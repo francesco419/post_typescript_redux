@@ -1,0 +1,37 @@
+@import "../styles.scss";
+
+.post-comment {
+  padding: 0 20px;
+}
+
+.comment-write {
+  &__name {
+    @include font-style(small, $black);
+  }
+  &__input {
+    width: 80%;
+    border: 0;
+    border-bottom: 1px solid;
+    resize: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__button {
+    color: $gray;
+    cursor: pointer;
+  }
+}
+
+.comment-read {
+  @include font-style(small, $black);
+  margin: 10px 0;
+  &__name {
+    font-weight: 1000;
+    margin: 0;
+  }
+  &__comment {
+    font-weight: 100;
+    margin: 0 0 0 10px;
+  }
+}
