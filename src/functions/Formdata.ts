@@ -14,12 +14,15 @@ export const sendFilesPost = (
   if (data.text === "") {
     return false;
   }
+
   let file = createFormData(data, files);
+
   if (axios === "put") {
     putInterceptor(file);
   } else if (axios === "post") {
     postInterceptor(file);
   }
+
   func();
 };
 

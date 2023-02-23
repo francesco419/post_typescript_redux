@@ -1,0 +1,54 @@
+@import "../styles.scss";
+
+.pic-onlyone {
+  @include mx-flexbox();
+  width: 200px;
+  height: 200px;
+  border: 2px solid;
+  @include mx-round(10px);
+  @extend %image-default;
+  img {
+    cursor: pointer;
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
+}
+
+.pic-morethantwo {
+  @include mx-flexbox(start);
+  flex-wrap: wrap;
+  width: 400px;
+  height: 200px;
+  border: 2px solid;
+  @include mx-round(10px);
+  overflow: hidden;
+  img {
+    cursor: pointer;
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
+}
+
+.pic-absolute {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include mx-flexbox();
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-66;
+  z-index: 99;
+  img {
+    max-width: 80%;
+    height: 80%;
+    object-fit: contain;
+    cursor: pointer;
+  }
+  &__quit {
+    color: $white;
+  }
+}

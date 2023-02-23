@@ -11,6 +11,26 @@
     margin: 20px 0 0 0;
   }
 
+  &__yesNo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    @include mx-flexbox();
+    flex-direction: column;
+    width: 200px;
+    height: 100px;
+    @include mx-round(10px);
+    background-color: $gray;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    button {
+      width: 50px;
+      background-color: $white;
+      margin: 0 10px;
+    }
+  }
+
   &__form {
     @include mx-flexbox(center, start);
     position: relative;
@@ -46,7 +66,7 @@
     padding: 0 10px;
 
     h2 {
-      color: var(--black-white);
+      color: $darkColor;
     }
 
     textarea {
@@ -55,8 +75,9 @@
       padding: 10px;
       border: 0;
       @include mx-round();
-      @include font-style(middle, var(--black-white));
+      @include font-style(middle);
       background-color: var(--color-element);
+      color: var(--black-white);
       resize: none;
     }
 
@@ -86,14 +107,14 @@
     flex-wrap: wrap;
     width: 500px;
     margin: 10px 0 0 0;
-    padding: 10px;
+    padding: 0;
     @include mx-round(15px);
     background-color: var(--color-element);
   }
 
   &__imgbox {
     position: relative;
-    margin: 5px 5px;
+    margin: 10px 5px;
     border: 1px solid;
     color: $gray;
     @include size(80px, 80px);

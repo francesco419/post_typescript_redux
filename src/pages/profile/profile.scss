@@ -71,3 +71,12 @@
     }
   }
 }
+
+.profile-me {
+  &__followBtn {
+    padding: 5px 10px;
+    border: 1px solid;
+    @include mx-round(15px);
+    cursor: pointer;
+  }
+}

@@ -1,6 +1,6 @@
 import "./post.scss";
 import styles from "./postBox.module.scss";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 /*-------------Component------------------------------------- */
 import { Header } from "../../components/header/header";
@@ -13,10 +13,6 @@ import { ReactComponent as Meatball } from "../../pictures/menuMeatball.svg";
 import { useAppSelector } from "../../redux/hooks";
 import { selectUser } from "../../redux/Slices/userSlice";
 /*-------------extra------------------------------------- */
-import {
-  postInterceptor,
-  sendAxiosState,
-} from "../../functions/APIInterceptor";
 import { PostState } from "../../redux/Slices/postSlice";
 import {
   sendFilesPost,
@@ -29,6 +25,7 @@ export default function Post() {
   const [text, setText] = useState<string>("");
   const [textOverflow, setTextOverflow] = useState<string>();
   const [textShow, setTextShow] = useState<boolean>(false);
+  const [submitShow, setSubmitShow] = useState<boolean>(false);
   const [files, setFiles] = useState<File[]>([]);
   const nav = useNavigate();
   const user = useAppSelector(selectUser);
@@ -42,7 +39,7 @@ export default function Post() {
   };
 
   const toProfile = () => {
-    nav("/Profile");
+    nav(`/Profile/${user.value.id}`);
   };
 
   const deleteImgHandler = (file: File, index: number) => {
@@ -68,6 +65,10 @@ export default function Post() {
     date: timetoday(),
     img: null,
     code: null,
+  };
+
+  const showSubmit = () => {
+    setSubmitShow((submitShow) => !submitShow);
   };
 
   function PreviewPost() {
@@ -130,6 +131,19 @@ export default function Post() {
     <div className="post">
       <Header />
       <div className="post__box">
+        {submitShow && (
+          <div className="post__yesNo">
+            <p>Sure to Submit Post?</p>
+            <div>
+              <button
+                onClick={() => sendFilesPost(temp, files, "post", toProfile)}
+              >
+                Yes
+              </button>
+              <button onClick={showSubmit}>No</button>
+            </div>
+          </div>
+        )}
         <form
           className="post__form"
           onSubmit={(e) => {
@@ -142,7 +156,7 @@ export default function Post() {
               className="post__buttonbox__button"
               type="button"
               name="img"
-              onClick={() => sendFilesPost(temp, files, "post", toProfile)}
+              onClick={showSubmit}
             >
               Post
             </button>

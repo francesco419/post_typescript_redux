@@ -1,30 +1,48 @@
 import "./profile.scss";
 import { Header } from "../../components/header/header";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { selectUser } from "../../redux/Slices/userSlice";
-import { PostState, selectPost, setPost } from "../../redux/Slices/postSlice";
+import { Userstates } from "../../redux/Slices/userSlice";
+import { PostState } from "../../redux/Slices/postSlice";
 import ProfilePost from "../../components/profilePost";
 import { useEffect, useState } from "react";
 import ProfileMe from "./profileMe";
 import { setImagePath } from "../../functions/setImagePath";
 import { getInterceptor, sendAxiosState } from "../../functions/APIInterceptor";
 import { AxiosResponse } from "axios";
+import { useParams } from "react-router";
+import LoadingSpinner from "../../components/extra/loadingSpinner";
 
 function Profile() {
-  const dispatch = useAppDispatch();
-  const post = useAppSelector(selectPost);
-  const user = useAppSelector(selectUser);
+  const param = useParams();
   const [inOrderPost, setInOrderPost] = useState<PostState[]>([]);
+  const [user, setUser] = useState<Userstates>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     sendRequest();
-    changeIndex();
+    userData();
   }, []);
 
   const sendRequest = () => {
     let data: sendAxiosState = {
-      url: `http://localhost:8080/fetch/post`,
+      url: `http://localhost:8080/fetchuserpost`,
+      data: {
+        id: param.id,
+      },
       callback: postCallback,
+    };
+    getInterceptor(data);
+  };
+
+  const userData = () => {
+    let data: sendAxiosState = {
+      url: `http://localhost:8080/getuserdata`,
+      data: {
+        id: param.id,
+      },
+      callback: (response: AxiosResponse<any, any>) => {
+        setUser((user) => response.data[0]);
+        setLoading((loading) => !loading);
+      },
     };
     getInterceptor(data);
   };
@@ -45,34 +63,26 @@ function Profile() {
       arr.push(temp);
     });
 
-    dispatch(setPost(arr));
+    setInOrderPost(arr.reverse());
   };
 
-  const changeIndex = () => {
-    let temp: PostState[] = [];
-    post.value.map((data, index) => {
-      if (data.name === user.value.name) {
-        temp.unshift(data);
-      }
-    });
-    setInOrderPost((inOrderPost) => temp);
-  };
+  console.log(inOrderPost);
 
   return (
     <div className="page-profile">
       <Header />
-      <div className="block-profile-inner">
-        <ProfileMe user={user} />
-        <div className="block-profile-right">
-          {inOrderPost
-            .filter(
-              (data) => user.value.id === data.id || data.name === "anonymous"
-            )
-            .map((data, index) => (
+      {loading ? (
+        <div className="block-profile-inner">
+          <ProfileMe user={user} />
+          <div className="block-profile-right">
+            {inOrderPost.map((data, index) => (
               <ProfilePost postState={data} index={index} />
             ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <LoadingSpinner />
+      )}
     </div>
   );
 }

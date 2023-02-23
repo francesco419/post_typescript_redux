@@ -45,7 +45,7 @@ function App() {
           <Route path={`/Post`} element={<Post />} />
           <Route path={`/Post/:id`} element={<Post />} />
           <Route path={`/settings`} element={<Settings />} />
-          <Route path={`/profile`} element={<Profile />} />
+          <Route path={`/profile/:id`} element={<Profile />} />
           <Route path={`/Login`} element={<Login />} />
           <Route path={`${process.env.PUBLIC_URL}/`} element={<Main />} />
         </Routes>

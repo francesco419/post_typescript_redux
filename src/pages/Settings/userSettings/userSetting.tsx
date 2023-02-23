@@ -9,6 +9,11 @@ import {
 import { ReactComponent as Edit } from "../../../pictures/edit.svg";
 import { UserEdit } from "./userEdit";
 import { useEffect, useState } from "react";
+import { setImagePath } from "../../../functions/setImagePath";
+import { setImg } from "../../../redux/Slices/userSlice";
+import { sendAxiosState } from "../../../functions/APIInterceptor";
+import { getInterceptor } from "../../../functions/APIInterceptor";
+import { AxiosResponse } from "axios";
 
 export function UserSetting() {
   const dispatch = useAppDispatch();
@@ -32,6 +37,24 @@ export function UserSetting() {
 
   const handleUserEdit = () => {
     dispatch(ShowUserEdit());
+  };
+
+  const postcallback = (response: AxiosResponse<any, any>) => {
+    console.log(response.data[0]);
+    dispatch(setInitial(response.data[0]));
+    let temp = setImagePath(response.data[0].img);
+    dispatch(setImg(temp[0]));
+  };
+
+  const refreshUserData = async () => {
+    let data: sendAxiosState = {
+      url: "http://localhost:8080/getuserdata",
+      data: {
+        id: user.id,
+      },
+      callback: postcallback,
+    };
+    getInterceptor(data);
   };
 
   //const text = user.info.replaceAll("<br/>", "\r\n");
@@ -72,9 +95,11 @@ export function UserSetting() {
             <p>Intro</p>
             <Edit onClick={handleUserEdit} />
           </div>
-
           <p>{user.info}</p>
         </div>
+      </div>
+      <div className="block-usersettings-4">
+        <button onClick={refreshUserData}>Refresh</button>
       </div>
     </div>
   );

@@ -54,7 +54,7 @@ function Menu() {
   return (
     <div className="block-header-1">
       <Link to={`${process.env.PUBLIC_URL}/`}>Home</Link>
-      <Link to="/profile">My Profile</Link>
+      <Link to={`/profile/${user.value.id}`}>My Profile</Link>
       <Link to="/settings">Settings</Link>
       {loggedIn ? (
         <button

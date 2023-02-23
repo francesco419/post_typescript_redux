@@ -4,13 +4,14 @@ import {
   postInterceptor,
   sendAxiosState,
   getInterceptor,
+  putInterceptor,
 } from "../functions/APIInterceptor";
 import { AxiosResponse } from "axios";
 
 type Name = {
   name: string;
   code?: string;
-  index: number;
+  countSum: (bool: boolean) => void;
 };
 
 interface CommentType {
@@ -18,7 +19,7 @@ interface CommentType {
   comment: string[];
 }
 
-export default function PostComment({ name, code, index }: Name) {
+export default function PostComment({ name, code, countSum }: Name) {
   const [comment, setComment] = useState<any[]>([]);
   const [forceRender, setForceRender] = useState<boolean>(false);
   const textAreaRef = useRef<HTMLTextAreaElement>();
@@ -53,6 +54,7 @@ export default function PostComment({ name, code, index }: Name) {
         textAreaRef.current.value = "";
         COMMENTTEXT = "";
         setForceRender((forceRender) => !forceRender);
+        countSum(false);
       },
     };
 
@@ -72,6 +74,26 @@ export default function PostComment({ name, code, index }: Name) {
     getInterceptor(initialData);
   };
 
+  const deleteComment = (index: number) => {
+    let newComment = [...comment];
+    newComment.splice(index, 1);
+    console.log(newComment);
+    let file: sendAxiosState = {
+      url: `http://localhost:8080/deletecomment`,
+      data: {
+        comment: newComment,
+        code: code,
+      },
+      config: null,
+      callback: (response: AxiosResponse) => {
+        setForceRender((forceRender) => !forceRender);
+        countSum(true);
+      },
+    };
+
+    putInterceptor(file);
+  };
+
   return (
     <div className="post-comment">
       <div className="comment-write">
@@ -85,28 +107,36 @@ export default function PostComment({ name, code, index }: Name) {
         />
         <button
           className="comment-write__button"
-          type="submit"
+          type="button"
           onClick={submitComment}
         >
           submit
         </button>
       </div>
+      <hr />
       {comment.map((data, index) => {
         return (
-          <div className="comment-read" key={`${code}__${index}`}>
-            <p className="comment-read__name">{data[0]}</p>
-            <p className="comment-read__comment">{data[1]}</p>
+          <div className="comment-container" key={`${code}__${index}`}>
+            <div className="comment-read">
+              <p className="comment-read__name">{data[0]}</p>
+              <p className="comment-read__comment">{data[1]}</p>
+            </div>
+            {name === data[0] ? (
+              <button
+                type="button"
+                className="comment-container__deletebtn"
+                onClick={() => {
+                  if (name === data[0]) {
+                    deleteComment(index);
+                  }
+                }}
+              >
+                X
+              </button>
+            ) : null}
           </div>
         );
       })}
-      <div className="comment-read">
-        <p className="comment-read__name">TempName</p>
-        <p className="comment-read__comment">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took
-        </p>
-      </div>
     </div>
   );
 }

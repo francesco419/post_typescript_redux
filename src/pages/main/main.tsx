@@ -12,8 +12,6 @@ import { setPost } from "../../redux/Slices/postSlice";
 import { range } from "../../functions/range";
 import { setCounter } from "../../redux/Slices/countSlice";
 import MainSection from "./mainSection";
-import LoadingSpinner from "../../components/extra/loadingSpinner";
-import ProfileMe from "../profile/profileMe";
 import { selectUser } from "../../redux/Slices/userSlice";
 
 function Main() {

@@ -18,7 +18,6 @@ type LoginProps = {
 
 function Login() {
   const navigate = useNavigate();
-  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [join, setJoin] = useState<boolean>(false);
 
@@ -73,8 +72,6 @@ function Login() {
     };
 
     const postcallback = (response: AxiosResponse<any, any>) => {
-      const id: string = response.data[0].id;
-      const password: string = response.data[0].password;
       dispatch(setInitial(response.data[0]));
       let temp = setImagePath(response.data[0].img);
       dispatch(setImg(temp[0]));

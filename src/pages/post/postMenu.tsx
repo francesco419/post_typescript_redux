@@ -1,6 +1,6 @@
 import "./postMenu.scss";
 import { ReactComponent as Option } from "../../pictures/vertical_menu.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   deleteInterceptor,
   sendAxiosState,
@@ -8,15 +8,19 @@ import {
 
 type Code = {
   code: string;
+  id: string;
   func?: () => void;
 };
 
-export default function PostMenu({ code, func }: Code) {
+export default function PostMenu({ code, func, id }: Code) {
   const [dropMenu, setDropMenu] = useState<boolean>(false);
 
   let data: sendAxiosState = {
     url: "/deletepost",
-    data: code,
+    data: {
+      code: code,
+      id: id,
+    },
   };
 
   const deletePost = () => {

@@ -17,6 +17,19 @@ export class Userstate {
   status: "idle" | "loading" | "failed";
 }
 
+export class Userstates {
+  id: string;
+  name: string;
+  password: string;
+  birth: string;
+  img?: string;
+  email: string;
+  info: string;
+  post: number;
+  follow: number;
+  follower: number;
+}
+
 const initialState: Userstate = {
   value: {
     id: "anonymous",
@@ -53,7 +66,6 @@ export const userSlice = createSlice({
       state.value.email = action.payload;
     },
     setImg: (state, action: PayloadAction<string>) => {
-      console.log(action.payload);
       state.value.img = action.payload;
     },
     setInfo: (state, action: PayloadAction<string>) => {

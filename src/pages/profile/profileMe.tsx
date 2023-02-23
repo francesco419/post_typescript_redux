@@ -1,44 +1,56 @@
-import { Userstate } from "../../redux/Slices/userSlice";
+import { selectUser, Userstates } from "../../redux/Slices/userSlice";
 import { useNavigate } from "react-router";
-import { ProfileImage } from "../../components/profileImage";
+import { setImagePath } from "../../functions/setImagePath";
+import { useEffect, useState } from "react";
+import { putInterceptor, sendAxiosState } from "../../functions/APIInterceptor";
+import { AxiosResponse } from "axios";
+import { useAppSelector } from "../../redux/hooks";
 
-type ProfileMe = {
-  user: Userstate;
+type ProfileMes = {
+  user: Userstates;
 };
 
-export default function ProfileMe({ user }: ProfileMe) {
+export default function ProfileMe({ user }: ProfileMes) {
+  const [img, setImg] = useState<string>("");
   const nav = useNavigate();
+
+  useEffect(() => {
+    let image = setImagePath(user.img);
+    setImg((img) => image[0]);
+  }, []);
+
   return (
     <div id="1.1" className="block-profile-left">
       <div className="block-profile-0">
         <div className="block-profile-photo" onClick={() => nav(`/profile`)}>
-          <img src={user.value.img} />
+          <img src={img} alt="profile_Img" />
         </div>
         <div id="2" className="block-profile-name">
           <div className="block-profile-id">
-            <h1>{user.value.name}</h1>
-            <p>{user.value.info}</p>
+            <h1>{user.name}</h1>
+            <p>{user.info}</p>
           </div>
+          <FollowButton target={user.id} />
         </div>
       </div>
       <div className="block-profile-1">
         <div>
           <h3>Posts</h3>
-          <p>{user.value.post}</p>
+          <p>{user.post}</p>
         </div>
         <div>
           <h3>Follow</h3>
-          <p>{user.value.follow}</p>
+          <p>{user.follow}</p>
         </div>
         <div>
           <h3>Follower</h3>
-          <p>{user.value.follower}</p>
+          <p>{user.follower}</p>
         </div>
       </div>
       <div className="block-profile-2">
         <button
           onClick={() => {
-            if (user.value.id === "anonymous") {
+            if (user.id === "anonymous") {
               return;
             }
             nav("/Post");
@@ -48,5 +60,59 @@ export default function ProfileMe({ user }: ProfileMe) {
         </button>
       </div>
     </div>
+  );
+}
+
+interface follow {
+  id?: string;
+  target?: string;
+}
+
+function FollowButton({ target }: follow) {
+  const [bool, setBool] = useState<boolean>(false);
+  const user = useAppSelector(selectUser);
+  let timer: NodeJS.Timeout;
+
+  const debounce = () => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    if (!bool) {
+      timer = setTimeout(() => {
+        console.log(2);
+        putInterceptor(data);
+      }, 1000);
+    } else {
+      timer = setTimeout(() => {
+        console.log(2);
+        putInterceptor(data);
+      }, 1000);
+    }
+  };
+
+  let data: sendAxiosState = {
+    url: `http://localhost:8080/changefollow`,
+    data: {
+      target: target,
+      myid: user.value.id,
+      do: bool,
+    },
+    config: null,
+    callback: (response: AxiosResponse) => {
+      console.log(response);
+    },
+  };
+
+  return (
+    <button
+      className="profile-me__followBtn"
+      style={{ backgroundColor: bool ? "#fff000" : "#fff" }}
+      onClick={() => {
+        setBool((bool) => !bool);
+        debounce();
+      }}
+    >
+      {bool ? "followed" : "follow"}
+    </button>
   );
 }

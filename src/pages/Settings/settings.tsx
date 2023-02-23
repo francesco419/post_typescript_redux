@@ -11,6 +11,18 @@ import { useAppDispatch } from "../../redux/hooks";
 
 export default function Settings() {
   //const user = useAppSelector(selectUser);
+  return (
+    <div>
+      <ImageUpload />
+      <div className="page-settings">
+        <Header />
+        <SettingFunc />
+      </div>
+    </div>
+  );
+}
+
+function SettingFunc() {
   const [name, setName] = useState<string>();
   const dispatch = useAppDispatch();
 
@@ -84,15 +96,9 @@ export default function Settings() {
   }
 
   return (
-    <div>
-      <ImageUpload />
-      <div className="page-settings">
-        <Header />
-        <div className="block-settings-inner">
-          <SettingLeft />
-          <SettingRight title={name} />
-        </div>
-      </div>
+    <div className="block-settings-inner">
+      <SettingLeft />
+      <SettingRight title={name} />
     </div>
   );
 }

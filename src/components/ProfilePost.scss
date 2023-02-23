@@ -1,7 +1,6 @@
 @import "../styles.scss";
 
 .block-profile-postbox {
-  position: relative;
   width: 600px;
   margin: 20px 0;
   padding: 10px;
@@ -11,6 +10,7 @@
   //color: var(--black-white);
   .block-profile-top {
     .block-profile-3 {
+      position: relative;
       @include mx-flexbox(start);
       .block-profile-postimg {
         @include mx-flexbox();
@@ -37,7 +37,7 @@
     .block-profile-tag {
       display: flex;
       a {
-        margin: 5px 0;
+        margin: 5px 2px;
         @include font-style(small, $coolblue);
         font-weight: bold;
         &:hover {
@@ -48,21 +48,7 @@
   }
   .block-profile-imagebox {
     padding: 10px;
-    border: 1px solid;
-    border-radius: 5px;
     background-color: $white;
-    .block-profile-onlyload {
-      @include mx-flexbox();
-      button {
-        border: 0;
-        background: none;
-        img {
-          width: 80px;
-          height: 80px;
-          margin: 0 5px;
-        }
-      }
-    }
     .block-profile-hidden {
       display: none;
       overflow: hidden;
