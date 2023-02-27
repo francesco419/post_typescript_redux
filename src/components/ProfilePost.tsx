@@ -33,6 +33,9 @@ export default function ProfilePost({ postState, index }: PostChild) {
             <strong>{post_data.name}</strong>
             <p>{post_data.date}</p>
           </div>
+          {post_data.announcement ? (
+            <p style={{ margin: "0 0 0 20px", color: "red" }}>*공지사항</p>
+          ) : null}
           {user.value.id === post_data.id && (
             <PostMenu
               code={post_data.code}
@@ -42,7 +45,7 @@ export default function ProfilePost({ postState, index }: PostChild) {
           )}
         </div>
         <div className="block-profile-detail">
-          <p>{post_data.text}</p>
+          <pre>{post_data.text}</pre>
         </div>
         <div className="block-profile-tag">
           {post_data.tag.map((tag, index) => (

@@ -52,6 +52,10 @@ export const createFormData = (data: PostState, files: File[]) => {
   if (data.code) {
     formdata.append("code", data.code);
   }
+  if (typeof data.announcement) {
+    console.log(1);
+    formdata.append("announcement", JSON.stringify(data.announcement));
+  }
 
   let file: sendAxiosState = {
     url: `http://localhost:8080/${CRUDTO}`,

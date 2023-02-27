@@ -775,9 +775,16 @@
   - styled component를 사용하면 보다 편리하게 코드 구성 가능하다고 생각함.
 
 - profile 페이지 수정
+
   - url의 params를 통해 원하는 사용자의 프로필페이지 검색 가능.
   - 게시물 개수에 따른 post, 팔로워, 팔로우 수정.
-  - post, follow, follower 관련 서버작업 및 db작업.(follow 관련 작업 중...)
+  - post, follow, follower 관련 서버작업 및 db작업.(follow 관련 작업 중...)y
+
+  ### 2.5.1 (23.02.27)
+
+  - 공지사항 옵션 추가
+    - 메인페이지에서 공지사항 표시 게시물 숨기기 가능.
+    - 게시물 DB 테이블에 announcement 추가.
 
 # 예정 (v1.3.2 ~ )
 

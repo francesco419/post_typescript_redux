@@ -11,9 +11,6 @@ export default function CommentCount({ postState }: PostChild) {
   const [commentShow, setCommentShow] = useState<boolean>(false);
 
   const onChangeCommentShow = () => {
-    if (postState.commentCount === 0 || postState.commentCount === null) {
-      return false;
-    }
     setCommentShow((commentShow) => !commentShow);
   };
 

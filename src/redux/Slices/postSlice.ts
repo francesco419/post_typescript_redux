@@ -10,6 +10,7 @@ export interface PostState {
   img?: string[];
   code?: string | null;
   commentCount?: number;
+  announcement?: boolean;
 }
 
 //interface PostState extends Array<PostState> {}

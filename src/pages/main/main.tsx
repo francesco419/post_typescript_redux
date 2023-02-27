@@ -47,6 +47,7 @@ function Main() {
         img: setImagePath(data.img),
         code: data.code,
         commentCount: data.commentCount,
+        announcement: data.announcement === 1 ? true : false,
       };
       arr.push(temp);
     });

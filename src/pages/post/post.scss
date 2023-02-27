@@ -102,6 +102,52 @@
     }
   }
 
+  &__announcement__check {
+    @include mx-flexbox();
+    height: 40px;
+    padding: 0 10px;
+    margin: 0 5px;
+    border: 1px solid $gray;
+    @include mx-round(10px);
+    background-color: $white;
+    user-select: none;
+    label {
+      @include mx-flexbox();
+      cursor: pointer;
+      &:hover * {
+        color: $black;
+      }
+    }
+    span {
+      color: $gray;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    input[type="checkbox"] {
+      display: none;
+    }
+    input[type="checkbox"] + label::before {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin: 0 5px 0 0;
+      border: 2px solid $gray;
+      @include mx-round(5px);
+      content: "";
+    }
+    input[type="checkbox"]:checked + label::before {
+      @include mx-flexbox();
+      display: inline-block;
+      border: 2px solid $black;
+      text-align: center;
+      line-height: 110%;
+      content: "✔";
+    }
+    input[type="checkbox"]:checked + label > span {
+      color: $black;
+    }
+  }
+
   &__preview {
     @include mx-flexbox();
     flex-wrap: wrap;

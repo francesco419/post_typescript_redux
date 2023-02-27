@@ -113,7 +113,11 @@ function MainPost({ text, check }: Text) {
     }
     if (check) {
       //공지사항 필터링
-      arr = arr.filter((data) => data.text.includes("게시물"));
+      arr = arr.filter((data) => {
+        if (data.announcement === false) {
+          return data;
+        }
+      });
     }
     if (order.value.listOrder === "최신순") {
       //게시물 정렬

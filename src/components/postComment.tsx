@@ -40,7 +40,10 @@ export default function PostComment({ name, code, countSum }: Name) {
   };
 
   const submitComment = () => {
-    console.log("comment");
+    if (COMMENTTEXT === undefined) {
+      return;
+    }
+
     let data: CommentType = {
       code: code,
       comment: [name, COMMENTTEXT],
@@ -68,7 +71,9 @@ export default function PostComment({ name, code, countSum }: Name) {
         code: code,
       },
       callback: (response: AxiosResponse) => {
-        setComment((comment) => JSON.parse(response.data[0].comment));
+        if (response.data[0].comment) {
+          setComment((comment) => JSON.parse(response.data[0].comment));
+        }
       },
     };
     getInterceptor(initialData);
@@ -119,7 +124,7 @@ export default function PostComment({ name, code, countSum }: Name) {
           <div className="comment-container" key={`${code}__${index}`}>
             <div className="comment-read">
               <p className="comment-read__name">{data[0]}</p>
-              <p className="comment-read__comment">{data[1]}</p>
+              <pre className="comment-read__comment">{data[1]}</pre>
             </div>
             {name === data[0] ? (
               <button

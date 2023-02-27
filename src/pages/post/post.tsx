@@ -26,6 +26,7 @@ export default function Post() {
   const [textOverflow, setTextOverflow] = useState<string>();
   const [textShow, setTextShow] = useState<boolean>(false);
   const [submitShow, setSubmitShow] = useState<boolean>(false);
+  const [announce, setAnnounce] = useState<boolean>(false);
   const [files, setFiles] = useState<File[]>([]);
   const nav = useNavigate();
   const user = useAppSelector(selectUser);
@@ -65,6 +66,7 @@ export default function Post() {
     date: timetoday(),
     img: null,
     code: null,
+    announcement: announce,
   };
 
   const showSubmit = () => {
@@ -229,6 +231,18 @@ export default function Post() {
                 );
               })}
             </div>
+            {user.value.id === "admin" ? (
+              <div className="post__announcement__check">
+                <input
+                  id="announcement__check"
+                  type="checkbox"
+                  onChange={() => setAnnounce((announce) => !announce)}
+                />
+                <label htmlFor="announcement__check">
+                  <span>Announcement</span>
+                </label>
+              </div>
+            ) : null}
           </div>
           <div>
             <PreviewPost />
