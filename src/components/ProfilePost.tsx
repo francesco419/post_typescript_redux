@@ -17,12 +17,32 @@ export interface PostChild {
 
 export default function ProfilePost({ postState, index }: PostChild) {
   const [editShow, setEditShow] = useState<boolean>(false);
+  const [textShow, setTextShow] = useState<boolean>(false);
   const user = useAppSelector(selectUser);
   const post_data = postState;
 
   const onChangeEditShow = () => {
     setEditShow((editShow) => !editShow);
   };
+
+  const textlengthShow = (text: string) => {
+    if (text.length > 100) {
+      return (
+        <pre>
+          {textShow ? text : text.slice(0, 99) + "..."}
+          <button className="profilepost__textBtn" onClick={setStateTextShow}>
+            {textShow ? "short" : "more"}
+          </button>
+        </pre>
+      );
+    } else {
+      return <pre>{text}</pre>;
+    }
+  };
+
+  function setStateTextShow() {
+    setTextShow((textShow) => !textShow);
+  }
 
   return (
     <div id={`${post_data.code}`} className="block-profile-postbox">
@@ -45,7 +65,7 @@ export default function ProfilePost({ postState, index }: PostChild) {
           )}
         </div>
         <div className="block-profile-detail">
-          <pre>{post_data.text}</pre>
+          {textlengthShow(post_data.text)}
         </div>
         <div className="block-profile-tag">
           {post_data.tag.map((tag, index) => (

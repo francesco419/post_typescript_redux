@@ -13,9 +13,15 @@ export default function PostTableView() {
   return (
     <div className="block-tableview">
       <div className="block-tableview-0">
-        {post.value.map((post, index) => (
-          <TableComponent data={post} key={`table${index}`} />
-        ))}
+        {post.value
+          .filter((data) => {
+            if (data.announcement === false) {
+              return data;
+            }
+          })
+          .map((post, index) => (
+            <TableComponent data={post} key={`table${index}`} />
+          ))}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { putInterceptor, sendAxiosState } from "../../functions/APIInterceptor";
 import { AxiosResponse } from "axios";
 import { useAppSelector } from "../../redux/hooks";
+import Button from "../../components/Button";
 
 type ProfileMes = {
   user: Userstates;
@@ -48,16 +49,16 @@ export default function ProfileMe({ user }: ProfileMes) {
         </div>
       </div>
       <div className="block-profile-2">
-        <button
-          onClick={() => {
+        <Button
+          children="POST"
+          act={() => {
             if (user.id === "anonymous") {
               return;
             }
             nav("/Post");
           }}
-        >
-          POST
-        </button>
+          size="lg"
+        />
       </div>
     </div>
   );
@@ -103,16 +104,18 @@ function FollowButton({ target }: follow) {
     },
   };
 
-  return (
-    <button
-      className="profile-me__followBtn"
-      style={{ backgroundColor: bool ? "#fff000" : "#fff" }}
-      onClick={() => {
-        setBool((bool) => !bool);
-        debounce();
-      }}
-    >
-      {bool ? "followed" : "follow"}
-    </button>
-  );
+  if (user.value.id !== target) {
+    return (
+      <button
+        className="profile-me__followBtn"
+        style={{ backgroundColor: bool ? "#fff000" : "#fff" }}
+        onClick={() => {
+          setBool((bool) => !bool);
+          debounce();
+        }}
+      >
+        {bool ? "followed" : "follow"}
+      </button>
+    );
+  }
 }

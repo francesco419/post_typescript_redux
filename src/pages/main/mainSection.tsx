@@ -138,14 +138,28 @@ function MainPost({ text, check }: Text) {
     setLoading(false); //로딩 끝
   }
 
+  const sortAnnounce = (a: PostState, b: PostState): number => {
+    if (a.announcement === false && b.announcement === true) {
+      return 1;
+    }
+    if (a.announcement === true && b.announcement === false) {
+      return -1;
+    }
+    if (a.announcement === b.announcement) {
+      return 0;
+    }
+  };
+
   if (loading) {
     return <div>Loading</div>;
   } else {
     return (
       <>
-        {postList.map((data, index) => (
-          <ProfilePost postState={data} index={index} />
-        ))}
+        {postList
+          .sort((a, b) => sortAnnounce(a, b))
+          .map((data, index) => {
+            return <ProfilePost postState={data} index={index} />;
+          })}
       </>
     );
   }
